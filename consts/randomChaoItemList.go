@@ -16,27 +16,27 @@ var RandomChaoWheelCharacterPrizes = map[string]float64{
 	// characterID: load
 	// Hopefully this should sum up to 100 just for
 	// simplicity, but it shouldn't be a requirement.
-	enums.CTStrSonic:        10.0,
-	enums.CTStrTails:        10.0,
-	enums.CTStrKnuckles:     10.0,
-	enums.CTStrAmy:          10.0,
-	enums.CTStrBig:          6.0,
-	enums.CTStrBlaze:        6.0,
-	enums.CTStrCharmy:       4.0,
-	enums.CTStrCream:        6.0,
-	enums.CTStrEspio:        4.0,
+	enums.CTStrSonic:        5.0,
+	enums.CTStrTails:        5.0,
+	enums.CTStrKnuckles:     5.0,
+	enums.CTStrAmy:          1.0,
+	enums.CTStrBig:          1.0,
+	enums.CTStrBlaze:        1.0,
+	enums.CTStrCharmy:       1.0,
+	enums.CTStrCream:        1.0,
+	enums.CTStrEspio:        1.0,
 	enums.CTStrMephiles:     1.0,
-	enums.CTStrOmega:        2.0,
-	enums.CTStrPSISilver:    0.1, // This puts the total up to 100.1, but... [shrug]
-	enums.CTStrRouge:        4.0,
-	enums.CTStrShadow:       4.0,
-	enums.CTStrSilver:       4.0,
-	enums.CTStrSticks:       6.0,
-	enums.CTStrTikal:        2.0,
-	enums.CTStrVector:       4.0,
-	enums.CTStrWerehog:      2.0,
-	enums.CTStrClassicSonic: 2.0,
-	enums.CTStrMetalSonic:   3.0,
+	enums.CTStrOmega:        1.0,
+	enums.CTStrPSISilver:    1.0, // This puts the total up to 100.1, but... [shrug]
+	enums.CTStrRouge:        1.0,
+	enums.CTStrShadow:       1.0,
+	enums.CTStrSilver:       1.0,
+	enums.CTStrSticks:       1.0,
+	enums.CTStrTikal:        1.0,
+	enums.CTStrVector:       1.0,
+	enums.CTStrWerehog:      1.0,
+	enums.CTStrClassicSonic: 1.0,
+	enums.CTStrMetalSonic:   1.0,
 }
 
 var RandomChaoWheelChaoPrizes = map[string]float64{
@@ -57,8 +57,8 @@ var RandomChaoWheelChaoPrizes = map[string]float64{
 	enums.ChaoIDStrRCPiggyBank:          3.0,
 	enums.ChaoIDStrRCBalloon:            3.0,
 	enums.ChaoIDStrEasterChao:           2.0,
-	enums.ChaoIDStrPurplePapurisu:       0.0, // Event (Puyo Puyo)
-	enums.ChaoIDStrMagLv1:               0.0, // Event (Phantasy Star Online 2)
+	enums.ChaoIDStrPurplePapurisu:       2.0, // Event (Puyo Puyo)
+	enums.ChaoIDStrMagLv1:               2.0, // Event (Phantasy Star Online 2)
 	enums.ChaoIDStrEggChao:              3.5,
 	enums.ChaoIDStrPumpkinChao:          3.5,
 	enums.ChaoIDStrSkullChao:            3.0,
