@@ -3,7 +3,7 @@ package constobjs
 import (
     "os/exec"
 
-    "github.com/fluofoxxo/outrun/obj"
+    "github.com/Mtbcooler/outrun/obj"
 )
 
 var DefaultInformations = []obj.Information{

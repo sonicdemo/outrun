@@ -1,8 +1,8 @@
 package logic
 
 import (
-	"github.com/fluofoxxo/outrun/consts"
-	"github.com/fluofoxxo/outrun/netobj"
+	"github.com/Mtbcooler/outrun/consts"
+	"github.com/Mtbcooler/outrun/netobj"
 )
 
 func WheelRefreshLogic(player netobj.Player, wheel netobj.WheelOptions) netobj.WheelOptions {

@@ -1,7 +1,7 @@
 package constobjs
 
 import (
-    "github.com/fluofoxxo/outrun/obj"
+    "github.com/Mtbcooler/outrun/obj"
 )
 
 var DefaultChaoPrizeWheelPrizeList = []obj.ChaoPrize{

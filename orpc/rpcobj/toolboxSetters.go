@@ -1,6 +1,6 @@
 package rpcobj
 
-import "github.com/fluofoxxo/outrun/db"
+import "github.com/Mtbcooler/outrun/db"
 
 func (t *Toolbox) SetRings(args ChangeValueArgs, reply *ToolboxReply) error {
     player, err := db.GetPlayer(args.UID)

@@ -3,8 +3,8 @@ package constobjs
 import (
 	"strconv"
 
-	"github.com/fluofoxxo/outrun/enums"
-	"github.com/fluofoxxo/outrun/obj"
+	"github.com/Mtbcooler/outrun/enums"
+	"github.com/Mtbcooler/outrun/obj"
 )
 
 /*

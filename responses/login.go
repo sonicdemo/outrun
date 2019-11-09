@@ -4,10 +4,10 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/fluofoxxo/outrun/netobj"
-	"github.com/fluofoxxo/outrun/obj"
-	"github.com/fluofoxxo/outrun/obj/constobjs"
-	"github.com/fluofoxxo/outrun/responses/responseobjs"
+	"github.com/Mtbcooler/outrun/netobj"
+	"github.com/Mtbcooler/outrun/obj"
+	"github.com/Mtbcooler/outrun/obj/constobjs"
+	"github.com/Mtbcooler/outrun/responses/responseobjs"
 )
 
 type LoginCheckKeyResponse struct {

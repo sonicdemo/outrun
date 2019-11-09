@@ -4,7 +4,7 @@ import (
     "strconv"
     "time"
 
-    "github.com/fluofoxxo/outrun/enums"
+    "github.com/Mtbcooler/outrun/enums"
 )
 
 type MileageReward struct {

@@ -5,16 +5,16 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/fluofoxxo/outrun/analytics"
-	"github.com/fluofoxxo/outrun/analytics/factors"
-	"github.com/fluofoxxo/outrun/consts"
-	"github.com/fluofoxxo/outrun/db"
-	"github.com/fluofoxxo/outrun/emess"
-	"github.com/fluofoxxo/outrun/enums"
-	"github.com/fluofoxxo/outrun/helper"
-	"github.com/fluofoxxo/outrun/requests"
-	"github.com/fluofoxxo/outrun/responses"
-	"github.com/fluofoxxo/outrun/status"
+	"github.com/Mtbcooler/outrun/analytics"
+	"github.com/Mtbcooler/outrun/analytics/factors"
+	"github.com/Mtbcooler/outrun/consts"
+	"github.com/Mtbcooler/outrun/db"
+	"github.com/Mtbcooler/outrun/emess"
+	"github.com/Mtbcooler/outrun/enums"
+	"github.com/Mtbcooler/outrun/helper"
+	"github.com/Mtbcooler/outrun/requests"
+	"github.com/Mtbcooler/outrun/responses"
+	"github.com/Mtbcooler/outrun/status"
 )
 
 func ChangeCharacter(helper *helper.Helper) {

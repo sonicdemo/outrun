@@ -3,7 +3,7 @@ package constobjs
 import (
     "strconv"
 
-    "github.com/fluofoxxo/outrun/obj"
+    "github.com/Mtbcooler/outrun/obj"
 )
 
 var DefaultPlayerStateItems = func() []obj.Item {

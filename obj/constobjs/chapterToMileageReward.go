@@ -4,9 +4,9 @@ import (
 	"log"
 	"strconv"
 
-	"github.com/fluofoxxo/outrun/config"
-	"github.com/fluofoxxo/outrun/enums"
-	"github.com/fluofoxxo/outrun/obj"
+	"github.com/Mtbcooler/outrun/config"
+	"github.com/Mtbcooler/outrun/enums"
+	"github.com/Mtbcooler/outrun/obj"
 )
 
 /*
