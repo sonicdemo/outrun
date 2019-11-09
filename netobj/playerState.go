@@ -3,9 +3,9 @@ package netobj
 import (
 	"time"
 
-	"github.com/fluofoxxo/outrun/enums"
-	"github.com/fluofoxxo/outrun/obj"
-	"github.com/fluofoxxo/outrun/obj/constobjs"
+	"github.com/Mtbcooler/outrun/enums"
+	"github.com/Mtbcooler/outrun/obj"
+	"github.com/Mtbcooler/outrun/obj/constobjs"
 )
 
 /*

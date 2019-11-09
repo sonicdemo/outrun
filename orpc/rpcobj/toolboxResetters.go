@@ -1,9 +1,9 @@
 package rpcobj
 
 import (
-    "github.com/fluofoxxo/outrun/db"
-    "github.com/fluofoxxo/outrun/netobj"
-    "github.com/fluofoxxo/outrun/obj"
+    "github.com/Mtbcooler/outrun/db"
+    "github.com/Mtbcooler/outrun/netobj"
+    "github.com/Mtbcooler/outrun/obj"
 )
 
 func (t *Toolbox) ResetCampaign(uid string, reply *ToolboxReply) error {

@@ -1,7 +1,7 @@
 package constobjs
 
 import (
-	"github.com/fluofoxxo/outrun/obj"
+	"github.com/Mtbcooler/outrun/obj"
 )
 
 var RedStarItemsType1 = rsiDefaultsIT1() // Rings

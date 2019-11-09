@@ -9,8 +9,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/fluofoxxo/outrun/config"
-	"github.com/fluofoxxo/outrun/helper"
+	"github.com/Mtbcooler/outrun/config"
+	"github.com/Mtbcooler/outrun/helper"
 )
 
 func Handle(f func(*helper.Helper), logExecutionTime bool) func(w http.ResponseWriter, r *http.Request) {

@@ -4,7 +4,7 @@ import (
 	"math/rand"
 	"strconv"
 
-	"github.com/fluofoxxo/outrun/netobj"
+	"github.com/Mtbcooler/outrun/netobj"
 )
 
 var BlankPlayer = func() netobj.Player {

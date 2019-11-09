@@ -1,6 +1,6 @@
 package constobjs
 
-import "github.com/fluofoxxo/outrun/obj"
+import "github.com/Mtbcooler/outrun/obj"
 
 var DefaultCostList = getDefaultCostList()
 

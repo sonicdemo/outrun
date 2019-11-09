@@ -1,8 +1,8 @@
 package responses
 
 import (
-    "github.com/fluofoxxo/outrun/obj"
-    "github.com/fluofoxxo/outrun/responses/responseobjs"
+    "github.com/Mtbcooler/outrun/obj"
+    "github.com/Mtbcooler/outrun/responses/responseobjs"
 )
 
 type MessageListResponse struct {

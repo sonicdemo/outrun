@@ -1,9 +1,9 @@
 package responses
 
 import (
-    "github.com/fluofoxxo/outrun/obj"
-    "github.com/fluofoxxo/outrun/obj/constobjs"
-    "github.com/fluofoxxo/outrun/responses/responseobjs"
+    "github.com/Mtbcooler/outrun/obj"
+    "github.com/Mtbcooler/outrun/obj/constobjs"
+    "github.com/Mtbcooler/outrun/responses/responseobjs"
     "github.com/jinzhu/now"
 )
 

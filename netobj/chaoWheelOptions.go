@@ -1,9 +1,9 @@
 package netobj
 
 import (
-	"github.com/fluofoxxo/outrun/consts"
-	"github.com/fluofoxxo/outrun/enums"
-	"github.com/fluofoxxo/outrun/obj"
+	"github.com/Mtbcooler/outrun/consts"
+	"github.com/Mtbcooler/outrun/enums"
+	"github.com/Mtbcooler/outrun/obj"
 	"github.com/jinzhu/now"
 )
 
