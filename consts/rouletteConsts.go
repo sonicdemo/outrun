@@ -1,6 +1,6 @@
 package consts
 
 const (
-    RouletteJackpotRings = int64(45000)
+    RouletteJackpotRings = int64(78000)
     RouletteFreeSpins    = int64(5)
 )
