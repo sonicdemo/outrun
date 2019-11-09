@@ -156,7 +156,7 @@ func DefaultTicker(base responseobjs.BaseInfo, player netobj.Player) TickerRespo
 		obj.NewTicker(
 			1,
 			time.Now().UTC().Unix()+3600, // one hour later
-			"Welcome to [ff0000]OUTRUN!",
+			"Welcome to Sonic Runners Revival!",
 		),
 		obj.NewTicker(
 			2,
