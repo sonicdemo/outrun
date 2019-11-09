@@ -126,10 +126,10 @@ func main() {
 		router.HandleFunc("/outrunInfo/stats", inforeporters.Stats)
 	}
 
-	if config.CFile.LogUnknownRequests {
-		//router.HandleFunc("/", OutputUnknownRequest)
-		router.PathPrefix("/").HandlerFunc(OutputUnknownRequest)
-	}
+	//if config.CFile.LogUnknownRequests {
+	//	//router.HandleFunc("/", OutputUnknownRequest)
+	//	router.PathPrefix("/").HandlerFunc(OutputUnknownRequest)
+	//}
 
 	go bgtasks.TouchAnalyticsDB()
 
