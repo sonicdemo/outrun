@@ -13,10 +13,11 @@ import (
 func Start() {
 	rpc.Register(new(rpcobj.Toolbox))
 	rpc.HandleHTTP()
-	listener, err := net.Listen("tcp", ":"+config.CFile.RPCPort)
+	listenStr := "127.0.0.1:"+config.CFile.RPCPort
+	listener, err := net.Listen("tcp", listenStr)
 	if err != nil {
 		log.Fatal("error listening in ORPC:", err)
 	}
-	log.Println("Starting ORPC server on port " + config.CFile.RPCPort)
+	log.Println("Starting ORPC server on: " + listenStr)
 	go http.Serve(listener, nil)
 }
