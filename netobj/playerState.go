@@ -58,10 +58,10 @@ func DefaultPlayerState() PlayerState {
 	subCharaID := enums.CTStrTails
 	mainChaoID := ChaoIDs[0]
 	subChaoID := ChaoIDs[5] // changed from [1]...
-	numRings := int64(9001)
+	numRings := int64(5000)
 	//numBuyRings := int64(1)
 	numBuyRings := int64(0)
-	numRedRings := int64(1337)
+	numRedRings := int64(15)
 	//numBuyRedRings := int64(7)
 	numBuyRedRings := int64(0)
 	energy := int64(6)
