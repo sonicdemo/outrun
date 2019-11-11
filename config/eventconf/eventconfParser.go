@@ -7,7 +7,7 @@ import (
 	"log"
 	"reflect"
 
-	"github.com/fluofoxxo/outrun/enums"
+	"github.com/Mtbcooler/outrun/enums"
 )
 
 // defaults
