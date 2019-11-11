@@ -12,6 +12,7 @@ import (
 
 	"github.com/Mtbcooler/outrun/bgtasks"
 	"github.com/Mtbcooler/outrun/config"
+    "github.com/Mtbcooler/outrun/config/eventconf"
 	"github.com/Mtbcooler/outrun/cryption"
 	"github.com/Mtbcooler/outrun/inforeporters"
 	"github.com/Mtbcooler/outrun/muxhandlers"
@@ -58,9 +59,18 @@ func main() {
 
 	err := config.Parse("config.json")
 	if err != nil {
-		log.Printf("[INFO] No config file (config.json) found (%s), using defaults\n", err)
+		log.Printf("[INFO] Failure loading config file config.json (%s), using defaults\n", err)
 	} else {
 		log.Println("[INFO] Config file (config.json) loaded")
+	}
+
+	err = eventconf.Parse(config.CFile.EventConfigFilename)
+	if err != nil {
+		if !config.CFile.SilenceEventConfigErrors {
+			log.Printf("[INFO] Failure loading event config file %s (%s), using defaults\n", config.CFile.EventConfigFilename, err)
+		}
+	} else {
+		log.Printf("[INFO] Event config file (%s) loaded\n", config.CFile.EventConfigFilename)
 	}
 
 	if config.CFile.EnableRPC {

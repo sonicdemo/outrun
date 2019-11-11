@@ -9,6 +9,8 @@ import (
 	"strings"
 	"time"
 
+	"github.com/Mtbcooler/outrun/config"
+	"github.com/Mtbcooler/outrun/config/eventconf"
 	"github.com/Mtbcooler/outrun/consts"
 	"github.com/Mtbcooler/outrun/db/dbaccess"
 	"github.com/Mtbcooler/outrun/netobj"
@@ -55,7 +57,11 @@ func NewAccountWithID(uid string) netobj.Player {
 			allowedCharacters = append(allowedCharacters, character.ID)
 		}
 	}
+	if config.CFile.Debug {
+		mileageMapState.Episode = 15
+	}
 	chaoRouletteGroup := netobj.DefaultChaoRouletteGroup(playerState, allowedCharacters, allowedChao)
+	personalEvents := []eventconf.ConfiguredEvent{}
 	return netobj.NewPlayer(
 		uid,
 		username,
@@ -70,6 +76,7 @@ func NewAccountWithID(uid string) netobj.Player {
 		wheelOptions,
 		rouletteInfo,
 		chaoRouletteGroup,
+		personalEvents,
 	)
 }
 
