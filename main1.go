@@ -12,7 +12,7 @@ import (
 
 	"github.com/Mtbcooler/outrun/bgtasks"
 	"github.com/Mtbcooler/outrun/config"
-    "github.com/Mtbcooler/outrun/config/eventconf"
+        "github.com/Mtbcooler/outrun/config/eventconf"
 	"github.com/Mtbcooler/outrun/cryption"
 	"github.com/Mtbcooler/outrun/inforeporters"
 	"github.com/Mtbcooler/outrun/muxhandlers"
