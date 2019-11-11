@@ -5,9 +5,13 @@ import (
 
 	"github.com/Mtbcooler/outrun/analytics"
 	"github.com/Mtbcooler/outrun/analytics/factors"
+	"github.com/Mtbcooler/outrun/config"
+	"github.com/Mtbcooler/outrun/config/infoconf"
 	"github.com/Mtbcooler/outrun/db"
 	"github.com/Mtbcooler/outrun/emess"
 	"github.com/Mtbcooler/outrun/helper"
+	"github.com/Mtbcooler/outrun/logic/conversion"
+	"github.com/Mtbcooler/outrun/obj"
 	"github.com/Mtbcooler/outrun/requests"
 	"github.com/Mtbcooler/outrun/responses"
 	"github.com/Mtbcooler/outrun/status"
@@ -117,7 +121,19 @@ func GetVariousParameter(helper *helper.Helper) {
 
 func GetInformation(helper *helper.Helper) {
 	baseInfo := helper.BaseInfo(emess.OK, status.OK)
-	response := responses.DefaultInformation(baseInfo)
+	infos := []obj.Information{}
+	if infoconf.CFile.EnableInfos {
+		for _, ci := range infoconf.CFile.Infos {
+			newInfo := conversion.ConfiguredInfoToInformation(ci)
+			infos = append(infos, newInfo)
+			if config.CFile.DebugPrints {
+				helper.Out(newInfo.Param)
+			}
+		}
+	}
+	operatorInfos := []obj.OperatorInformation{}
+	numOpUnread := int64(len(operatorInfos))
+	response := responses.Information(baseInfo, infos, operatorInfos, numOpUnread)
 	err := helper.SendResponse(response)
 	if err != nil {
 		helper.InternalErr("Error sending response", err)

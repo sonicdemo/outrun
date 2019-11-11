@@ -13,12 +13,3 @@ var DefaultInformations = []obj.Information{
     //obj.NewInformation(1000230, 3, 1465981200, 1466413199, "1__90000001_1"),
     //obj.NewInformation(1000157, 600, 1448614800, 1609459199, "1__90000002_1"),
 }
-
-func getLastGitCommitDate() string {
-    // TODO: remove, since most people likely will not be running Outrun inside of a Git directory
-    output, err := exec.Command("git", "log", "-1", "--format=%cd").Output()
-    if err != nil {
-        return "Unknown"
-    }
-    return string(output)
-}
