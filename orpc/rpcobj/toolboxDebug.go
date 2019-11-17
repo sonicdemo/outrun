@@ -91,7 +91,7 @@ func (t *Toolbox) Debug_ResetCharactersAndCompensate(uid string, reply *ToolboxR
 	}
 	toAdd := int64(0)
 	for _, char := range player.CharacterState {
-		toAdd += char.Level * 15
+		toAdd += char.Level * 5
 	}
 	player.PlayerState.NumRedRings += toAdd
 	player.CharacterState = netobj.DefaultCharacterState()
