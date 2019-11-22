@@ -316,6 +316,10 @@ func PostGameResults(helper *helper.Helper) {
 			player.PlayerState.HighScore = request.Score
 		}
 		player.PlayerState.TotalDistance += request.Distance
+		playerHighDistance := player.PlayerState.HighDistance
+		if request.Distance > playerHighDistance {
+			player.PlayerState.HighDistance = request.Distance
+		}
 		// increase character(s)'s experience
 		expIncrease := request.Rings + request.FailureRings // all rings collected
 		abilityIndex := 1
