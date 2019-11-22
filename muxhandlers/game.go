@@ -110,9 +110,9 @@ func ActRetry(helper *helper.Helper) {
 		return
 	}
 	responseStatus := status.OK
-	if player.PlayerState.NumRedRings >= player.PlayerVarious.OnePlayContinueCount { //does the player actually have enough red rings?
-		//if so, subtract OnePlayContinueCount (5 by default) red rings and respond with an OK status
-		player.PlayerState.NumRedRings -= player.PlayerVarious.OnePlayContinueCount
+	if player.PlayerState.NumRedRings >= 5 { //does the player actually have enough red rings?
+		//if so, subtract 5 red rings and respond with an OK status
+		player.PlayerState.NumRedRings -= 5
 		err = db.SavePlayer(player)
 		if err != nil {
 			helper.InternalErr("Error saving player", err)

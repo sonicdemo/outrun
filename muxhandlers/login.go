@@ -93,6 +93,12 @@ func Login(helper *helper.Helper) {
 			helper.InternalErr("Error getting player", err)
 			return
 		}
+		player.LastLogin = time.Now().UTC().Unix()
+		err = db.SavePlayer(player)
+		if err != nil {
+			helper.InternalErr("Error saving player", err)
+			return
+		}
 		response := responses.LoginSuccess(baseInfo, sid, player.Username)
 		err = helper.SendResponse(response)
 		if err != nil {
