@@ -119,7 +119,8 @@ func (r *Helper) DebugOut(s string, a ...interface{}) {
 		log.Printf(LogOutBase, PrefixDebugOut, r.CallerName, msg)
 	}
 }
-func (r *Helper) Warn(msg string) {
+func (r *Helper) Warn(s string, a ...interface{}) {
+	msg := fmt.Sprintf(s, a...)
 	log.Printf(LogOutBase, PrefixWarn, r.CallerName, msg)
 }
 func (r *Helper) WarnErr(msg string, err error) {
@@ -179,4 +180,3 @@ func (r *Helper) GetCallingPlayer() (netobj.Player, error) {
 	}
 	return player, nil
 }
-

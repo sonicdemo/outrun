@@ -12,8 +12,9 @@ import (
 
 	"github.com/Mtbcooler/outrun/bgtasks"
 	"github.com/Mtbcooler/outrun/config"
-    "github.com/Mtbcooler/outrun/config/eventconf"
-    "github.com/Mtbcooler/outrun/config/infoconf"
+	"github.com/Mtbcooler/outrun/config/eventconf"
+	"github.com/Mtbcooler/outrun/config/gameconf"
+	"github.com/Mtbcooler/outrun/config/infoconf"
 	"github.com/Mtbcooler/outrun/cryption"
 	"github.com/Mtbcooler/outrun/inforeporters"
 	"github.com/Mtbcooler/outrun/muxhandlers"
@@ -83,6 +84,15 @@ func main() {
 		log.Printf("[INFO] Info config file (%s) loaded\n", config.CFile.InfoConfigFilename)
 	}
 
+	err = gameconf.Parse(config.CFile.GameConfigFilename)
+	if err != nil {
+		if !config.CFile.SilenceGameConfigErrors {
+			log.Printf("[INFO] Failure loading game config file %s (%s), using defaults\n", config.CFile.GameConfigFilename, err)
+		}
+	} else {
+		log.Printf("[INFO] Game config file (%s) loaded\n", config.CFile.GameConfigFilename)
+	}
+
 	if config.CFile.EnableRPC {
 		orpc.Start()
 	}
@@ -140,6 +150,8 @@ func main() {
 	router.HandleFunc(prefix+"/RaidbossSpin/getItemStockNum/", h(muxhandlers.GetItemStockNum, LogExecutionTime))
 	router.HandleFunc(prefix+"/Spin/commitWheelSpin/", h(muxhandlers.CommitWheelSpin, LogExecutionTime))
 	router.HandleFunc(prefix+"/Chao/commitChaoWheelSpin/", h(muxhandlers.CommitChaoWheelSpin, LogExecutionTime))
+	// Character transactions
+	router.HandleFunc(prefix+"/Character/unlockedCharacter/", h(muxhandlers.UnlockedCharacter, LogExecutionTime))
 
 	// Server information
 	if config.CFile.EnablePublicStats {

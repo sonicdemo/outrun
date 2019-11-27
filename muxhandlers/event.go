@@ -1,16 +1,13 @@
 package muxhandlers
 
 import (
-    "fmt"
-
-    "github.com/Mtbcooler/outrun/config"
-    "github.com/Mtbcooler/outrun/config/eventconf"
-    "github.com/Mtbcooler/outrun/emess"
-    "github.com/Mtbcooler/outrun/helper"
-    "github.com/Mtbcooler/outrun/logic/conversion"
-    "github.com/Mtbcooler/outrun/obj"
-    "github.com/Mtbcooler/outrun/responses"
-    "github.com/Mtbcooler/outrun/status"
+	"github.com/Mtbcooler/outrun/config/eventconf"
+	"github.com/Mtbcooler/outrun/emess"
+	"github.com/Mtbcooler/outrun/helper"
+	"github.com/Mtbcooler/outrun/logic/conversion"
+	"github.com/Mtbcooler/outrun/obj"
+	"github.com/Mtbcooler/outrun/responses"
+	"github.com/Mtbcooler/outrun/status"
 )
 
 func GetEventList(helper *helper.Helper) {
@@ -35,11 +32,9 @@ func GetEventList(helper *helper.Helper) {
 			}
 		}
 	}
-	if config.CFile.DebugPrints {
-		helper.Out("Personal event list: " + fmt.Sprintln(player.PersonalEvents))
-		helper.Out("Global event list: " + fmt.Sprintln(eventconf.CFile.CurrentEvents))
-		helper.Out("Event list: " + fmt.Sprintln(eventList))
-	}
+	helper.DebugOut("Personal event list: %v", player.PersonalEvents)
+	helper.DebugOut("Global event list: %v", eventconf.CFile.CurrentEvents)
+	helper.DebugOut("Event list: %v", eventList)
 	response := responses.EventList(baseInfo, eventList)
 	err = helper.SendResponse(response)
 	if err != nil {

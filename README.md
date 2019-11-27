@@ -2,7 +2,7 @@
 
 ### Summary
 
-Outrun is a custom server for Sonic Runners, reverse engineered from the [Sonic Runners Revival](https://sonic.runner.es/) project.
+Outrun is a custom server for Sonic Runners, reverse engineered from the [Sonic Runners Revival](https://sonic.runner.es/) (Now uses Outrun) project.
 
 ### Goals
 
@@ -20,15 +20,17 @@ Notable:
   - Character/Chao equipping
   - Character leveling and progression
   - Item/Chao roulette functionality (Functional, in progress)
+  - Events
 
 Functional:
   - Android and iOS support
   - High score keeping
-  - Notifications (pending revamp)
+  - In game notices
+  - Handy configuration file support for general, events, and notices
   - Ticker notices
   - Small database size and memory footprint
   - Low CPU usage
-  - Descriptive error reporting and handling
+  - Analytics support
 
 ### Building
 

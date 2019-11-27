@@ -149,21 +149,26 @@ func QuickPostGameResults(helper *helper.Helper) {
 		return
 	}
 
+	hasSubCharacter := player.PlayerState.SubCharaID != "-1"
+	var subC netobj.Character
 	mainC, err := player.GetMainChara()
 	if err != nil {
 		helper.InternalErr("Error getting main character", err)
 		return
 	}
-	subC, err := player.GetSubChara()
-	if err != nil {
-		helper.InternalErr("Error getting sub character", err)
-		return
-	}
-	mainCIndex := player.IndexOfChara(mainC.ID) // TODO: check if -1
-	subCIndex := player.IndexOfChara(subC.ID)   // TODO: check if -1
-	playCharacters := []netobj.Character{
+	playCharacters := []netobj.Character{ // assume only main character active right now
 		mainC,
-		subC,
+	}
+	if hasSubCharacter {
+		subC, err = player.GetSubChara()
+		if err != nil {
+			helper.InternalErr("Error getting sub character", err)
+			return
+		}
+		playCharacters = []netobj.Character{ // add sub character to playCharacters
+			mainC,
+			subC,
+		}
 	}
 	if request.Closed == 0 { // If the game wasn't exited out of
 		player.PlayerState.NumRings += request.Rings
@@ -187,10 +192,12 @@ func QuickPostGameResults(helper *helper.Helper) {
 			helper.InternalErr("Error getting upgrade increase", fmt.Errorf("no key '%s' in consts.UpgradeIncreases", mainC.ID))
 			return
 		}
-		_, ok = consts.UpgradeIncreases[subC.ID]
-		if !ok {
-			helper.InternalErr("Error getting upgrade increase", fmt.Errorf("no key '%s' in consts.UpgradeIncreases", subC.ID))
-			return
+		if hasSubCharacter {
+			_, ok = consts.UpgradeIncreases[subC.ID]
+			if !ok {
+				helper.InternalErr("Error getting upgrade increase for sub character", fmt.Errorf("no key '%s' in consts.UpgradeIncreases", subC.ID))
+				return
+			}
 		}
 		if playCharacters[0].Level < 100 {
 			playCharacters[0].Exp += expIncrease
@@ -202,18 +209,19 @@ func QuickPostGameResults(helper *helper.Helper) {
 				playCharacters[0].Cost += consts.UpgradeIncreases[playCharacters[0].ID] // increase cost
 			}
 		}
-		if playCharacters[1].Level < 100 {
-			playCharacters[1].Exp += expIncrease
-			for playCharacters[1].Exp >= playCharacters[1].Cost {
-				// more exp than cost = level up
-				playCharacters[1].Level++                                               // increase level
-				playCharacters[1].AbilityLevel[abilityIndex]++                          // increase ability level
-				playCharacters[1].Exp -= playCharacters[1].Cost                         // remove cost from exp
-				playCharacters[1].Cost += consts.UpgradeIncreases[playCharacters[1].ID] // increase cost
+		if hasSubCharacter {
+			if playCharacters[1].Level < 100 {
+				playCharacters[1].Exp += expIncrease
+				for playCharacters[1].Exp >= playCharacters[1].Cost {
+					// more exp than cost = level up
+					playCharacters[1].Level++                                               // increase level
+					playCharacters[1].AbilityLevel[abilityIndex]++                          // increase ability level
+					playCharacters[1].Exp -= playCharacters[1].Cost                         // remove cost from exp
+					playCharacters[1].Cost += consts.UpgradeIncreases[playCharacters[1].ID] // increase cost
+				}
 			}
 		}
 
-		
 		helper.DebugOut("Old mainC Exp: %v / %v", mainC.Exp, mainC.Cost)
 		helper.DebugOut("Old mainC Level: %v", mainC.Level)
 		helper.DebugOut("Old subC Exp: %v / %v", subC.Exp, subC.Cost)
@@ -222,6 +230,12 @@ func QuickPostGameResults(helper *helper.Helper) {
 		helper.DebugOut("New mainC Level: %v", playCharacters[0].Level)
 		helper.DebugOut("New subC Exp: %v / %v", playCharacters[1].Exp, playCharacters[1].Cost)
 		helper.DebugOut("New subC Level: %v", playCharacters[1].Level)
+	}
+
+	mainCIndex := player.IndexOfChara(mainC.ID) // TODO: check if -1
+	subCIndex := -1
+	if hasSubCharacter {
+		subCIndex = player.IndexOfChara(subC.ID) // TODO: check if -1
 	}
 
 	baseInfo := helper.BaseInfo(emess.OK, status.OK)
@@ -235,7 +249,9 @@ func QuickPostGameResults(helper *helper.Helper) {
 	mainC = playCharacters[0]
 	subC = playCharacters[1]
 	player.CharacterState[mainCIndex] = mainC
-	player.CharacterState[subCIndex] = subC
+	if hasSubCharacter {
+		player.CharacterState[subCIndex] = subC
+	}
 	err = db.SavePlayer(player)
 	if err != nil {
 		helper.InternalErr("Error saving player", err)
@@ -262,28 +278,33 @@ func PostGameResults(helper *helper.Helper) {
 		return
 	}
 
+	hasSubCharacter := player.PlayerState.SubCharaID != "-1"
+	var subC netobj.Character
 	mainC, err := player.GetMainChara()
 	if err != nil {
 		helper.InternalErr("Error getting main character", err)
 		return
 	}
-	subC, err := player.GetSubChara()
-	if err != nil {
-		helper.InternalErr("Error getting sub character", err)
-		return
-	}
-	playCharacters := []netobj.Character{
+	playCharacters := []netobj.Character{ // assume only main character active right now
 		mainC,
-		subC,
 	}
-	if config.CFile.DebugPrints {
-		helper.Out("Pre-function")
-		helper.Out(strconv.Itoa(int(player.MileageMapState.Chapter)))
-		helper.Out(strconv.Itoa(int(player.MileageMapState.Episode)))
-		helper.Out(strconv.Itoa(int(player.MileageMapState.StageTotalScore)))
-		helper.Out(strconv.Itoa(int(player.MileageMapState.Point)))
-		helper.Out(strconv.Itoa(int(request.Score)))
+	if hasSubCharacter {
+		subC, err = player.GetSubChara()
+		if err != nil {
+			helper.InternalErr("Error getting sub character", err)
+			return
+		}
+		playCharacters = []netobj.Character{ // add sub character to playCharacters
+			mainC,
+			subC,
+		}
 	}
+	helper.DebugOut("Pre-function")
+	helper.DebugOut("Chapter: %v", player.MileageMapState.Chapter)
+	helper.DebugOut("Episode: %v", player.MileageMapState.Episode)
+	helper.DebugOut("StageTotalScore: %v", player.MileageMapState.StageTotalScore)
+	helper.DebugOut("Point: %v", player.MileageMapState.Point)
+	helper.DebugOut("request.Score: %v", request.Score)
 
 	incentives := constobjs.GetMileageIncentives(player.MileageMapState.Episode, player.MileageMapState.Chapter) // Game wants incentives in _current_ episode-chapter
 	var oldRewardEpisode, newRewardEpisode int64
@@ -316,13 +337,15 @@ func PostGameResults(helper *helper.Helper) {
 		// check that increases exist
 		_, ok := consts.UpgradeIncreases[mainC.ID]
 		if !ok {
-			helper.InternalErr("Error getting upgrade increase", fmt.Errorf("no key '%s' in consts.UpgradeIncreases", mainC.ID))
+			helper.InternalErr("Error getting upgrade increase for main character", fmt.Errorf("no key '%s' in consts.UpgradeIncreases", mainC.ID))
 			return
 		}
-		_, ok = consts.UpgradeIncreases[subC.ID]
-		if !ok {
-			helper.InternalErr("Error getting upgrade increase", fmt.Errorf("no key '%s' in consts.UpgradeIncreases", subC.ID))
-			return
+		if hasSubCharacter {
+			_, ok = consts.UpgradeIncreases[subC.ID]
+			if !ok {
+				helper.InternalErr("Error getting upgrade increase for sub character", fmt.Errorf("no key '%s' in consts.UpgradeIncreases", subC.ID))
+				return
+			}
 		}
 		if playCharacters[0].Level < 100 {
 			playCharacters[0].Exp += expIncrease
@@ -334,14 +357,16 @@ func PostGameResults(helper *helper.Helper) {
 				playCharacters[0].Cost += consts.UpgradeIncreases[playCharacters[0].ID] // increase cost
 			}
 		}
-		if playCharacters[1].Level < 100 {
-			playCharacters[1].Exp += expIncrease
-			for playCharacters[1].Exp >= playCharacters[1].Cost {
-				// more exp than cost = level up
-				playCharacters[1].Level++                                               // increase level
-				playCharacters[1].AbilityLevel[abilityIndex]++                          // increase ability level
-				playCharacters[1].Exp -= playCharacters[1].Cost                         // remove cost from exp
-				playCharacters[1].Cost += consts.UpgradeIncreases[playCharacters[1].ID] // increase cost
+		if hasSubCharacter {
+			if playCharacters[1].Level < 100 {
+				playCharacters[1].Exp += expIncrease
+				for playCharacters[1].Exp >= playCharacters[1].Cost {
+					// more exp than cost = level up
+					playCharacters[1].Level++                                               // increase level
+					playCharacters[1].AbilityLevel[abilityIndex]++                          // increase ability level
+					playCharacters[1].Exp -= playCharacters[1].Cost                         // remove cost from exp
+					playCharacters[1].Cost += consts.UpgradeIncreases[playCharacters[1].ID] // increase cost
+				}
 			}
 		}
 
@@ -379,11 +404,9 @@ func PostGameResults(helper *helper.Helper) {
 				player.MileageMapState.Chapter = 1
 				player.MileageMapState.Point = 0
 				player.MileageMapState.StageTotalScore = 0
-				if config.CFile.DebugPrints {
-					helper.Out(strconv.Itoa(int(player.MileageMapState.Episode)))
-				}
+				helper.DebugOut("goToNextEpisode -> Episode: %v", player.MileageMapState.Episode)
 				if config.CFile.Debug {
-					player.MileageMapState.Episode = 15
+					player.MileageMapState.Episode = 11
 				}
 			}
 			if player.MileageMapState.Episode > 50 { // if beat game, reset to 50-1
@@ -391,16 +414,14 @@ func PostGameResults(helper *helper.Helper) {
 				player.MileageMapState.Chapter = 1
 				player.MileageMapState.Point = 0
 				player.MileageMapState.StageTotalScore = 0
-				if config.CFile.DebugPrints {
-					helper.Out("Player (" + player.ID + ") beat the game!")
-				}
+				helper.DebugOut("goToNextEpisode: Player (%s) beat the game!", player.ID)
 			}
 		} else {
 			player.MileageMapState.Point = newPoint
 		}
 		if config.CFile.Debug {
-			if player.MileageMapState.Episode < 14 {
-				player.MileageMapState.Episode = 14
+			if player.MileageMapState.Episode < 11 {
+				//player.MileageMapState.Episode = 11
 			}
 		}
 		newRewardEpisode = player.MileageMapState.Episode
@@ -408,16 +429,12 @@ func PostGameResults(helper *helper.Helper) {
 		newRewardPoint = player.MileageMapState.Point
 		// add rewards to PlayerState
 		wonRewards := campaign.GetWonRewards(oldRewardEpisode, oldRewardChapter, oldRewardPoint, newRewardEpisode, newRewardChapter, newRewardPoint)
-		if config.CFile.DebugPrints {
-			helper.Out("wonRewards length: " + strconv.Itoa(len(wonRewards)))
-			helper.Out("Previous rings: " + strconv.Itoa(int(player.PlayerState.NumRings)))
-		}
+		helper.DebugOut("wonRewards length: %v", wonRewards)
+		helper.DebugOut("Previous rings: %v", player.PlayerState.NumRings)
 		newItems := player.PlayerState.Items
 		for _, reward := range wonRewards { // TODO: This is O(n^2). Maybe alleviate this?
-			if config.CFile.DebugPrints {
-				helper.Out("Reward: " + reward.ItemID)
-				helper.Out("Reward amount: " + strconv.Itoa(int(reward.NumItem)))
-			}
+			helper.DebugOut("Reward: %s", reward.ItemID)
+			helper.DebugOut("Reward amount: %v", reward.NumItem)
 			if reward.ItemID[2:] == "12" { // ID is an item
 				// check if the item is already in the player's inventory
 				for _, item := range player.PlayerState.Items {
@@ -430,28 +447,32 @@ func PostGameResults(helper *helper.Helper) {
 				player.PlayerState.NumRings += reward.NumItem
 			} else if reward.ItemID == strconv.Itoa(enums.ItemIDRedRing) { // Red rings
 				player.PlayerState.NumRedRings += reward.NumItem
+			} else if reward.ItemID == enums.CTStrTails { // Tails node
+				tailsIndex := player.IndexOfChara(enums.CTStrTails)
+				player.CharacterState[tailsIndex].Status = enums.CharacterStatusUnlocked
+			} else if reward.ItemID == enums.CTStrKnuckles { // Knuckles node
+				knucklesIndex := player.IndexOfChara(enums.CTStrKnuckles)
+				player.CharacterState[knucklesIndex].Status = enums.CharacterStatusUnlocked
 			} else {
 				helper.Out("Unknown reward '" + reward.ItemID + "', ignoring")
 			}
 			// TODO: allow for characters to join the cast, like Tails on 11-1.1
 		}
-		if config.CFile.DebugPrints {
-			helper.Out("Current rings: " + strconv.Itoa(int(player.PlayerState.NumRings)))
-		}
+		helper.DebugOut("Current rings: %v", player.PlayerState.NumRings)
 		player.PlayerState.Items = newItems
 	}
 
-	if config.CFile.DebugPrints {
-		helper.Out("AFTER")
-		helper.Out(strconv.Itoa(int(player.MileageMapState.Chapter)))
-		helper.Out(strconv.Itoa(int(player.MileageMapState.Episode)))
-		helper.Out(strconv.Itoa(int(player.MileageMapState.StageTotalScore)))
-		helper.Out(strconv.Itoa(int(player.MileageMapState.Point)))
-		helper.Out(strconv.Itoa(int(request.Score)))
-	}
+	helper.DebugOut("Chapter: %v", player.MileageMapState.Chapter)
+	helper.DebugOut("Episode: %v", player.MileageMapState.Episode)
+	helper.DebugOut("StageTotalScore: %v", player.MileageMapState.StageTotalScore)
+	helper.DebugOut("Point: %v", player.MileageMapState.Point)
+	helper.DebugOut("request.Score: %v", request.Score)
 
 	mainCIndex := player.IndexOfChara(mainC.ID) // TODO: check if -1
-	subCIndex := player.IndexOfChara(subC.ID)   // TODO: check if -1
+	subCIndex := -1
+	if hasSubCharacter {
+		subCIndex = player.IndexOfChara(subC.ID) // TODO: check if -1
+	}
 
 	baseInfo := helper.BaseInfo(emess.OK, status.OK)
 	response := responses.DefaultPostGameResults(baseInfo, player, playCharacters, incentives)
@@ -464,7 +485,9 @@ func PostGameResults(helper *helper.Helper) {
 	mainC = playCharacters[0]
 	subC = playCharacters[1]
 	player.CharacterState[mainCIndex] = mainC
-	player.CharacterState[subCIndex] = subC
+	if hasSubCharacter {
+		player.CharacterState[subCIndex] = subC
+	}
 	err = db.SavePlayer(player)
 	if err != nil {
 		helper.InternalErr("Error saving player", err)

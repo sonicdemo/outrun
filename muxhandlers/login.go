@@ -6,7 +6,6 @@ import (
 
 	"github.com/Mtbcooler/outrun/analytics"
 	"github.com/Mtbcooler/outrun/analytics/factors"
-	"github.com/Mtbcooler/outrun/config"
 	"github.com/Mtbcooler/outrun/config/infoconf"
 	"github.com/Mtbcooler/outrun/db"
 	"github.com/Mtbcooler/outrun/emess"
@@ -133,9 +132,7 @@ func GetInformation(helper *helper.Helper) {
 		for _, ci := range infoconf.CFile.Infos {
 			newInfo := conversion.ConfiguredInfoToInformation(ci)
 			infos = append(infos, newInfo)
-			if config.CFile.DebugPrints {
-				helper.Out(newInfo.Param)
-			}
+			helper.DebugOut(newInfo.Param)
 		}
 	}
 	operatorInfos := []obj.OperatorInformation{}
