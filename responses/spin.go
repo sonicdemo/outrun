@@ -38,6 +38,7 @@ func WheelSpin(base responseobjs.BaseInfo, playerState netobj.PlayerState, chara
 	}
 }
 
+/*
 func DefaultWheelSpin(base responseobjs.BaseInfo, player netobj.Player) WheelSpinResponse {
 	// TODO: remove me! I am no longer being used.
 	wheelOptions := netobj.DefaultWheelOptions(player.PlayerState.NumRouletteTicket, player.RouletteInfo.RouletteCountInPeriod)
@@ -52,3 +53,4 @@ func DefaultWheelSpin(base responseobjs.BaseInfo, player netobj.Player) WheelSpi
 		wheelOptions,
 	)
 }
+*/

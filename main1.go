@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"io/ioutil"
 	"log"
 	"math/rand"
@@ -56,7 +57,27 @@ func removePrependingSlashes(next http.Handler) http.Handler {
 	})
 }
 
+func checkArgs() bool {
+	// TODO: _VERY_ dirty command line argument checking. This should be
+	// changed into something more robust and less hacky!
+	args := os.Args[1:] // drop executable
+	amt := len(args)
+	if amt >= 1 {
+		if args[0] == "--version" {
+			fmt.Printf("Outrun %s\n", meta.Version)
+			return true
+		}
+		fmt.Println("Unknown given arguments")
+		return true
+	}
+	return false
+}
+
 func main() {
+	end := checkArgs()
+	if end {
+		return
+	}
 	rand.Seed(time.Now().UTC().UnixNano())
 
 	err := config.Parse("config.json")
@@ -158,10 +179,9 @@ func main() {
 		router.HandleFunc("/outrunInfo/stats", inforeporters.Stats)
 	}
 
-	//if config.CFile.LogUnknownRequests {
-	//	//router.HandleFunc("/", OutputUnknownRequest)
-	//	router.PathPrefix("/").HandlerFunc(OutputUnknownRequest)
-	//}
+	if config.CFile.LogUnknownRequests {
+		router.PathPrefix("/").HandlerFunc(OutputUnknownRequest)
+	}
 
 	go bgtasks.TouchAnalyticsDB()
 
