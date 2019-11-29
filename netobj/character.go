@@ -116,7 +116,7 @@ func DefaultCharacterState() []Character {
 		DefaultStageLockedCharacter(constobjs.CharacterKnuckles), // 'Campaign Map 17'
 		DefaultLockedCharacter(constobjs.CharacterAmy),
 		DefaultLockedCharacter(constobjs.CharacterShadow),
-		DefaultLockedCharacter(constobjs.CharacterBlaze),
+		DefaultRouletteLockedCharacter(constobjs.CharacterBlaze),
 		DefaultLockedCharacter(constobjs.CharacterRouge),
 		DefaultLockedCharacter(constobjs.CharacterOmega),
 		DefaultLockedCharacter(constobjs.CharacterBig),
@@ -125,12 +125,12 @@ func DefaultCharacterState() []Character {
 		DefaultLockedCharacter(constobjs.CharacterCharmy),
 		DefaultLockedCharacter(constobjs.CharacterVector),
 		DefaultLockedCharacter(constobjs.CharacterSilver),
-		DefaultLockedCharacter(constobjs.CharacterMetalSonic),
-		DefaultLockedCharacter(constobjs.CharacterClassicSonic),
-		DefaultLockedCharacter(constobjs.CharacterWerehog),
-		DefaultLockedCharacter(constobjs.CharacterSticks),
-		DefaultLockedCharacter(constobjs.CharacterTikal),
-		DefaultLockedCharacter(constobjs.CharacterMephiles),
-		DefaultLockedCharacter(constobjs.CharacterPSISilver),
+		DefaultRouletteLockedCharacter(constobjs.CharacterMetalSonic),
+		DefaultRouletteLockedCharacter(constobjs.CharacterClassicSonic),
+		DefaultRouletteLockedCharacter(constobjs.CharacterWerehog),
+		DefaultRouletteLockedCharacter(constobjs.CharacterSticks),
+		DefaultRouletteLockedCharacter(constobjs.CharacterTikal),
+		DefaultRouletteLockedCharacter(constobjs.CharacterMephiles),
+		DefaultRouletteLockedCharacter(constobjs.CharacterPSISilver),
 	}
 }
