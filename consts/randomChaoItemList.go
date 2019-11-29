@@ -21,22 +21,22 @@ var RandomChaoWheelCharacterPrizes = map[string]float64{
 	enums.CTStrKnuckles:     1.0,
 	enums.CTStrAmy:          1.0,
 	enums.CTStrBig:          1.0,
-	enums.CTStrBlaze:        0.0,
+	enums.CTStrBlaze:        0.0, // Revival Event
 	enums.CTStrCharmy:       1.0,
 	enums.CTStrCream:        1.0,
 	enums.CTStrEspio:        1.0,
-	enums.CTStrMephiles:     0.0,
+	enums.CTStrMephiles:     0.0, // Revival Event
 	enums.CTStrOmega:        0.5,
-	enums.CTStrPSISilver:    0.0, // This puts the total up to 100.1, but... [shrug]
+	enums.CTStrPSISilver:    0.0, // Revival Event
 	enums.CTStrRouge:        0.5,
 	enums.CTStrShadow:       0.5,
 	enums.CTStrSilver:       1.0,
-	enums.CTStrSticks:       0.0,
-	enums.CTStrTikal:        0.0,
+	enums.CTStrSticks:       0.0, // Revival Event
+	enums.CTStrTikal:        0.0, // Event (Sonic Adventure)
 	enums.CTStrVector:       1.0,
-	enums.CTStrWerehog:      0.0,
-	enums.CTStrClassicSonic: 0.0,
-	enums.CTStrMetalSonic:   0.0,
+	enums.CTStrWerehog:      0.0, // Revival Event
+	enums.CTStrClassicSonic: 0.0, // Event (Birthday)
+	enums.CTStrMetalSonic:   0.0, // Revival Event
 }
 
 var RandomChaoWheelChaoPrizes = map[string]float64{
