@@ -6,5 +6,5 @@ const (
 		RouletteFreeSpins    = int64(5)
 	*/
 	RouletteJackpotRings = int64(185000)
-	RouletteFreeSpins    = int64(5)
+	RouletteFreeSpins    = int64(3)
 )
