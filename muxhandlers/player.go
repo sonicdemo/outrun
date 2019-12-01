@@ -2,6 +2,7 @@ package muxhandlers
 
 import (
 	"encoding/json"
+	"time"
 
 	"github.com/Mtbcooler/outrun/db"
 	"github.com/Mtbcooler/outrun/emess"
@@ -17,6 +18,13 @@ func GetPlayerState(helper *helper.Helper) {
 		helper.InternalErr("Error getting calling player", err)
 		return
 	}
+
+	//update energy counter (this instance won't be saved; it gets saved during ActStart and QuickActStart)
+	for time.Now().UTC().Unix() >= player.PlayerState.EnergyRenewsAt && player.PlayerState.Energy < player.PlayerVarious.EnergyRecoveryMax {
+		player.PlayerState.Energy++
+		player.PlayerState.EnergyRenewsAt += player.PlayerVarious.EnergyRecoveryTime
+	}
+
 	baseInfo := helper.BaseInfo(emess.OK, status.OK)
 	response := responses.PlayerState(baseInfo, player.PlayerState)
 	helper.SendResponse(response)

@@ -99,7 +99,7 @@ func Login(helper *helper.Helper) {
 			helper.InternalErr("Error saving player", err)
 			return
 		}
-		response := responses.LoginSuccess(baseInfo, sid, player.Username)
+		response := responses.LoginSuccess(baseInfo, sid, player.Username, player.PlayerVarious.EnergyRecoveryTime, player.PlayerVarious.EnergyRecoveryMax)
 		err = helper.SendResponse(response)
 		if err != nil {
 			helper.InternalErr("Error sending response", err)

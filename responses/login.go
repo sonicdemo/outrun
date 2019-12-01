@@ -78,19 +78,19 @@ type LoginSuccessResponse struct {
 	SessionID            string   `json:"sessionId"`
 	SessionTimeLimit     int64    `json:"sessionTimeLimit"`
 	EnergyRecoveryTime   int64    `json:"energyRecveryTime,string"` // misspelling is _actually_ in the game!
-	EnergyRecoveryMax    int64    `json:"energyRecoveryMax,string"` // seconds until energy recovers
+	EnergyRecoveryMax    int64    `json:"energyRecoveryMax,string"`
 	InviteBasicIncentive obj.Item `json:"inviteBasicIncentiv"`
 }
 
-func LoginSuccess(base responseobjs.BaseInfo, sid, username string) LoginSuccessResponse {
+func LoginSuccess(base responseobjs.BaseInfo, sid, username string, energyRecoveryTime, energyRecoveryMax int64) LoginSuccessResponse {
 	baseResponse := NewBaseResponse(base)
 	out := LoginSuccessResponse{
 		baseResponse,
 		username,
 		sid,
 		time.Now().Unix() + 3600, // hour from now  // TODO: does this need to be UTC?
-		360,                      // 6 minutes from now, regen energy
-		17171,
+		energyRecoveryTime,
+		energyRecoveryMax,
 		obj.NewItem("900000", 13),
 	}
 	return out
