@@ -45,23 +45,6 @@ func DefaultWheelOptions(numRouletteTicket, rouletteCountInPeriod, rouletteRank 
 		randomItemAmount1 := consts.NormalWheelItemAmountRange[randomItem1].GetRandom()
 		randomItem2 := consts.RandomItemListNormalWheel[rand.Intn(len(consts.RandomItemListNormalWheel))]
 		randomItemAmount2 := consts.NormalWheelItemAmountRange[randomItem2].GetRandom()
-		switch rouletteRank {
-		case enums.WheelRankNormal:
-			randomItem1 = consts.RandomItemListNormalWheel[rand.Intn(len(consts.RandomItemListNormalWheel))]
-			randomItemAmount1 = consts.NormalWheelItemAmountRange[randomItem1].GetRandom()
-			randomItem2 = consts.RandomItemListNormalWheel[rand.Intn(len(consts.RandomItemListNormalWheel))]
-			randomItemAmount2 = consts.NormalWheelItemAmountRange[randomItem2].GetRandom()
-		case enums.WheelRankBig:
-			randomItem1 = consts.RandomItemListBigWheel[rand.Intn(len(consts.RandomItemListBigWheel))]
-			randomItemAmount1 = consts.BigWheelItemAmountRange[randomItem1].GetRandom()
-			randomItem2 = consts.RandomItemListBigWheel[rand.Intn(len(consts.RandomItemListSuperWheel))]
-			randomItemAmount2 = consts.BigWheelItemAmountRange[randomItem2].GetRandom()
-		case enums.WheelRankSuper:
-			randomItem1 = consts.RandomItemListSuperWheel[rand.Intn(len(consts.RandomItemListSuperWheel))]
-			randomItemAmount1 = consts.SuperWheelItemAmountRange[randomItem1].GetRandom()
-			randomItem2 = consts.RandomItemListSuperWheel[rand.Intn(len(consts.RandomItemListSuperWheel))]
-			randomItemAmount2 = consts.SuperWheelItemAmountRange[randomItem2].GetRandom()
-		}
 		items = append(items, randomItem1)
 		item = append(item, randomItemAmount1)
 		items = append(items, randomItem2)
@@ -85,34 +68,12 @@ func DefaultWheelOptions(numRouletteTicket, rouletteCountInPeriod, rouletteRank 
 		for _ = range make([]byte, 7) { // loop 7 times
 			randomItem := consts.RandomItemListNormalWheel[rand.Intn(len(consts.RandomItemListNormalWheel))]
 			randomItemAmount := consts.NormalWheelItemAmountRange[randomItem].GetRandom()
-			switch rouletteRank {
-			case enums.WheelRankNormal:
-				randomItem = consts.RandomItemListNormalWheel[rand.Intn(len(consts.RandomItemListNormalWheel))]
-				randomItemAmount = consts.NormalWheelItemAmountRange[randomItem].GetRandom()
-			case enums.WheelRankBig:
-				randomItem = consts.RandomItemListBigWheel[rand.Intn(len(consts.RandomItemListBigWheel))]
-				randomItemAmount = consts.BigWheelItemAmountRange[randomItem].GetRandom()
-			case enums.WheelRankSuper:
-				randomItem = consts.RandomItemListSuperWheel[rand.Intn(len(consts.RandomItemListSuperWheel))]
-				randomItemAmount = consts.SuperWheelItemAmountRange[randomItem].GetRandom()
-			}
 			items = append(items, randomItem)
 			item = append(item, randomItemAmount)
 		}
 		if rouletteGenMode == 2 && rouletteRank != enums.WheelRankSuper {
 			randomItem := consts.RandomItemListNormalWheel[rand.Intn(len(consts.RandomItemListNormalWheel))]
 			randomItemAmount := consts.NormalWheelItemAmountRange[randomItem].GetRandom()
-			switch rouletteRank {
-			case enums.WheelRankNormal:
-				randomItem = consts.RandomItemListNormalWheel[rand.Intn(len(consts.RandomItemListNormalWheel))]
-				randomItemAmount = consts.NormalWheelItemAmountRange[randomItem].GetRandom()
-			case enums.WheelRankBig:
-				randomItem = consts.RandomItemListBigWheel[rand.Intn(len(consts.RandomItemListBigWheel))]
-				randomItemAmount = consts.BigWheelItemAmountRange[randomItem].GetRandom()
-			case enums.WheelRankSuper:
-				randomItem = consts.RandomItemListSuperWheel[rand.Intn(len(consts.RandomItemListSuperWheel))]
-				randomItemAmount = consts.SuperWheelItemAmountRange[randomItem].GetRandom()
-			}
 			items[0] = randomItem
 			item[0] = randomItemAmount
 			items[2] = strconv.Itoa(enums.IDTypeItemRouletteWin)
