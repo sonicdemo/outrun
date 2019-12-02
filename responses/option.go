@@ -1,8 +1,8 @@
 package responses
 
 import (
-	"github.com/fluofoxxo/outrun/netobj"
-	"github.com/fluofoxxo/outrun/responses/responseobjs"
+	"github.com/Mtbcooler/outrun/netobj"
+	"github.com/Mtbcooler/outrun/responses/responseobjs"
 )
 
 type OptionUserResultResponse struct {
