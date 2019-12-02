@@ -317,6 +317,8 @@ func QuickPostGameResults(helper *helper.Helper) {
 		player.PlayerState.NumRedRings += request.RedRings
 		player.PlayerState.NumRouletteTicket += request.RedRings // TODO: URGENT! Remove as soon as possible!
 		player.PlayerState.Animals += request.Animals
+		player.OptionUserResult.NumTakeAllRings += request.Rings
+		player.OptionUserResult.NumTakeAllRedRings += request.RedRings
 		playerTimedHighScore := player.PlayerState.TimedHighScore
 		if request.Score > playerTimedHighScore {
 			player.PlayerState.TimedHighScore = request.Score
@@ -468,6 +470,8 @@ func PostGameResults(helper *helper.Helper) {
 		player.PlayerState.NumRedRings += request.RedRings
 		player.PlayerState.NumRouletteTicket += request.RedRings // TODO: URGENT! Remove as soon as possible!
 		player.PlayerState.Animals += request.Animals
+		player.OptionUserResult.NumTakeAllRings += request.Rings
+		player.OptionUserResult.NumTakeAllRedRings += request.RedRings
 		playerHighScore := player.PlayerState.HighScore
 		if request.Score > playerHighScore {
 			player.PlayerState.HighScore = request.Score

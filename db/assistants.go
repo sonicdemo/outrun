@@ -36,6 +36,8 @@ func NewAccountWithID(uid string) netobj.Player {
 
 	username := ""
 	password := randChar("abcdefghijklmnopqrstuvwxyz1234567890", 10)
+	migrationPassword := randChar("abcdefghijklmnopqrstuvwxyz1234567890", 10)
+	userPassword := ""
 	key := randChar("abcdefghijklmnopqrstuvwxyz1234567890", 10)
 	playerState := netobj.DefaultPlayerState()
 	characterState := netobj.DefaultCharacterState()
@@ -43,6 +45,7 @@ func NewAccountWithID(uid string) netobj.Player {
 	mileageMapState := netobj.DefaultMileageMapState()
 	mileageFriends := []netobj.MileageFriend{}
 	playerVarious := netobj.DefaultPlayerVarious()
+	optionUserResult := netobj.DefaultOptionUserResult()
 	rouletteInfo := netobj.DefaultRouletteInfo()
 	wheelOptions := netobj.DefaultWheelOptions(playerState.NumRouletteTicket, rouletteInfo.RouletteCountInPeriod, enums.WheelRankNormal)
 	// TODO: get rid of logic here?
@@ -69,6 +72,8 @@ func NewAccountWithID(uid string) netobj.Player {
 		uid,
 		username,
 		password,
+		migrationPassword,
+		userPassword,
 		key,
 		playerState,
 		characterState,
@@ -76,6 +81,7 @@ func NewAccountWithID(uid string) netobj.Player {
 		mileageMapState,
 		mileageFriends,
 		playerVarious,
+		optionUserResult,
 		wheelOptions,
 		rouletteInfo,
 		chaoRouletteGroup,

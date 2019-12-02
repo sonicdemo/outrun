@@ -91,7 +91,7 @@ func LoginSuccess(base responseobjs.BaseInfo, sid, username string, energyRecove
 		time.Now().Unix() + 3600, // hour from now  // TODO: does this need to be UTC?
 		energyRecoveryTime,
 		energyRecoveryMax,
-		obj.NewItem("900000", 13),
+		obj.NewItem("900000", 5),
 	}
 	return out
 }
@@ -264,3 +264,47 @@ func DefaultLoginBonus(base responseobjs.BaseInfo) LoginBonusResponse {
 	frd := int64(-1)
 	return LoginBonus(base, lbs, lbrl, flbrl, st, et, rid, rd, frd)
 }
+
+type MigrationPasswordResponse struct {
+	BaseResponse
+	Password string `json:"password"`
+}
+
+func MigrationPassword(base responseobjs.BaseInfo, player netobj.Player) MigrationPasswordResponse {
+	baseResponse := NewBaseResponse(base)
+	return MigrationPasswordResponse{
+		baseResponse,
+		player.MigrationPassword,
+	}
+}
+
+type MigrationSuccessResponse struct {
+	BaseResponse
+	UserID                   string   `json:"userId"`
+	Username                 string   `json:"userName"`
+	Password                 string   `json:"password"`
+	SessionID                string   `json:"sessionId"`
+	SessionTimeLimit         int64    `json:"sessionTimeLimit"`         // game will log in again after this (non-UTC apparently) time
+	EnergyRecoveryTime       int64    `json:"energyRecveryTime,string"` // seconds until energy regenerates (misspelling is _actually_ in the game!)
+	EnergyRecoveryMax        int64    `json:"energyRecoveryMax,string"` // maximum energy recoverable over time
+	InviteBasicIncentive     obj.Item `json:"inviteBasicIncentiv"`
+	ChaoRentalBasicIncentive obj.Item `json:"chaoRentalBasicIncentiv"`
+}
+
+func MigrationSuccess(base responseobjs.BaseInfo, sid, uid, username, password string, energyRecoveryTime, energyRecoveryMax int64) MigrationSuccessResponse {
+	baseResponse := NewBaseResponse(base)
+	out := MigrationSuccessResponse{
+		baseResponse,
+		uid,
+		username,
+		password,
+		sid,
+		time.Now().Unix() + 3600, // hour from now  // TODO: does this need to be UTC?
+		energyRecoveryTime,
+		energyRecoveryMax,
+		obj.NewItem("900000", 5),
+		obj.NewItem("900000", 5),
+	}
+	return out
+}
+

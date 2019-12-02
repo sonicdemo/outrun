@@ -13,3 +13,8 @@ type LoginRequest struct {
     PlatformSNS  int64  `json:"platform_sns,string"`
     obj.LineAuth `json:"lineAuth"`
 }
+
+type GetMigrationPasswordRequest struct {
+	UserPassword string `json:"userPassword"`
+}
+

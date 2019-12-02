@@ -119,6 +119,7 @@ func CommitWheelSpin(helper *helper.Helper) {
 			player.PlayerState.NumRouletteTicket--
 		}
 		numRouletteTicket := player.PlayerState.NumRouletteTicket
+		player.OptionUserResult.NumItemRoulette++
 		rouletteCount := player.RouletteInfo.RouletteCountInPeriod // get amount of times we've spun the wheel today
 		//player.LastWheelOptions = netobj.DefaultWheelOptions(numRouletteTicket, rouletteCount) // create wheel
 		oldRanking := player.LastWheelOptions.RouletteRank
