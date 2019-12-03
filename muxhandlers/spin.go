@@ -113,10 +113,12 @@ func CommitWheelSpin(helper *helper.Helper) {
 		}
 
 		// generate NEXT! wheel
-		player.RouletteInfo.RouletteCountInPeriod++ // we've spun an additional time
-		if player.RouletteInfo.RouletteCountInPeriod > consts.RouletteFreeSpins {
-			// we've run out of free spins for the period
-			player.PlayerState.NumRouletteTicket--
+		if wonItem != strconv.Itoa(enums.IDTypeItemRouletteWin) {
+			player.RouletteInfo.RouletteCountInPeriod++ // we've spun an additional time
+			if player.RouletteInfo.RouletteCountInPeriod > consts.RouletteFreeSpins {
+				// we've run out of free spins for the period
+				player.PlayerState.NumRouletteTicket--
+			}
 		}
 		numRouletteTicket := player.PlayerState.NumRouletteTicket
 		player.OptionUserResult.NumItemRoulette++
