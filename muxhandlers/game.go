@@ -391,7 +391,9 @@ func QuickPostGameResults(helper *helper.Helper) {
 	}
 	// apply the save after the response so that we don't break the leveling
 	mainC = playCharacters[0]
-	subC = playCharacters[1]
+	if hasSubCharacter {
+		subC = playCharacters[1]
+	}
 	player.CharacterState[mainCIndex] = mainC
 	if hasSubCharacter {
 		player.CharacterState[subCIndex] = subC
@@ -644,7 +646,9 @@ func PostGameResults(helper *helper.Helper) {
 	}
 	// apply the save after the response so that we don't break the leveling
 	mainC = playCharacters[0]
-	subC = playCharacters[1]
+	if hasSubCharacter {
+		subC = playCharacters[1]
+	}
 	player.CharacterState[mainCIndex] = mainC
 	if hasSubCharacter {
 		player.CharacterState[subCIndex] = subC
