@@ -272,38 +272,38 @@ func (t *Toolbox) Debug_PrepTag1p0(uids string, reply *ToolboxReply) error {
 		return int64(result)
 	}
 
-	for _, uid := range allUIDs {
-		player, err := db.GetPlayer(uid)
-		if err != nil {
-			reply.Status = StatusOtherError
-			reply.Info = fmt.Sprintf("unable to get player %s: ", uid) + err.Error()
-			return err
-		}
-		// conditions for exemption
-		if player.MileageMapState.Episode >= 25 { // player is exempt from reset
-			continue
-		}
-		player.CharacterState = netobj.DefaultCharacterState() // already uses AllCharactersUnlocked
-		player.ChaoState = constnetobjs.DefaultChaoState()     // already uses AllChaoUnlocked
-		player.PlayerState.MainCharaID = gameconf.CFile.DefaultMainCharacter
-		player.PlayerState.SubChaoID = gameconf.CFile.DefaultSubChao
-		player.PlayerState.MainChaoID = gameconf.CFile.DefaultMainChao
-		player.PlayerState.SubCharaID = gameconf.CFile.DefaultSubCharacter
-		player.PlayerState.NumRings = sqrt(player.PlayerState.NumRings) * 3
-		player.PlayerState.NumRedRings = sqrt(player.PlayerState.NumRedRings)
-		player.PlayerState.Energy = gameconf.CFile.StartingEnergy
-		player.PlayerState.Items = constobjs.DefaultPlayerStateItems
-		player.PlayerState.Rank = 0 // for some reason, this gets incremented 1 by the game
+    for _, uid := range allUIDs {
+        player, err := db.GetPlayer(uid)
+        if err != nil {
+            reply.Status = StatusOtherError
+            reply.Info = fmt.Sprintf("unable to get player %s: ", uid) + err.Error()
+            return err
+        }
+        // compensate first
+        amountPerLevel := int64(7)  // Red Rings offered per level
+        newRedRingAmount := int64(0)
+        for _, char := range player.CharacterState {
+            newRedRingAmont += char.Level * amountPerLevel
+        }
+        player.CharacterState = netobj.DefaultCharacterState() // already uses AllCharactersUnlocked
+        player.ChaoState = constnetobjs.DefaultChaoState()     // already uses AllChaoUnlocked
+        player.PlayerState.MainCharaID = gameconf.CFile.DefaultMainCharacter
+        player.PlayerState.SubChaoID = gameconf.CFile.DefaultSubChao
+        player.PlayerState.MainChaoID = gameconf.CFile.DefaultMainChao
+        player.PlayerState.SubCharaID = gameconf.CFile.DefaultSubCharacter
+        player.PlayerState.NumRings = int64(HOWEVER_MANY_RINGS_HERE)
+        player.PlayerState.NumRedRings = newRedRingAmount
+        player.PlayerState.Energy = gameconf.CFile.StartingEnergy
+        player.PlayerState.Items = constobjs.DefaultPlayerStateItems
+        player.PlayerState.Rank = 0
 
-		player.MileageMapState = netobj.DefaultMileageMapState() // reset campaign
-
-		err = db.SavePlayer(player)
-		if err != nil {
-			reply.Status = StatusOtherError
-			reply.Info = fmt.Sprintf("error saving player %s: ", uid) + err.Error()
-			return err
-		}
-	}
+        err = db.SavePlayer(player)
+        if err != nil {
+            reply.Status = StatusOtherError
+            reply.Info = fmt.Sprintf("error saving player %s: ", uid) + err.Error()
+            return err
+        }
+    }
 	reply.Status = StatusOK
 	reply.Info = "OK"
 	return nil
