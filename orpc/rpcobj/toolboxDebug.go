@@ -295,7 +295,6 @@ func (t *Toolbox) Debug_PrepTag1p0(uids string, reply *ToolboxReply) error {
         player.PlayerState.NumRedRings = newRedRingAmount
         player.PlayerState.Energy = gameconf.CFile.StartingEnergy
         player.PlayerState.Items = constobjs.DefaultPlayerStateItems
-        player.PlayerState.Rank = 0
 
         err = db.SavePlayer(player)
         if err != nil {
