@@ -281,7 +281,7 @@ func (t *Toolbox) Debug_PrepTag1p0(uids string, reply *ToolboxReply) error {
         }
         // compensate first
         amountPerLevel := int64(7)  // Red Rings offered per level
-        newRedRingAmount := int64(0)
+        newRedRingAmount := int64(5)
         for _, char := range player.CharacterState {
             newRedRingAmont += char.Level * amountPerLevel
         }
