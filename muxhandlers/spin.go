@@ -91,8 +91,10 @@ func CommitWheelSpin(helper *helper.Helper) {
 			helper.DebugOut("New amount of item player has: %v", player.PlayerState.Items[itemIndex].Amount)
 		} else {
 			if wonItem == strconv.Itoa(enums.IDTypeItemRouletteWin) {
-				// Jackpot
-				player.PlayerState.NumRings += player.LastWheelOptions.NumJackpotRing
+				// BIG/SUPER/JACKPOT
+				if oldRanking == enums.WheelRankSuper {
+					player.PlayerState.NumRings += player.LastWheelOptions.NumJackpotRing
+				}
 			} else if wonItem == strconv.Itoa(enums.IDTypeRedRing) {
 				// Red rings
 				player.PlayerState.NumRedRings += player.LastWheelOptions.Item[player.LastWheelOptions.ItemWon]
