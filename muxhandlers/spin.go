@@ -92,7 +92,7 @@ func CommitWheelSpin(helper *helper.Helper) {
 		} else {
 			if wonItem == strconv.Itoa(enums.IDTypeItemRouletteWin) {
 				// BIG/SUPER/JACKPOT
-				if oldRanking == enums.WheelRankSuper {
+				if player.LastWheelOptions.RouletteRank == enums.WheelRankSuper {
 					player.PlayerState.NumRings += player.LastWheelOptions.NumJackpotRing
 				}
 			} else if wonItem == strconv.Itoa(enums.IDTypeRedRing) {
