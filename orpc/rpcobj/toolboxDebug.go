@@ -271,6 +271,8 @@ func (t *Toolbox) Debug_PrepTag1p0(uids string, reply *ToolboxReply) error {
 		result := math.Sqrt(fn)
 		return int64(result)
 	}
+	
+	_ = sqrt
 
     for _, uid := range allUIDs {
         player, err := db.GetPlayer(uid)
@@ -283,7 +285,7 @@ func (t *Toolbox) Debug_PrepTag1p0(uids string, reply *ToolboxReply) error {
         amountPerLevel := int64(7)  // Red Rings offered per level
         newRedRingAmount := int64(5)
         for _, char := range player.CharacterState {
-            newRedRingAmont += char.Level * amountPerLevel
+            newRedRingAmount += char.Level * amountPerLevel
         }
         player.CharacterState = netobj.DefaultCharacterState() // already uses AllCharactersUnlocked
         player.ChaoState = constnetobjs.DefaultChaoState()     // already uses AllChaoUnlocked
@@ -291,7 +293,7 @@ func (t *Toolbox) Debug_PrepTag1p0(uids string, reply *ToolboxReply) error {
         player.PlayerState.SubChaoID = gameconf.CFile.DefaultSubChao
         player.PlayerState.MainChaoID = gameconf.CFile.DefaultMainChao
         player.PlayerState.SubCharaID = gameconf.CFile.DefaultSubCharacter
-        player.PlayerState.NumRings = int64(HOWEVER_MANY_RINGS_HERE)
+        player.PlayerState.NumRings = int64(10000)
         player.PlayerState.NumRedRings = newRedRingAmount
         player.PlayerState.Energy = gameconf.CFile.StartingEnergy
         player.PlayerState.Items = constobjs.DefaultPlayerStateItems
