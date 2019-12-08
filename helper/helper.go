@@ -13,10 +13,13 @@ import (
 	"github.com/Mtbcooler/outrun/config"
 	"github.com/Mtbcooler/outrun/cryption"
 	"github.com/Mtbcooler/outrun/db"
+	"github.com/Mtbcooler/outrun/emess"
 	"github.com/Mtbcooler/outrun/netobj"
 	"github.com/Mtbcooler/outrun/netobj/constnetobjs"
 	"github.com/Mtbcooler/outrun/requests"
+	"github.com/Mtbcooler/outrun/responses"
 	"github.com/Mtbcooler/outrun/responses/responseobjs"
+	"github.com/Mtbcooler/outrun/status"
 )
 
 const (
@@ -30,7 +33,7 @@ const (
 	LogErrBase = "[%s] (%s) %s: %s\n"
 
 	InternalServerError = "Internal server error"
-	BadRequest          = "Bad request"
+	//	BadRequest          = "Bad request"
 
 	//DefaultIV = "HotAndSunnyMiami"
 	DefaultIV = "FoundDeadInMiami"
@@ -132,13 +135,15 @@ func (r *Helper) Uncatchable(msg string) {
 }
 func (r *Helper) InternalErr(msg string, err error) {
 	log.Printf(LogErrBase, PrefixErr, r.CallerName, msg, err.Error())
-	r.RespW.WriteHeader(http.StatusBadRequest)
-	r.RespW.Write([]byte(BadRequest))
+	//r.RespW.WriteHeader(http.StatusBadRequest)
+	//r.RespW.Write([]byte(BadRequest))
+	r.SendResponse(responses.NewBaseResponse(r.BaseInfo(emess.OK, status.InternalServerError)))
 }
 func (r *Helper) Err(msg string, err error) {
 	log.Printf(LogErrBase, PrefixErr, r.CallerName, msg, err.Error())
-	r.RespW.WriteHeader(http.StatusBadRequest)
-	r.RespW.Write([]byte(BadRequest))
+	//r.RespW.WriteHeader(http.StatusBadRequest)
+	//r.RespW.Write([]byte(BadRequest))
+	r.SendResponse(responses.NewBaseResponse(r.BaseInfo(emess.OK, status.ClientError)))
 }
 func (r *Helper) ErrRespond(msg string, err error, response string) {
 	// TODO: remove if never used in stable builds
@@ -148,20 +153,23 @@ func (r *Helper) ErrRespond(msg string, err error, response string) {
 }
 func (r *Helper) InternalFatal(msg string, err error) {
 	log.Fatalf(LogErrBase, PrefixErr, r.CallerName, msg, err.Error())
-	r.RespW.WriteHeader(http.StatusBadRequest)
-	r.RespW.Write([]byte(BadRequest))
+	//	r.RespW.WriteHeader(http.StatusBadRequest)
+	//	r.RespW.Write([]byte(BadRequest))
+	r.SendResponse(responses.NewBaseResponse(r.BaseInfo(emess.OK, status.InternalServerError)))
 }
 func (r *Helper) Fatal(msg string, err error) {
 	log.Fatalf(LogErrBase, PrefixErr, r.CallerName, msg, err.Error())
-	r.RespW.WriteHeader(http.StatusBadRequest)
-	r.RespW.Write([]byte(BadRequest))
+	//	r.RespW.WriteHeader(http.StatusBadRequest)
+	//	r.RespW.Write([]byte(BadRequest))
+	r.SendResponse(responses.NewBaseResponse(r.BaseInfo(emess.OK, status.ClientError)))
 }
 func (r *Helper) BaseInfo(em string, statusCode int64) responseobjs.BaseInfo {
 	return responseobjs.NewBaseInfo(em, statusCode)
 }
 func (r *Helper) InvalidRequest() {
-	r.RespW.WriteHeader(http.StatusBadRequest)
-	r.RespW.Write([]byte(BadRequest))
+	//	r.RespW.WriteHeader(http.StatusBadRequest)
+	//	r.RespW.Write([]byte(BadRequest))
+	r.SendResponse(responses.NewBaseResponse(r.BaseInfo(emess.OK, status.ClientError)))
 }
 func (r *Helper) GetCallingPlayer() (netobj.Player, error) {
 	// Powerful function to get the player directly from the response
