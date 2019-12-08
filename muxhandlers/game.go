@@ -619,6 +619,9 @@ func PostGameResults(helper *helper.Helper) {
 				if player.PlayerState.Rank > 998 { // rank going above 999
 					player.PlayerState.Rank = 998
 				}
+				if player.PlayerState.Energy < player.PlayerVarious.EnergyRecoveryMax {
+					player.PlayerState.Energy = player.PlayerVarious.EnergyRecoveryMax //restore energy
+				}
 				helper.DebugOut("goToNextEpisode -> Episode: %v", player.MileageMapState.Episode)
 				if config.CFile.Debug {
 					player.MileageMapState.Episode = 11
