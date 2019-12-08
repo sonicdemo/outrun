@@ -7,6 +7,7 @@ import (
 
 	"github.com/Mtbcooler/outrun/analytics"
 	"github.com/Mtbcooler/outrun/analytics/factors"
+	"github.com/Mtbcooler/outrun/config/gameconf"
 	"github.com/Mtbcooler/outrun/config/infoconf"
 	"github.com/Mtbcooler/outrun/db"
 	"github.com/Mtbcooler/outrun/emess"
@@ -96,6 +97,8 @@ func Login(helper *helper.Helper) {
 			return
 		}
 		player.LastLogin = time.Now().UTC().Unix()
+		player.PlayerVarious.EnergyRecoveryMax = gameconf.CFile.EnergyRecoveryMax
+		player.PlayerVarious.EnergyRecoveryTime = gameconf.CFile.EnergyRecoveryTime
 		err = db.SavePlayer(player)
 		if err != nil {
 			helper.InternalErr("Error saving player", err)
@@ -288,4 +291,3 @@ func Migration(helper *helper.Helper) {
 		helper.SendResponse(response)
 	}
 }
-

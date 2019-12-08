@@ -1,5 +1,9 @@
 package netobj
 
+import (
+	"github.com/Mtbcooler/outrun/config/gameconf"
+)
+
 type PlayerVarious struct {
 	CmSkipCount          int64 `json:"cmSkipCount"` // no clear purpose
 	EnergyRecoveryMax    int64 `json:"energyRecoveryMax"`
@@ -11,8 +15,8 @@ type PlayerVarious struct {
 
 func DefaultPlayerVarious() PlayerVarious {
 	cmSkipCount := int64(5)
-	energyRecoveryMax := int64(5)  //max lives should be five
-	energyRecoveryTime := int64(660) // eleven minutes
+	energyRecoveryMax := gameconf.CFile.EnergyRecoveryMax
+	energyRecoveryTime := gameconf.CFile.EnergyRecoveryTime
 	onePlayCmCount := int64(0)
 	onePlayContinueCount := int64(5)
 	isPurchased := int64(0)
@@ -25,4 +29,3 @@ func DefaultPlayerVarious() PlayerVarious {
 		isPurchased,
 	}
 }
-

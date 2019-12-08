@@ -58,6 +58,8 @@ var Defaults = map[string]interface{}{
 	"DStartingEnergy":          int64(5),
 	"DAllItemsFree":            true,
 	"DEnableEnergyConsumption": false,
+	"DEnergyRecoveryMax":       int64(5),
+	"DEnergyRecoveryTime":      int64(600),
 }
 
 var CFile ConfigFile
@@ -74,6 +76,8 @@ type ConfigFile struct {
 	StartingEnergy          int64  `json:"startingEnergy,omitempty"`
 	AllItemsFree            bool   `json:"allItemsFree,omitempty"`
 	EnableEnergyConsumption bool   `json:"enableEnergyConsumption,omitempty"`
+	EnergyRecoveryMax       int64  `json:"energyRecoveryMax,omitempty"`
+	EnergyRecoveryTime      int64  `json:"energyRecoveryTime,omitempty"`
 }
 
 func Parse(filename string) error {
@@ -89,6 +93,8 @@ func Parse(filename string) error {
 		Defaults["DStartingEnergy"].(int64),
 		Defaults["DAllItemsFree"].(bool),
 		Defaults["DEnableEnergyConsumption"].(bool),
+		Defaults["DEnergyRecoveryMax"].(int64),
+		Defaults["DEnergyRecoveryTime"].(int64),
 	}
 	file, err := loadFile(filename)
 	if err != nil {
