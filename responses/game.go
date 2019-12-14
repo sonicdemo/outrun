@@ -144,8 +144,7 @@ func QuickActStart(base responseobjs.BaseInfo, playerState netobj.PlayerState, c
 	}
 }
 
-func DefaultQuickActStart(base responseobjs.BaseInfo, player netobj.Player) QuickActStartResponse {
-	campaignList := []obj.Campaign{}
+func DefaultQuickActStart(base responseobjs.BaseInfo, player netobj.Player, campaignList []obj.Campaign) QuickActStartResponse {
 	playerState := player.PlayerState
 	return QuickActStart(
 		base,
@@ -167,8 +166,7 @@ func ActStart(base responseobjs.BaseInfo, playerState netobj.PlayerState, campai
 	}
 }
 
-func DefaultActStart(base responseobjs.BaseInfo, player netobj.Player) ActStartResponse {
-	campaignList := []obj.Campaign{}
+func DefaultActStart(base responseobjs.BaseInfo, player netobj.Player, campaignList []obj.Campaign) ActStartResponse {
 	playerState := player.PlayerState
 	distFriends := []netobj.MileageFriend{}
 	return ActStart(

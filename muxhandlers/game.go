@@ -10,6 +10,7 @@ import (
 	"github.com/Mtbcooler/outrun/analytics"
 	"github.com/Mtbcooler/outrun/analytics/factors"
 	"github.com/Mtbcooler/outrun/config"
+	"github.com/Mtbcooler/outrun/config/campaignconf"
 	"github.com/Mtbcooler/outrun/config/gameconf"
 	"github.com/Mtbcooler/outrun/consts"
 	"github.com/Mtbcooler/outrun/db"
@@ -17,6 +18,7 @@ import (
 	"github.com/Mtbcooler/outrun/enums"
 	"github.com/Mtbcooler/outrun/helper"
 	"github.com/Mtbcooler/outrun/logic/campaign"
+	"github.com/Mtbcooler/outrun/logic/conversion"
 	"github.com/Mtbcooler/outrun/logic/gameplay"
 	"github.com/Mtbcooler/outrun/netobj"
 	"github.com/Mtbcooler/outrun/obj"
@@ -66,8 +68,16 @@ func GetMileageData(helper *helper.Helper) {
 }
 
 func GetCampaignList(helper *helper.Helper) {
+	campaignList := []obj.Campaign{}
+	if campaignconf.CFile.AllowCampaigns {
+		for _, confCampaign := range campaignconf.CFile.CurrentCampaigns {
+			newCampaign := conversion.ConfiguredCampaignToCampaign(confCampaign)
+			campaignList = append(campaignList, newCampaign)
+		}
+	}
+	helper.DebugOut("Campaign list: %v", campaignList)
 	baseInfo := helper.BaseInfo(emess.OK, status.OK)
-	response := responses.DefaultCampaignList(baseInfo)
+	response := responses.CampaignList(baseInfo, campaignList)
 	err := helper.SendResponse(response)
 	if err != nil {
 		helper.InternalErr("Error sending response", err)
@@ -88,6 +98,14 @@ func QuickActStart(helper *helper.Helper) {
 		return
 	}
 	responseStatus := status.OK
+	campaignList := []obj.Campaign{}
+	if campaignconf.CFile.AllowCampaigns {
+		for _, confCampaign := range campaignconf.CFile.CurrentCampaigns {
+			newCampaign := conversion.ConfiguredCampaignToCampaign(confCampaign)
+			campaignList = append(campaignList, newCampaign)
+		}
+	}
+	helper.DebugOut("Campaign list: %v", campaignList)
 	// consume items
 	modToStringSlice := func(ns []int64) []string {
 		result := []string{}
@@ -137,7 +155,7 @@ func QuickActStart(helper *helper.Helper) {
 		responseStatus = status.NotEnoughEnergy
 	}
 	baseInfo := helper.BaseInfo(emess.OK, responseStatus)
-	response := responses.DefaultQuickActStart(baseInfo, player)
+	response := responses.DefaultQuickActStart(baseInfo, player, campaignList)
 	err = helper.SendResponse(response)
 	if err != nil {
 		helper.InternalErr("Error sending response", err)
@@ -169,6 +187,14 @@ func ActStart(helper *helper.Helper) {
 	}
 	helper.DebugOut(fmt.Sprintf("%v", player.PlayerState.Items))
 	responseStatus := status.OK
+	campaignList := []obj.Campaign{}
+	if campaignconf.CFile.AllowCampaigns {
+		for _, confCampaign := range campaignconf.CFile.CurrentCampaigns {
+			newCampaign := conversion.ConfiguredCampaignToCampaign(confCampaign)
+			campaignList = append(campaignList, newCampaign)
+		}
+	}
+	helper.DebugOut("Campaign list: %v", campaignList)
 	// consume items
 	modToStringSlice := func(ns []int64) []string {
 		result := []string{}
@@ -218,7 +244,7 @@ func ActStart(helper *helper.Helper) {
 		responseStatus = status.NotEnoughEnergy
 	}
 	baseInfo := helper.BaseInfo(emess.OK, responseStatus)
-	response := responses.DefaultActStart(baseInfo, player)
+	response := responses.DefaultActStart(baseInfo, player, campaignList)
 	err = helper.SendResponse(response)
 	if err != nil {
 		helper.InternalErr("Error sending response", err)
