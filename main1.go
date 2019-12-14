@@ -13,6 +13,7 @@ import (
 
 	"github.com/Mtbcooler/outrun/bgtasks"
 	"github.com/Mtbcooler/outrun/config"
+	"github.com/Mtbcooler/outrun/config/campaignconf"
 	"github.com/Mtbcooler/outrun/config/eventconf"
 	"github.com/Mtbcooler/outrun/config/gameconf"
 	"github.com/Mtbcooler/outrun/config/infoconf"
@@ -113,6 +114,15 @@ func main() {
 		}
 	} else {
 		log.Printf("[INFO] Game config file (%s) loaded\n", config.CFile.GameConfigFilename)
+	}
+
+	err = campaignconf.Parse(config.CFile.CampaignConfigFilename)
+	if err != nil {
+		if !config.CFile.SilenceCampaignConfigErrors {
+			log.Printf("[INFO] Failure loading campaign config file %s (%s), using defaults\n", config.CFile.CampaignConfigFilename, err)
+		}
+	} else {
+		log.Printf("[INFO] Campaign config file (%s) loaded\n", config.CFile.CampaignConfigFilename)
 	}
 
 	if config.CFile.EnableRPC {
