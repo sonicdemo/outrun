@@ -41,13 +41,13 @@ var RandomChaoWheelCharacterPrizes = map[string]float64{
 
 var RandomChaoWheelChaoPrizes = map[string]float64{
 	// TODO: Balance these
-	enums.ChaoIDStrHeroChao:             3.0,
-	enums.ChaoIDStrGoldChao:             3.0,
-	enums.ChaoIDStrDarkChao:             3.0,
-	enums.ChaoIDStrJewelChao:            3.0,
+	enums.ChaoIDStrHeroChao:             1.0,
+	enums.ChaoIDStrGoldChao:             0.5,
+	enums.ChaoIDStrDarkChao:             1.0,
+	enums.ChaoIDStrJewelChao:            1.0,
 	enums.ChaoIDStrNormalChao:           3.0,
 	enums.ChaoIDStrOmochao:              3.0,
-	enums.ChaoIDStrRCMonkey:             3.0,
+	//enums.ChaoIDStrRCMonkey:             0.0, // Event (Animal Rescue event)
 	enums.ChaoIDStrRCSpring:             3.0,
 	enums.ChaoIDStrRCElectromagnet:      3.0,
 	enums.ChaoIDStrBabyCyanWisp:         3.0,
