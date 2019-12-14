@@ -8,6 +8,7 @@ import (
 	"github.com/Mtbcooler/outrun/config"
 	"github.com/Mtbcooler/outrun/consts"
 	"github.com/Mtbcooler/outrun/enums"
+	"github.com/Mtbcooler/outrun/logic/roulette"
 	"github.com/Mtbcooler/outrun/obj"
 	"github.com/jinzhu/now"
 )
@@ -38,6 +39,7 @@ func DefaultWheelOptions(numRouletteTicket, rouletteCountInPeriod, rouletteRank 
 	// Mode 0: Classic mode
 	// Mode 1: Vertical dual win (based off a pattern in the OG server)
 	// Mode 2: Classic mode but with two win spots placed horizontally instead of one win spot on the top
+	chaoIDs, _ := roulette.GetRandomChaoWheelChao(0, 7)
 	itemWeight := []int64{1250, 1250, 1250, 1250, 1250, 1250, 1250, 1250}
 	switch rouletteGenMode {
 	case 1:
@@ -71,7 +73,7 @@ func DefaultWheelOptions(numRouletteTicket, rouletteCountInPeriod, rouletteRank 
 			items = append(items, randomItem)
 			item = append(item, randomItemAmount)
 		}
-		if rouletteGenMode == 2 && rouletteRank != enums.WheelRankSuper {
+		if rouletteGenMode == 2 && rouletteRank == enums.WheelRankNormal {
 			randomItem := consts.RandomItemListNormalWheel[rand.Intn(len(consts.RandomItemListNormalWheel))]
 			randomItemAmount := consts.NormalWheelItemAmountRange[randomItem].GetRandom()
 			items[0] = randomItem
@@ -82,6 +84,24 @@ func DefaultWheelOptions(numRouletteTicket, rouletteCountInPeriod, rouletteRank 
 			item[6] = 1
 		}
 	}
+	// place normal eggs if needed
+	switch rouletteRank {
+	case enums.WheelRankBig:
+		items[2] = chaoIDs[1]
+		item[2] = 1
+		items[6] = chaoIDs[5]
+		item[6] = 1
+	case enums.WheelRankSuper:
+		items[1] = chaoIDs[0]
+		item[1] = 1
+		items[3] = chaoIDs[2]
+		item[3] = 1
+		items[5] = chaoIDs[4]
+		item[5] = 1
+		items[7] = chaoIDs[6]
+		item[7] = 1
+	}
+	
 	//itemWon := int64(0)
 	itemWon := int64(rand.Intn(len(items)))   //TODO: adjust this to accurately represent item weights
 	nextFreeSpin := now.EndOfDay().Unix() + 1 // midnight
