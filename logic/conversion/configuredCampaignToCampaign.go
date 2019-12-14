@@ -32,8 +32,8 @@ func ConfiguredCampaignToCampaign(cc campaignconf.ConfiguredCampaign) obj.Campai
 		cc.RealType(),
 		cc.Content,
 		cc.SubContent,
-		cc.StartTime,
-		cc.EndTime,
+		startTime,
+		endTime,
 	}
 	return newEvent
 }
