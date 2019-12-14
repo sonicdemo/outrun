@@ -5,6 +5,7 @@ import (
 	"strconv"
 
 	"github.com/Mtbcooler/outrun/config/eventconf"
+	"github.com/Mtbcooler/outrun/consts"
 	"github.com/Mtbcooler/outrun/enums"
 	"github.com/Mtbcooler/outrun/netobj"
 )
@@ -40,7 +41,7 @@ var BlankPlayer = func() netobj.Player {
 	playerVarious := netobj.DefaultPlayerVarious()
 	optionUserResult := netobj.DefaultOptionUserResult()
 	rouletteInfo := netobj.DefaultRouletteInfo()
-	wheelOptions := netobj.DefaultWheelOptions(playerState.NumRouletteTicket, rouletteInfo.RouletteCountInPeriod, enums.WheelRankNormal)
+	wheelOptions := netobj.DefaultWheelOptions(playerState.NumRouletteTicket, rouletteInfo.RouletteCountInPeriod, enums.WheelRankNormal, consts.RouletteFreeSpins)
 	// TODO: get rid of logic here?
 	allowedCharacters := []string{}
 	allowedChao := []string{}

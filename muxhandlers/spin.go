@@ -7,13 +7,16 @@ import (
 
 	"github.com/Mtbcooler/outrun/analytics"
 	"github.com/Mtbcooler/outrun/analytics/factors"
+	"github.com/Mtbcooler/outrun/config/campaignconf"
 	"github.com/Mtbcooler/outrun/consts"
 	"github.com/Mtbcooler/outrun/db"
 	"github.com/Mtbcooler/outrun/emess"
 	"github.com/Mtbcooler/outrun/enums"
 	"github.com/Mtbcooler/outrun/helper"
 	"github.com/Mtbcooler/outrun/logic"
+	"github.com/Mtbcooler/outrun/logic/conversion"
 	"github.com/Mtbcooler/outrun/netobj"
+	"github.com/Mtbcooler/outrun/obj"
 	"github.com/Mtbcooler/outrun/requests"
 	"github.com/Mtbcooler/outrun/responses"
 	"github.com/Mtbcooler/outrun/status"
@@ -61,6 +64,21 @@ func CommitWheelSpin(helper *helper.Helper) {
 	}
 	helper.DebugOut("request.Count: %v", request.Count)
 
+	freeSpins := consts.RouletteFreeSpins
+	campaignList := []obj.Campaign{}
+	if campaignconf.CFile.AllowCampaigns {
+		for _, confCampaign := range campaignconf.CFile.CurrentCampaigns {
+			newCampaign := conversion.ConfiguredCampaignToCampaign(confCampaign)
+			campaignList = append(campaignList, newCampaign)
+		}
+	}
+	for index, _ := range campaignList {
+		if obj.IsCampaignActive(campaignList[index]) && campaignList[index].Type == enums.CampaignTypeFreeWheelSpinCount {
+			freeSpins = campaignList[index].Content
+		}
+		index++
+	}
+
 	endPeriod := player.RouletteInfo.RoulettePeriodEnd
 	helper.DebugOut("Time now: %v", time.Now().Unix())
 	helper.DebugOut("End period: %v", endPeriod)
@@ -72,7 +90,7 @@ func CommitWheelSpin(helper *helper.Helper) {
 
 	responseStatus := status.OK
 	hasTickets := player.PlayerState.NumRouletteTicket > 0
-	hasFreeSpins := player.RouletteInfo.RouletteCountInPeriod < consts.RouletteFreeSpins
+	hasFreeSpins := player.RouletteInfo.RouletteCountInPeriod < freeSpins
 	helper.DebugOut("Has tickets: %v", hasTickets)
 	helper.DebugOut("Number of tickets: %v", player.PlayerState.NumRouletteTicket)
 	helper.DebugOut("Has free spins: %v", hasFreeSpins)
@@ -143,7 +161,7 @@ func CommitWheelSpin(helper *helper.Helper) {
 		// generate NEXT! wheel
 		if wonItem != strconv.Itoa(enums.IDTypeItemRouletteWin) {
 			player.RouletteInfo.RouletteCountInPeriod++ // we've spun an additional time
-			if player.RouletteInfo.RouletteCountInPeriod > consts.RouletteFreeSpins {
+			if player.RouletteInfo.RouletteCountInPeriod > freeSpins {
 				// we've run out of free spins for the period
 				player.PlayerState.NumRouletteTicket--
 			}
@@ -153,7 +171,7 @@ func CommitWheelSpin(helper *helper.Helper) {
 		rouletteCount := player.RouletteInfo.RouletteCountInPeriod // get amount of times we've spun the wheel today
 		//player.LastWheelOptions = netobj.DefaultWheelOptions(numRouletteTicket, rouletteCount) // create wheel
 		oldRanking := player.LastWheelOptions.RouletteRank
-		player.LastWheelOptions = netobj.UpgradeWheelOptions(player.LastWheelOptions, numRouletteTicket, rouletteCount) // create wheel
+		player.LastWheelOptions = netobj.UpgradeWheelOptions(player.LastWheelOptions, numRouletteTicket, rouletteCount, freeSpins) // create wheel
 		if player.RouletteInfo.GotJackpotThisPeriod {
 			player.LastWheelOptions.NumJackpotRing = 1
 		}

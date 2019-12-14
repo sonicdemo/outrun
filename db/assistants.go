@@ -47,7 +47,7 @@ func NewAccountWithID(uid string) netobj.Player {
 	playerVarious := netobj.DefaultPlayerVarious()
 	optionUserResult := netobj.DefaultOptionUserResult()
 	rouletteInfo := netobj.DefaultRouletteInfo()
-	wheelOptions := netobj.DefaultWheelOptions(playerState.NumRouletteTicket, rouletteInfo.RouletteCountInPeriod, enums.WheelRankNormal)
+	wheelOptions := netobj.DefaultWheelOptions(playerState.NumRouletteTicket, rouletteInfo.RouletteCountInPeriod, enums.WheelRankNormal, consts.RouletteFreeSpins)
 	// TODO: get rid of logic here?
 	allowedCharacters := []string{}
 	allowedChao := []string{}

@@ -27,7 +27,7 @@ type WheelOptions struct {
 	ItemList             []obj.Item `json:"itemList"`
 }
 
-func DefaultWheelOptions(numRouletteTicket, rouletteCountInPeriod, rouletteRank int64) WheelOptions {
+func DefaultWheelOptions(numRouletteTicket, rouletteCountInPeriod, rouletteRank, freeSpins int64) WheelOptions {
 	// TODO: Modifying this seems like a good way of figuring out what the game thinks each ID means in terms of items.
 	// const the below
 	// NOTE: Free spins occur when numRemainingRoulette > numRouletteToken
@@ -101,7 +101,7 @@ func DefaultWheelOptions(numRouletteTicket, rouletteCountInPeriod, rouletteRank 
 		items[7] = chaoIDs[6]
 		item[7] = 1
 	}
-	
+
 	//itemWon := int64(0)
 	itemWon := int64(rand.Intn(len(items)))   //TODO: adjust this to accurately represent item weights
 	nextFreeSpin := now.EndOfDay().Unix() + 1 // midnight
@@ -111,7 +111,7 @@ func DefaultWheelOptions(numRouletteTicket, rouletteCountInPeriod, rouletteRank 
 	numRouletteToken := numRouletteTicket // The game uses the _current_ value, not as if it was in the past (This is hard to explain, maybe TODO: explain this better?)
 	numJackpotRing := int64(consts.RouletteJackpotRings)
 	// TODO: get rid of logic here!
-	numRemainingRoulette := numRouletteToken + consts.RouletteFreeSpins - rouletteCountInPeriod // TODO: is this proper?
+	numRemainingRoulette := numRouletteToken + freeSpins - rouletteCountInPeriod // TODO: is this proper?
 	if numRemainingRoulette < numRouletteToken {
 		numRemainingRoulette = numRouletteToken
 	}
@@ -132,7 +132,7 @@ func DefaultWheelOptions(numRouletteTicket, rouletteCountInPeriod, rouletteRank 
 	return out
 }
 
-func UpgradeWheelOptions(origWheel WheelOptions, numRouletteTicket, rouletteCountInPeriod int64) WheelOptions {
+func UpgradeWheelOptions(origWheel WheelOptions, numRouletteTicket, rouletteCountInPeriod, freeSpins int64) WheelOptions {
 	rouletteRank := origWheel.RouletteRank
 	if origWheel.Items[origWheel.ItemWon] == strconv.Itoa(enums.IDTypeItemRouletteWin) { // if landed on big/super or jackpot
 		landedOnUpgrade := origWheel.RouletteRank == enums.WheelRankNormal || origWheel.RouletteRank == enums.WheelRankBig
@@ -154,6 +154,6 @@ func UpgradeWheelOptions(origWheel WheelOptions, numRouletteTicket, rouletteCoun
 	} else {
 		rouletteRank = enums.WheelRankNormal
 	}
-	newWheel := DefaultWheelOptions(numRouletteTicket, rouletteCountInPeriod, rouletteRank)
+	newWheel := DefaultWheelOptions(numRouletteTicket, rouletteCountInPeriod, rouletteRank, freeSpins)
 	return newWheel
 }
