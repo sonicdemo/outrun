@@ -181,8 +181,12 @@ func CommitChaoWheelSpin(helper *helper.Helper) {
 
 	// spin logic
 	primaryLogic := func(usingTickets bool) {
-		if usingTickets { // paying with ticket(s)
-			player.PlayerState.NumChaoRouletteTicket -= consts.ChaoRouletteTicketCost * request.Count // spend ticket(s)
+		if usingTickets { // paying with ticket(s) or free chao wheel spin
+			if player.PlayerState.ChaoEggs < 10 {
+				player.PlayerState.NumChaoRouletteTicket -= consts.ChaoRouletteTicketCost * request.Count // spend ticket(s)
+			} else {
+				player.PlayerState.ChaoEggs -= 10
+			}
 		} else { // paying with red ring(s)
 			player.PlayerState.NumRedRings -= consts.ChaoRouletteRedRingCost * request.Count // spend red ring(s)
 		}
@@ -312,7 +316,7 @@ func CommitChaoWheelSpin(helper *helper.Helper) {
 	hasTickets := player.PlayerState.NumChaoRouletteTicket >= consts.ChaoRouletteTicketCost*request.Count
 	hasAvailableRings := player.PlayerState.NumRedRings >= consts.ChaoRouletteRedRingCost*request.Count
 
-	if hasTickets { // if tickets to spend
+	if hasTickets || player.PlayerState.ChaoEggs >= 10 { // if has tickets or free chao wheel spin
 		primaryLogic(true)
 	} else if hasAvailableRings { // if no tickets, but sufficient red rings
 		primaryLogic(false)

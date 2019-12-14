@@ -589,7 +589,15 @@ func PostGameResults(helper *helper.Helper) {
 		player.MileageMapState.StageTotalScore += request.Score
 
 		goToNextChapter := request.ChapterClear == 1
-		//chaoEggs := request.GetChaoEgg
+		chaoEggs := request.GetChaoEgg
+		player.PlayerState.ChaoEggs += chaoEggs
+		if chaoEggs > 1 || player.PlayerState.ChaoEggs >= 10 {
+			player.ChaoRouletteGroup.ChaoWheelOptions = netobj.DefaultChaoWheelOptions(player.PlayerState) // create a new wheel
+			if player.PlayerState.ChaoEggs >= 10 {
+				player.PlayerState.ChaoEggs = 10
+			}
+		}
+
 		// TODO: Add chao eggs to player
 		newPoint := request.ReachPoint
 
