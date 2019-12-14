@@ -1,6 +1,7 @@
 package gameplay
 
 import (
+    "github.com/Mtbcooler/outrun/netobj"
     "github.com/Mtbcooler/outrun/obj"
     "github.com/Mtbcooler/outrun/obj/constobjs"
 )
@@ -16,11 +17,14 @@ func findItem(id string) obj.ConsumedItem {
     return result
 }
 
-func GetRequiredItemPayment(items []string) int64 {
-    totalRingPayment := int64(0)
-    for _, itemID := range items {
-        citem := findItem(itemID)
-        totalRingPayment += citem.Item.Amount
-    }
-    return totalRingPayment
+func GetRequiredItemPayment(items []string, player netobj.Player) int64 {
+	totalRingPayment := int64(0)
+	for _, itemID := range items {
+		citem := findItem(itemID)
+		index := player.IndexOfItem(itemID)
+		if player.PlayerState.Items[index].Amount < 1 {
+			totalRingPayment += citem.Item.Amount
+		}
+	}
+	return totalRingPayment
 }
