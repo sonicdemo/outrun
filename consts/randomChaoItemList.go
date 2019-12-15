@@ -20,17 +20,17 @@ var RandomChaoWheelCharacterPrizes = map[string]float64{
 	enums.CTStrTails:        1.0,
 	enums.CTStrKnuckles:     1.0,
 	enums.CTStrAmy:          1.0,
-	enums.CTStrBig:          1.0,
+	enums.CTStrBig:          0.7,
 	//enums.CTStrBlaze:        0.0, // Revival Event
 	enums.CTStrCharmy:       1.0,
-	enums.CTStrCream:        1.0,
+	enums.CTStrCream:        0.7,
 	enums.CTStrEspio:        1.0,
 	//enums.CTStrMephiles:     0.0, // Revival Event
 	enums.CTStrOmega:        0.5,
 	//enums.CTStrPSISilver:    0.0, // Revival Event
 	enums.CTStrRouge:        0.5,
 	enums.CTStrShadow:       0.5,
-	enums.CTStrSilver:       1.0,
+	enums.CTStrSilver:       0.7,
 	//enums.CTStrSticks:       0.0, // Revival Event
 	//enums.CTStrTikal:        0.0, // Event (Sonic Adventure)
 	enums.CTStrVector:       1.0,
@@ -41,21 +41,21 @@ var RandomChaoWheelCharacterPrizes = map[string]float64{
 
 var RandomChaoWheelChaoPrizes = map[string]float64{
 	// TODO: Balance these
-	enums.ChaoIDStrHeroChao:             1.0,
-	enums.ChaoIDStrGoldChao:             0.5,
-	enums.ChaoIDStrDarkChao:             1.0,
-	enums.ChaoIDStrJewelChao:            1.0,
+	//enums.ChaoIDStrHeroChao:             0.0,
+	//enums.ChaoIDStrGoldChao:             0.0,
+	//enums.ChaoIDStrDarkChao:             0.0,
+	//enums.ChaoIDStrJewelChao:            0.0,
 	enums.ChaoIDStrNormalChao:           3.0,
 	enums.ChaoIDStrOmochao:              3.0,
 	//enums.ChaoIDStrRCMonkey:             0.0, // Event (Animal Rescue event)
-	enums.ChaoIDStrRCSpring:             3.0,
-	enums.ChaoIDStrRCElectromagnet:      3.0,
+	enums.ChaoIDStrRCSpring:             2.0,
+	enums.ChaoIDStrRCElectromagnet:      2.0,
 	enums.ChaoIDStrBabyCyanWisp:         3.0,
 	enums.ChaoIDStrBabyIndigoWisp:       3.0,
 	enums.ChaoIDStrBabyYellowWisp:       3.0,
-	enums.ChaoIDStrRCPinwheel:           3.0,
-	enums.ChaoIDStrRCPiggyBank:          3.0,
-	enums.ChaoIDStrRCBalloon:            3.0,
+	enums.ChaoIDStrRCPinwheel:           2.0,
+	enums.ChaoIDStrRCPiggyBank:          1.0,
+	enums.ChaoIDStrRCBalloon:            2.0,
 	//enums.ChaoIDStrEasterChao:           0.0, // Event (Easter)
 	//enums.ChaoIDStrPurplePapurisu:       0.0, // Event (Puyo Puyo)
 	//enums.ChaoIDStrMagLv1:               0.0, // Event (Phantasy Star Online 2)
