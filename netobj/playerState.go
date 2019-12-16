@@ -3,6 +3,8 @@ package netobj
 import (
 	"time"
 
+	"github.com/jinzhu/now"
+
 	"github.com/Mtbcooler/outrun/config/gameconf"
 	"github.com/Mtbcooler/outrun/enums"
 	"github.com/Mtbcooler/outrun/obj"
@@ -77,13 +79,14 @@ func DefaultPlayerState() PlayerState {
 	quickRankingLeague := int64(enums.RankingLeagueNone)
 	numRouletteTicket := int64(3)
 	numChaoRouletteTicket := int64(7)
-	chaoEggs := int64(11)
+	//chaoEggs := int64(11)
+	chaoEggs := int64(0)
 	highScore := int64(0)
 	timedHighScore := int64(0)
 	totalDistance := int64(0)
 	highDistance := int64(0)
 	dailyMissionID := int64(enums.DailyMissionDontKnowYet)
-	dailyMissionEndTime := time.Now().Unix() + 120 // two minutes from now
+	dailyMissionEndTime := now.EndOfDay().UTC().Unix() // TODO: should this be in UTC, or local time?
 	dailyChallengeValue := int64(28282)
 	dailyChallengeComplete := int64(0)
 	numDailyChallenge := int64(0)

@@ -2,6 +2,7 @@ package netobj
 
 import (
 	"fmt"
+	"strconv"
 	"time"
 
 	"github.com/Mtbcooler/outrun/config/eventconf"
@@ -25,13 +26,15 @@ type Player struct {
 	MileageFriends    []MileageFriend             `json:"mileageFriendList"`
 	PlayerVarious     PlayerVarious               `json:"playerVarious"`
 	OptionUserResult  OptionUserResult            `json:"optionUserResult"`
-	LastWheelOptions  WheelOptions                `json:"ORN_wheelOptions"`  // TODO: Make RouletteGroup to hold LastWheelOptions and RouletteInfo?
+	LastWheelOptions  WheelOptions                `json:"ORN_wheelOptions"` // TODO: Make RouletteGroup to hold LastWheelOptions and RouletteInfo?
 	RouletteInfo      RouletteInfo                `json:"ORN_rouletteInfo"`
 	ChaoRouletteGroup ChaoRouletteGroup           `json:"ORN_chaoRouletteGroup"`
 	PersonalEvents    []eventconf.ConfiguredEvent `json:"ORN_personalEvents"`
+	Messages          []obj.Message               `json:"messageList"`
+	OperatorMessages  []obj.OperatorMessage       `json:"operatorMessageList"`
 }
 
-func NewPlayer(id, username, password, migrationPassword, userPassword, key string, playerState PlayerState, characterState []Character, chaoState []Chao, mileageMapState MileageMapState, mf []MileageFriend, playerVarious PlayerVarious, optionUserResult OptionUserResult, wheelOptions WheelOptions, rouletteInfo RouletteInfo, chaoRouletteGroup ChaoRouletteGroup, personalEvents []eventconf.ConfiguredEvent) Player {
+func NewPlayer(id, username, password, migrationPassword, userPassword, key string, playerState PlayerState, characterState []Character, chaoState []Chao, mileageMapState MileageMapState, mf []MileageFriend, playerVarious PlayerVarious, optionUserResult OptionUserResult, wheelOptions WheelOptions, rouletteInfo RouletteInfo, chaoRouletteGroup ChaoRouletteGroup, personalEvents []eventconf.ConfiguredEvent, messages []obj.Message, operatorMessages []obj.OperatorMessage) Player {
 	return Player{
 		id,
 		username,
@@ -51,6 +54,8 @@ func NewPlayer(id, username, password, migrationPassword, userPassword, key stri
 		rouletteInfo,
 		chaoRouletteGroup,
 		personalEvents,
+		messages,
+		operatorMessages,
 	}
 }
 
@@ -351,4 +356,84 @@ func (p *Player) GetAllNonMaxedCharacters() []string {
 		}
 	}
 	return result
+}
+
+func (p *Player) AcceptMessage(id int64) interface{} {
+	for index, message := range p.Messages {
+		if strconv.Itoa(int(id)) == message.ID {
+			p.RemoveFromMessages(index)
+			if time.Now().UTC().Unix() < message.ExpireTime {
+				return obj.MessageItemToPresent(message.Item)
+			}
+		}
+	}
+	return nil
+}
+
+func (p *Player) RemoveFromMessages(index int) {
+	// don't care about order; it shouldn't really matter
+	p.Messages[index] = p.Messages[len(p.Messages)-1]
+	p.Messages = p.Messages[:len(p.Messages)-1]
+}
+
+func (p *Player) GetAllMessageIDs() []int64 {
+	result := []int64{}
+	for _, message := range p.Messages {
+		messageid, _ := strconv.Atoi(message.ID)
+		result = append(result, int64(messageid))
+	}
+	return result
+}
+
+func (p *Player) CleanUpExpiredMessages() {
+	removals := -1
+	for removals != 0 {
+		removals = 0
+		for index, message := range p.Messages {
+			if time.Now().UTC().Unix() >= message.ExpireTime {
+				p.RemoveFromMessages(index)
+				removals++
+			}
+		}
+	}
+}
+
+func (p *Player) AcceptOperatorMessage(id int64) interface{} {
+	for index, message := range p.OperatorMessages {
+		if strconv.Itoa(int(id)) == message.ID {
+			p.RemoveFromOperatorMessages(index)
+			if time.Now().UTC().Unix() < message.ExpireTime {
+				return obj.MessageItemToPresent(message.Item)
+			}
+		}
+	}
+	return nil
+}
+
+func (p *Player) RemoveFromOperatorMessages(index int) {
+	// don't care about order; it shouldn't really matter
+	p.OperatorMessages[index] = p.OperatorMessages[len(p.OperatorMessages)-1]
+	p.OperatorMessages = p.OperatorMessages[:len(p.OperatorMessages)-1]
+}
+
+func (p *Player) GetAllOperatorMessageIDs() []int64 {
+	result := []int64{}
+	for _, message := range p.OperatorMessages {
+		messageid, _ := strconv.Atoi(message.ID)
+		result = append(result, int64(messageid))
+	}
+	return result
+}
+
+func (p *Player) CleanUpExpiredOperatorMessages() {
+	removals := -1
+	for removals != 0 {
+		removals = 0
+		for index, message := range p.OperatorMessages {
+			if time.Now().UTC().Unix() >= message.ExpireTime {
+				p.RemoveFromOperatorMessages(index)
+				removals++
+			}
+		}
+	}
 }

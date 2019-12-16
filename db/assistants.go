@@ -16,6 +16,7 @@ import (
 	"github.com/Mtbcooler/outrun/enums"
 	"github.com/Mtbcooler/outrun/netobj"
 	"github.com/Mtbcooler/outrun/netobj/constnetobjs"
+	"github.com/Mtbcooler/outrun/obj"
 
 	bolt "go.etcd.io/bbolt"
 )
@@ -68,6 +69,8 @@ func NewAccountWithID(uid string) netobj.Player {
 	}
 	chaoRouletteGroup := netobj.DefaultChaoRouletteGroup(playerState, allowedCharacters, allowedChao)
 	personalEvents := []eventconf.ConfiguredEvent{}
+	messages := []obj.Message{}
+	operatorMessages := []obj.OperatorMessage{}
 	return netobj.NewPlayer(
 		uid,
 		username,
@@ -86,6 +89,8 @@ func NewAccountWithID(uid string) netobj.Player {
 		rouletteInfo,
 		chaoRouletteGroup,
 		personalEvents,
+		messages,
+		operatorMessages,
 	)
 }
 

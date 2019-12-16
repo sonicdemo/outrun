@@ -3,6 +3,8 @@ package responses
 import (
 	"strconv"
 
+	"github.com/jinzhu/now"
+
 	"github.com/Mtbcooler/outrun/logic"
 	"github.com/Mtbcooler/outrun/netobj"
 	"github.com/Mtbcooler/outrun/obj"
@@ -34,9 +36,9 @@ func DailyChallengeData(base responseobjs.BaseInfo) DailyChallengeDataResponse {
 	}
 	incentiveListCount := int64(len(incentiveList))
 	numDailyChallengeCount := int64(0)
-	numDailyChallengeDay := int64(2)
-	maxDailyChallengeDay := int64(10) // is this how many you can get a day? In that case, doesn't 10 make no sense?
-	endTime := int64(1470322800)      // 08/04/2016 @ 3:00PM (UTC)
+	numDailyChallengeDay := int64(6)
+	maxDailyChallengeDay := int64(7)
+	endTime := now.EndOfWeek().UTC().Unix()
 	baseResponse := NewBaseResponse(base)
 	return DailyChallengeDataResponse{
 		baseResponse,

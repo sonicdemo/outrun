@@ -4,6 +4,8 @@ import (
 	"math/rand"
 	"strconv"
 
+	"github.com/Mtbcooler/outrun/obj"
+
 	"github.com/Mtbcooler/outrun/config/eventconf"
 	"github.com/Mtbcooler/outrun/consts"
 	"github.com/Mtbcooler/outrun/enums"
@@ -57,6 +59,8 @@ var BlankPlayer = func() netobj.Player {
 	}
 	chaoRouletteGroup := netobj.DefaultChaoRouletteGroup(playerState, allowedCharacters, allowedChao)
 	personalEvents := []eventconf.ConfiguredEvent{}
+	messages := []obj.Message{}
+	operatorMessages := []obj.OperatorMessage{}
 	return netobj.NewPlayer(
 		uid,
 		username,
@@ -75,5 +79,7 @@ var BlankPlayer = func() netobj.Player {
 		rouletteInfo,
 		chaoRouletteGroup,
 		personalEvents,
+		messages,
+		operatorMessages,
 	)
 }() // TODO: Solve duplication requirement with db/assistants.go

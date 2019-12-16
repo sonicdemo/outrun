@@ -88,6 +88,15 @@ const ( // Mileage rewards
 )
 
 const (
+	ItemIDEnergy  = 920000
+	ItemIDEnergy0 = 920005
+	ItemIDEnergy1 = 920020
+	ItemIDEnergy2 = 920030
+	ItemIDEnergy3 = 920050
+	ItemIDEnergy4 = 920100
+)
+
+const (
 	ItemIDStrRedRing = "900000"
 	ItemIDStrRing    = "910000"
 )
