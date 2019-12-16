@@ -3,6 +3,7 @@ package rpcobj
 import (
 	"github.com/Mtbcooler/outrun/db"
 	"github.com/Mtbcooler/outrun/netobj"
+	"github.com/Mtbcooler/outrun/obj"
 )
 
 type Toolbox struct {
@@ -43,4 +44,17 @@ type ToolboxValueReply struct {
 type ChangeValueArgs struct {
 	UID   string
 	Value interface{}
+}
+
+type SendOperatorMessageToAllArgs struct {
+	MessageContents string
+	Item            obj.MessageItem
+	ExpiresAfter    int64
+}
+
+type SendOperatorMessageArgs struct {
+	UID             string
+	MessageContents string
+	Item            obj.MessageItem
+	ExpiresAfter    int64
 }

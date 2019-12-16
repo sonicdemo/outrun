@@ -14,6 +14,7 @@ import (
 	"github.com/Mtbcooler/outrun/logic"
 	"github.com/Mtbcooler/outrun/netobj"
 	"github.com/Mtbcooler/outrun/netobj/constnetobjs"
+	"github.com/Mtbcooler/outrun/obj"
 	"github.com/Mtbcooler/outrun/obj/constobjs"
 )
 
@@ -271,40 +272,40 @@ func (t *Toolbox) Debug_PrepTag1p0(uids string, reply *ToolboxReply) error {
 		result := math.Sqrt(fn)
 		return int64(result)
 	}
-	
+
 	_ = sqrt
 
-    for _, uid := range allUIDs {
-        player, err := db.GetPlayer(uid)
-        if err != nil {
-            reply.Status = StatusOtherError
-            reply.Info = fmt.Sprintf("unable to get player %s: ", uid) + err.Error()
-            return err
-        }
-        // compensate first
-        amountPerLevel := int64(7)  // Red Rings offered per level
-        newRedRingAmount := int64(5)
-        for _, char := range player.CharacterState {
-            newRedRingAmount += char.Level * amountPerLevel
-        }
-        player.CharacterState = netobj.DefaultCharacterState() // already uses AllCharactersUnlocked
-        player.ChaoState = constnetobjs.DefaultChaoState()     // already uses AllChaoUnlocked
-        player.PlayerState.MainCharaID = gameconf.CFile.DefaultMainCharacter
-        player.PlayerState.SubChaoID = gameconf.CFile.DefaultSubChao
-        player.PlayerState.MainChaoID = gameconf.CFile.DefaultMainChao
-        player.PlayerState.SubCharaID = gameconf.CFile.DefaultSubCharacter
-        player.PlayerState.NumRings = int64(10000)
-        player.PlayerState.NumRedRings = newRedRingAmount
-        player.PlayerState.Energy = gameconf.CFile.StartingEnergy
-        player.PlayerState.Items = constobjs.DefaultPlayerStateItems
+	for _, uid := range allUIDs {
+		player, err := db.GetPlayer(uid)
+		if err != nil {
+			reply.Status = StatusOtherError
+			reply.Info = fmt.Sprintf("unable to get player %s: ", uid) + err.Error()
+			return err
+		}
+		// compensate first
+		amountPerLevel := int64(7) // Red Rings offered per level
+		newRedRingAmount := int64(5)
+		for _, char := range player.CharacterState {
+			newRedRingAmount += char.Level * amountPerLevel
+		}
+		player.CharacterState = netobj.DefaultCharacterState() // already uses AllCharactersUnlocked
+		player.ChaoState = constnetobjs.DefaultChaoState()     // already uses AllChaoUnlocked
+		player.PlayerState.MainCharaID = gameconf.CFile.DefaultMainCharacter
+		player.PlayerState.SubChaoID = gameconf.CFile.DefaultSubChao
+		player.PlayerState.MainChaoID = gameconf.CFile.DefaultMainChao
+		player.PlayerState.SubCharaID = gameconf.CFile.DefaultSubCharacter
+		player.PlayerState.NumRings = int64(10000)
+		player.PlayerState.NumRedRings = newRedRingAmount
+		player.PlayerState.Energy = gameconf.CFile.StartingEnergy
+		player.PlayerState.Items = constobjs.DefaultPlayerStateItems
 
-        err = db.SavePlayer(player)
-        if err != nil {
-            reply.Status = StatusOtherError
-            reply.Info = fmt.Sprintf("error saving player %s: ", uid) + err.Error()
-            return err
-        }
-    }
+		err = db.SavePlayer(player)
+		if err != nil {
+			reply.Status = StatusOtherError
+			reply.Info = fmt.Sprintf("error saving player %s: ", uid) + err.Error()
+			return err
+		}
+	}
 	reply.Status = StatusOK
 	reply.Info = "OK"
 	return nil
@@ -375,6 +376,110 @@ func (t *Toolbox) Debug_FixWerehogRedRings(uids string, reply *ToolboxReply) err
 			reply.Info = fmt.Sprintf("error saving player %s: ", uid) + err.Error()
 			return err
 		}
+	}
+	reply.Status = StatusOK
+	reply.Info = "OK"
+	return nil
+}
+
+// This code ain't pretty, and takes a long time to execute depending on how many players are in the database!
+func (t *Toolbox) Debug_SendOperatorMessageToAll(args SendOperatorMessageToAllArgs, reply *ToolboxReply) error {
+	playerIDs := []string{}
+	dbaccess.ForEachKey(consts.DBBucketPlayers, func(k, v []byte) error {
+		playerIDs = append(playerIDs, string(k))
+		return nil
+	})
+	for _, uid := range playerIDs {
+		player, err := db.GetPlayer(uid)
+		if err != nil {
+			reply.Status = StatusOtherError
+			reply.Info = fmt.Sprintf("unable to get player %s: ", uid) + err.Error()
+			return err
+		}
+		if player.Messages == nil {
+			player.Messages = []obj.Message{}
+		}
+		if player.OperatorMessages == nil {
+			player.OperatorMessages = []obj.OperatorMessage{}
+		}
+		index := 0
+		foundPreferredID := false
+		preferredID := 1
+		for !foundPreferredID {
+			foundPreferredID = true
+			index = 0
+			for index < len(player.OperatorMessages) {
+				if player.OperatorMessages[index].ID == strconv.Itoa(preferredID) {
+					foundPreferredID = false
+				}
+				index++
+			}
+			preferredID++
+		}
+		preferredID--
+		player.OperatorMessages = append(
+			player.OperatorMessages,
+			obj.NewOperatorMessage(
+				int64(preferredID),
+				args.MessageContents,
+				args.Item,
+				args.ExpiresAfter,
+			),
+		)
+		err = db.SavePlayer(player)
+		if err != nil {
+			reply.Status = StatusOtherError
+			reply.Info = fmt.Sprintf("error saving player %s: ", uid) + err.Error()
+			return err
+		}
+	}
+	reply.Status = StatusOK
+	reply.Info = "OK"
+	return nil
+}
+
+func (t *Toolbox) Debug_SendOperatorMessage(args SendOperatorMessageArgs, reply *ToolboxReply) error {
+	player, err := db.GetPlayer(args.UID)
+	if err != nil {
+		reply.Status = StatusOtherError
+		reply.Info = fmt.Sprintf("unable to get player %s: ", args.UID) + err.Error()
+		return err
+	}
+	if player.Messages == nil {
+		player.Messages = []obj.Message{}
+	}
+	if player.OperatorMessages == nil {
+		player.OperatorMessages = []obj.OperatorMessage{}
+	}
+	index := 0
+	foundPreferredID := false
+	preferredID := 1
+	for !foundPreferredID {
+		foundPreferredID = true
+		index = 0
+		for index < len(player.OperatorMessages) {
+			if player.OperatorMessages[index].ID == strconv.Itoa(preferredID) {
+				foundPreferredID = false
+			}
+			index++
+		}
+		preferredID++
+	}
+	preferredID--
+	player.OperatorMessages = append(
+		player.OperatorMessages,
+		obj.NewOperatorMessage(
+			int64(preferredID),
+			args.MessageContents,
+			args.Item,
+			args.ExpiresAfter,
+		),
+	)
+	err = db.SavePlayer(player)
+	if err != nil {
+		reply.Status = StatusOtherError
+		reply.Info = fmt.Sprintf("error saving player %s: ", args.UID) + err.Error()
+		return err
 	}
 	reply.Status = StatusOK
 	reply.Info = "OK"

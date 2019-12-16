@@ -62,6 +62,7 @@ func GetMessage(helper *helper.Helper) {
 	switch messageIds := request.MessageIDs.(type) {
 	case []interface{}:
 		helper.DebugOut("%v", messageIds)
+		player.CleanUpExpiredMessages()
 		for _, msgid := range messageIds {
 			helper.DebugOut("Accepting message ID %v", msgid)
 			present := player.AcceptMessage(int64(msgid.(float64))) // TODO: why does Go think this is a float64 and not an int64?
