@@ -8,6 +8,8 @@ import (
 	"github.com/Mtbcooler/outrun/emess"
 	"github.com/Mtbcooler/outrun/enums"
 	"github.com/Mtbcooler/outrun/helper"
+	"github.com/Mtbcooler/outrun/logic"
+	"github.com/Mtbcooler/outrun/netobj"
 	"github.com/Mtbcooler/outrun/obj"
 	"github.com/Mtbcooler/outrun/requests"
 	"github.com/Mtbcooler/outrun/responses"
@@ -58,9 +60,12 @@ func GetMessage(helper *helper.Helper) {
 	}
 
 	presentList := []obj.Present{}
+	acceptingMessages := false
+	acceptingOperatorMessages := false
 
 	switch messageIds := request.MessageIDs.(type) {
 	case []interface{}:
+		acceptingMessages = true
 		helper.DebugOut("%v", messageIds)
 		player.CleanUpExpiredMessages()
 		for _, msgid := range messageIds {
@@ -71,13 +76,22 @@ func GetMessage(helper *helper.Helper) {
 			}
 		}
 	case string:
-		helper.DebugOut("No messages to accept")
+		if request.MessageIDs.(string) == "0" {
+			helper.DebugOut("No messages to accept")
+		} else {
+			helper.Warn("Unexpected string value \"%s\" for request.MessageIDs", request.MessageIDs.(string))
+			helper.InvalidRequest()
+			return
+		}
 	default:
 		helper.Warn("Unexpected type of request.MessageIDs")
+		helper.InvalidRequest()
+		return
 	}
 
 	switch operatorMessageIds := request.OperatorMessageIDs.(type) {
 	case []interface{}:
+		acceptingOperatorMessages = true
 		helper.DebugOut("%v", operatorMessageIds)
 		player.CleanUpExpiredOperatorMessages()
 		for _, omsgid := range operatorMessageIds {
@@ -88,9 +102,37 @@ func GetMessage(helper *helper.Helper) {
 			}
 		}
 	case string:
-		helper.DebugOut("No operator messages to accept")
+		if request.OperatorMessageIDs.(string) == "0" {
+			helper.DebugOut("No operator messages to accept")
+		} else {
+			helper.Warn("Unexpected string value \"%s\" for request.OperatorMessageIDs", request.OperatorMessageIDs.(string))
+			helper.InvalidRequest()
+			return
+		}
 	default:
 		helper.Warn("Unexpected type of request.OperatorMessageIDs")
+		helper.InvalidRequest()
+		return
+	}
+
+	if !acceptingMessages && !acceptingOperatorMessages {
+		helper.DebugOut("Assuming this is an 'Accept All Gifts' command...")
+		player.CleanUpExpiredMessages()
+		for _, msgid := range player.GetAllMessageIDs() {
+			helper.DebugOut("Accepting message ID %v", msgid)
+			present := player.AcceptMessage(msgid)
+			if present != nil {
+				presentList = append(presentList, present.(obj.Present))
+			}
+		}
+		player.CleanUpExpiredOperatorMessages()
+		for _, omsgid := range player.GetAllOperatorMessageIDs() {
+			helper.DebugOut("Accepting operator message ID %v", omsgid)
+			present := player.AcceptOperatorMessage(omsgid)
+			if present != nil {
+				presentList = append(presentList, present.(obj.Present))
+			}
+		}
 	}
 
 	helper.DebugOut("%v", presentList)
@@ -114,10 +156,13 @@ func GetMessage(helper *helper.Helper) {
 			player.PlayerState.Energy += currentPresent.NumItem
 		} else if itemid == strconv.Itoa(enums.IDSpecialEgg) {
 			player.PlayerState.ChaoEggs += currentPresent.NumItem
+			player.ChaoRouletteGroup.ChaoWheelOptions = netobj.DefaultChaoWheelOptions(player.PlayerState) //refresh chao wheel
 		} else if itemid == strconv.Itoa(enums.IDRouletteTicketPremium) {
 			player.PlayerState.NumChaoRouletteTicket += currentPresent.NumItem
+			player.ChaoRouletteGroup.ChaoWheelOptions = netobj.DefaultChaoWheelOptions(player.PlayerState) //refresh chao wheel
 		} else if itemid == strconv.Itoa(enums.IDRouletteTicketItem) {
 			player.PlayerState.NumRouletteTicket += currentPresent.NumItem
+			player.LastWheelOptions = logic.WheelRefreshLogic(player, player.LastWheelOptions) //refresh wheel
 		} else if itemid[:2] == "40" { // ID is a Chao
 			chaoIndex := player.IndexOfChao(itemid)
 			if chaoIndex == -1 { // chao index not found, should never happen
