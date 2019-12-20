@@ -253,16 +253,36 @@ func LoginBonus(base responseobjs.BaseInfo, lbs obj.LoginBonusStatus, lbrl, flbr
 	}
 }
 
-func DefaultLoginBonus(base responseobjs.BaseInfo) LoginBonusResponse {
-	lbs := obj.NewLoginBonusStatus(2, 2, 1465830000)
+func DefaultLoginBonus(base responseobjs.BaseInfo, player netobj.Player, doLoginBonus bool) LoginBonusResponse {
+	lbs := obj.NewLoginBonusStatus(player.LoginBonusState.CurrentLoginBonusDay-1, player.LoginBonusState.CurrentLoginBonusDay, player.LoginBonusState.LastLoginBonusTime)
 	lbrl := constobjs.DefaultLoginBonusRewardList
 	flbrl := constobjs.DefaultFirstLoginBonusRewardList
-	st := int64(1465743600)
-	et := int64(1466348400)
+	st := player.LoginBonusState.LoginBonusStartTime
+	et := player.LoginBonusState.LoginBonusEndTime
 	rid := int64(-1)
-	rd := int64(-1)
-	frd := int64(-1)
+	rd := player.LoginBonusState.CurrentLoginBonusDay
+	frd := player.LoginBonusState.CurrentFirstLoginBonusDay
+	if doLoginBonus {
+		rid = int64(0)
+		rd = player.LoginBonusState.CurrentLoginBonusDay - 1
+		frd = player.LoginBonusState.CurrentFirstLoginBonusDay - 1
+	}
 	return LoginBonus(base, lbs, lbrl, flbrl, st, et, rid, rd, frd)
+}
+
+type LoginBonusSelectResponse struct {
+	BaseResponse
+	RewardList      []obj.Item `json:"rewardList,omitempty"`
+	FirstRewardList []obj.Item `json:"firstRewardList,omitempty"`
+}
+
+func LoginBonusSelect(base responseobjs.BaseInfo, rl, frl []obj.Item) LoginBonusSelectResponse {
+	baseResponse := NewBaseResponse(base)
+	return LoginBonusSelectResponse{
+		baseResponse,
+		rl,
+		frl,
+	}
 }
 
 type MigrationPasswordResponse struct {
@@ -307,4 +327,3 @@ func MigrationSuccess(base responseobjs.BaseInfo, sid, uid, username, password s
 	}
 	return out
 }
-

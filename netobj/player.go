@@ -32,9 +32,10 @@ type Player struct {
 	PersonalEvents    []eventconf.ConfiguredEvent `json:"ORN_personalEvents"`
 	Messages          []obj.Message               `json:"messageList"`
 	OperatorMessages  []obj.OperatorMessage       `json:"operatorMessageList"`
+	LoginBonusState   LoginBonusState             `json:"loginBonusState"`
 }
 
-func NewPlayer(id, username, password, migrationPassword, userPassword, key string, playerState PlayerState, characterState []Character, chaoState []Chao, mileageMapState MileageMapState, mf []MileageFriend, playerVarious PlayerVarious, optionUserResult OptionUserResult, wheelOptions WheelOptions, rouletteInfo RouletteInfo, chaoRouletteGroup ChaoRouletteGroup, personalEvents []eventconf.ConfiguredEvent, messages []obj.Message, operatorMessages []obj.OperatorMessage) Player {
+func NewPlayer(id, username, password, migrationPassword, userPassword, key string, playerState PlayerState, characterState []Character, chaoState []Chao, mileageMapState MileageMapState, mf []MileageFriend, playerVarious PlayerVarious, optionUserResult OptionUserResult, wheelOptions WheelOptions, rouletteInfo RouletteInfo, chaoRouletteGroup ChaoRouletteGroup, personalEvents []eventconf.ConfiguredEvent, messages []obj.Message, operatorMessages []obj.OperatorMessage, loginBonusState LoginBonusState) Player {
 	return Player{
 		id,
 		username,
@@ -56,6 +57,7 @@ func NewPlayer(id, username, password, migrationPassword, userPassword, key stri
 		personalEvents,
 		messages,
 		operatorMessages,
+		loginBonusState,
 	}
 }
 
@@ -436,4 +438,29 @@ func (p *Player) CleanUpExpiredOperatorMessages() {
 			}
 		}
 	}
+}
+
+func (p *Player) AddOperatorMessage(messageContents string, item obj.MessageItem, expiresAfter int64) {
+	// A function to add an operator message, automatically determining its ID
+	lowestID := 500000
+	selectedID := 500000
+	if len(p.OperatorMessages) > 0 {
+		for _, omsg := range p.OperatorMessages {
+			omsgid, _ := strconv.Atoi(omsg.ID)
+			if omsgid < lowestID {
+				lowestID = omsgid
+			}
+		}
+		selectedID = lowestID - 1
+	}
+	p.OperatorMessages = append(
+		p.OperatorMessages,
+		obj.NewOperatorMessage(
+			int64(selectedID),
+			messageContents,
+			item,
+			expiresAfter,
+		),
+	)
+	// TODO: Add 300 message limit (taking into account both normal messages and operator messages)
 }

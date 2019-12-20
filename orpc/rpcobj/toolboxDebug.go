@@ -402,30 +402,7 @@ func (t *Toolbox) Debug_SendOperatorMessageToAll(args SendOperatorMessageToAllAr
 		if player.OperatorMessages == nil {
 			player.OperatorMessages = []obj.OperatorMessage{}
 		}
-		index := 0
-		foundPreferredID := false
-		preferredID := 1
-		for !foundPreferredID {
-			foundPreferredID = true
-			index = 0
-			for index < len(player.OperatorMessages) {
-				if player.OperatorMessages[index].ID == strconv.Itoa(preferredID) {
-					foundPreferredID = false
-				}
-				index++
-			}
-			preferredID++
-		}
-		preferredID--
-		player.OperatorMessages = append(
-			player.OperatorMessages,
-			obj.NewOperatorMessage(
-				int64(preferredID),
-				args.MessageContents,
-				args.Item,
-				args.ExpiresAfter,
-			),
-		)
+		player.AddOperatorMessage(args.MessageContents, args.Item, args.ExpiresAfter)
 		err = db.SavePlayer(player)
 		if err != nil {
 			reply.Status = StatusOtherError
@@ -451,30 +428,7 @@ func (t *Toolbox) Debug_SendOperatorMessage(args SendOperatorMessageArgs, reply 
 	if player.OperatorMessages == nil {
 		player.OperatorMessages = []obj.OperatorMessage{}
 	}
-	index := 0
-	foundPreferredID := false
-	preferredID := 1
-	for !foundPreferredID {
-		foundPreferredID = true
-		index = 0
-		for index < len(player.OperatorMessages) {
-			if player.OperatorMessages[index].ID == strconv.Itoa(preferredID) {
-				foundPreferredID = false
-			}
-			index++
-		}
-		preferredID++
-	}
-	preferredID--
-	player.OperatorMessages = append(
-		player.OperatorMessages,
-		obj.NewOperatorMessage(
-			int64(preferredID),
-			args.MessageContents,
-			args.Item,
-			args.ExpiresAfter,
-		),
-	)
+	player.AddOperatorMessage(args.MessageContents, args.Item, args.ExpiresAfter)
 	err = db.SavePlayer(player)
 	if err != nil {
 		reply.Status = StatusOtherError

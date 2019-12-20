@@ -71,6 +71,7 @@ func NewAccountWithID(uid string) netobj.Player {
 	personalEvents := []eventconf.ConfiguredEvent{}
 	messages := []obj.Message{}
 	operatorMessages := []obj.OperatorMessage{}
+	loginBonusState := netobj.DefaultLoginBonusState(0)
 	return netobj.NewPlayer(
 		uid,
 		username,
@@ -91,6 +92,7 @@ func NewAccountWithID(uid string) netobj.Player {
 		personalEvents,
 		messages,
 		operatorMessages,
+		loginBonusState,
 	)
 }
 
