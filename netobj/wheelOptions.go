@@ -41,12 +41,22 @@ func DefaultWheelOptions(numRouletteTicket, rouletteCountInPeriod, rouletteRank,
 	// Mode 2: Classic mode but with two win spots placed horizontally instead of one win spot on the top
 	chaoIDs, _ := roulette.GetRandomChaoWheelChao(0, 7)
 	itemWeight := []int64{1250, 1250, 1250, 1250, 1250, 1250, 1250, 1250}
+	randomItemList := consts.RandomItemListNormalWheel
+	itemAmountRange := consts.NormalWheelItemAmountRange
+	if rouletteRank == enums.WheelRankBig {
+		randomItemList = consts.RandomItemListBigWheel
+		itemAmountRange = consts.BigWheelItemAmountRange
+	}
+	if rouletteRank == enums.WheelRankSuper {
+		randomItemList = consts.RandomItemListSuperWheel
+		itemAmountRange = consts.SuperWheelItemAmountRange
+	}
 	switch rouletteGenMode {
 	case 1:
-		randomItem1 := consts.RandomItemListNormalWheel[rand.Intn(len(consts.RandomItemListNormalWheel))]
-		randomItemAmount1 := consts.NormalWheelItemAmountRange[randomItem1].GetRandom()
-		randomItem2 := consts.RandomItemListNormalWheel[rand.Intn(len(consts.RandomItemListNormalWheel))]
-		randomItemAmount2 := consts.NormalWheelItemAmountRange[randomItem2].GetRandom()
+		randomItem1 := randomItemList[rand.Intn(len(randomItemList))]
+		randomItemAmount1 := itemAmountRange[randomItem1].GetRandom()
+		randomItem2 := randomItemList[rand.Intn(len(randomItemList))]
+		randomItemAmount2 := itemAmountRange[randomItem2].GetRandom()
 		items = append(items, randomItem1)
 		item = append(item, randomItemAmount1)
 		items = append(items, randomItem2)
@@ -68,14 +78,14 @@ func DefaultWheelOptions(numRouletteTicket, rouletteCountInPeriod, rouletteRank,
 		item = append(item, randomItemAmount1)
 	default:
 		for _ = range make([]byte, 7) { // loop 7 times
-			randomItem := consts.RandomItemListNormalWheel[rand.Intn(len(consts.RandomItemListNormalWheel))]
-			randomItemAmount := consts.NormalWheelItemAmountRange[randomItem].GetRandom()
+			randomItem := randomItemList[rand.Intn(len(randomItemList))]
+			randomItemAmount := itemAmountRange[randomItem].GetRandom()
 			items = append(items, randomItem)
 			item = append(item, randomItemAmount)
 		}
 		if rouletteGenMode == 2 && rouletteRank == enums.WheelRankNormal {
-			randomItem := consts.RandomItemListNormalWheel[rand.Intn(len(consts.RandomItemListNormalWheel))]
-			randomItemAmount := consts.NormalWheelItemAmountRange[randomItem].GetRandom()
+			randomItem := randomItemList[rand.Intn(len(randomItemList))]
+			randomItemAmount := itemAmountRange[randomItem].GetRandom()
 			items[0] = randomItem
 			item[0] = randomItemAmount
 			items[2] = strconv.Itoa(enums.IDTypeItemRouletteWin)
