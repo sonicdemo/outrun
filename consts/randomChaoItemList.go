@@ -95,17 +95,17 @@ var RandomChaoWheelChaoPrizes = map[string]float64{
 	//enums.ChaoIDStrHeavyBomb:            0.0, // Event (Fantasy Zone)
 	enums.ChaoIDStrBlockBomb:            1.0,
 	enums.ChaoIDStrHunkofMeat:           1.0,
-	//enums.ChaoIDStrYeti:                 0.0, // Event (Christmas)
-	//enums.ChaoIDStrSnowChao:             0.0, // Event (Christmas)
-	//enums.ChaoIDStrIdeya:                0.0, // Event (Christmas NiGHTS)
-	//enums.ChaoIDStrChristmasNightopian:  0.0, // Event (Christmas NiGHTS)
+	enums.ChaoIDStrYeti:                 8.0, // Event (Christmas)
+	enums.ChaoIDStrSnowChao:             6.0, // Event (Christmas)
+	enums.ChaoIDStrIdeya:                8.0, // Event (Christmas NiGHTS)
+	enums.ChaoIDStrChristmasNightopian:  6.0, // Event (Christmas NiGHTS)
 	enums.ChaoIDStrOrbot:                1.0,
 	enums.ChaoIDStrCubot:                1.0,
 	enums.ChaoIDStrLightChaos:           1.5,
 	enums.ChaoIDStrHeroChaos:            1.5,
 	enums.ChaoIDStrDarkChaos:            1.5,
 	enums.ChaoIDStrChip:                 1.5,
-	enums.ChaoIDStrShahra:               0.5,
+	enums.ChaoIDStrShahra:               0.2,
 	enums.ChaoIDStrCaliburn:             1.5,
 	enums.ChaoIDStrKingArthursGhost:     1.5,
 	enums.ChaoIDStrRCTornado:            1.0,
@@ -126,14 +126,14 @@ var RandomChaoWheelChaoPrizes = map[string]float64{
 	//enums.ChaoIDStrNiGHTS:               0.0, // Event (NiGHTS)
 	//enums.ChaoIDStrReala:                0.0, // Event (NiGHTS)
 	//enums.ChaoIDStrRCTornado2:           0.0, // Event (Sonic Adventure
-	enums.ChaoIDStrChaoWalker:           1.5,
-	enums.ChaoIDStrDarkQueen:            0.5,
+	enums.ChaoIDStrChaoWalker:           1.0,
+	enums.ChaoIDStrDarkQueen:            0.2,
 	//enums.ChaoIDStrKingBoomBoo:          0.0, // Event (Halloween)
 	//enums.ChaoIDStrOPapa:                0.0, // Event (Fantasy Zone)
 	//enums.ChaoIDStrOpaOpa:               0.0, // Event (Fantasy Zone)
 	enums.ChaoIDStrRCBlockFace:          1.0,
-	//enums.ChaoIDStrChristmasYeti:        0.0, // Event (Christmas)
-	//enums.ChaoIDStrChristmasNiGHTS:      0.0, // Event (Christmas NiGHTS)
+	enums.ChaoIDStrChristmasYeti:        5.0, // Event (Christmas)
+	enums.ChaoIDStrChristmasNiGHTS:      1.5, // Event (Christmas NiGHTS)
 	//enums.ChaoIDStrDFekt:                1.0, // DO NOT ENABLE
-	enums.ChaoIDStrDarkChaoWalker:       1.5,
+	enums.ChaoIDStrDarkChaoWalker:       1.0,
 }
