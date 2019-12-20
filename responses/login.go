@@ -4,6 +4,7 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/Mtbcooler/outrun/config/gameconf"
 	"github.com/Mtbcooler/outrun/config/infoconf"
 	"github.com/Mtbcooler/outrun/logic/conversion"
 	"github.com/Mtbcooler/outrun/netobj"
@@ -262,10 +263,15 @@ func DefaultLoginBonus(base responseobjs.BaseInfo, player netobj.Player, doLogin
 	rid := int64(-1)
 	rd := player.LoginBonusState.CurrentLoginBonusDay
 	frd := player.LoginBonusState.CurrentFirstLoginBonusDay
+	if !gameconf.CFile.EnableStartDashLoginBonus {
+		frd = -1
+	}
 	if doLoginBonus {
 		rid = int64(0)
 		rd = player.LoginBonusState.CurrentLoginBonusDay - 1
-		frd = player.LoginBonusState.CurrentFirstLoginBonusDay - 1
+		if gameconf.CFile.EnableStartDashLoginBonus {
+			frd = player.LoginBonusState.CurrentFirstLoginBonusDay - 1
+		}
 	}
 	return LoginBonus(base, lbs, lbrl, flbrl, st, et, rid, rd, frd)
 }

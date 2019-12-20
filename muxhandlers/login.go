@@ -182,8 +182,10 @@ func LoginBonus(helper *helper.Helper) {
 		doLoginBonus = true
 		player.LoginBonusState.LastLoginBonusTime = time.Now().UTC().Unix()
 		player.LoginBonusState.NextLoginBonusTime = now.EndOfDay().UTC().Unix()
-		player.LoginBonusState.CurrentFirstLoginBonusDay++
 		player.LoginBonusState.CurrentLoginBonusDay++
+		if gameconf.CFile.EnableStartDashLoginBonus {
+			player.LoginBonusState.CurrentFirstLoginBonusDay++
+		}
 	}
 	err = db.SavePlayer(player)
 	if err != nil {
