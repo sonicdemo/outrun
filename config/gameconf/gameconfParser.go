@@ -47,8 +47,8 @@ var ChaoMap = enums.ChaoNameMap
 
 // defaults
 var Defaults = map[string]interface{}{
-	"DAllCharactersUnlocked":     true,
-	"DAllChaoUnlocked":           true,
+	"DAllCharactersUnlocked":     false,
+	"DAllChaoUnlocked":           false,
 	"DDefaultMainCharacter":      "sonic",
 	"DDefaultSubCharacter":       "empty",
 	"DDefaultMainChao":           "empty",
@@ -56,11 +56,11 @@ var Defaults = map[string]interface{}{
 	"DStartingRings":             int64(5000),
 	"DStartingRedRings":          int64(25),
 	"DStartingEnergy":            int64(5),
-	"DAllItemsFree":              true,
-	"DEnableEnergyConsumption":   false,
-	"DEnergyRecoveryMax":         int64(5),
+	"DAllItemsFree":              false,
+	"DEnableEnergyConsumption":   true,
+	"DEnergyRecoveryMax":         int64(10),
 	"DEnergyRecoveryTime":        int64(600),
-	"DEnableStartDashLoginBonus": false,
+	"DEnableStartDashLoginBonus": true,
 }
 
 var CFile ConfigFile
