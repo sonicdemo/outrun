@@ -26,6 +26,7 @@ import (
 	"github.com/Mtbcooler/outrun/requests"
 	"github.com/Mtbcooler/outrun/responses"
 	"github.com/Mtbcooler/outrun/status"
+	"github.com/jinzhu/now"
 )
 
 func GetDailyChallengeData(helper *helper.Helper) {
@@ -365,6 +366,33 @@ func QuickPostGameResults(helper *helper.Helper) {
 		}
 		player.PlayerState.DailyChallengeComplete = request.DailyChallengeComplete
 		player.PlayerState.DailyChallengeValue = request.DailyChallengeValue
+		if time.Now().UTC().Unix() >= player.PlayerState.DailyMissionEndTime {
+			if player.PlayerState.DailyChallengeComplete == 1 && player.PlayerState.DailyChalSetNum < 10 {
+				helper.DebugOut("Advancing to next daily mission...")
+				player.PlayerState.DailyChalSetNum++
+			} else {
+				player.PlayerState.DailyChalCatNum = int64(rand.Intn(5))
+				player.PlayerState.DailyChalSetNum = int64(0)
+			}
+			if player.PlayerState.DailyChallengeComplete == 0 {
+				player.PlayerState.NumDailyChallenge = int64(0)
+				player.PlayerState.NextNumDailyChallenge = int64(1)
+			} else {
+				player.PlayerState.NextNumDailyChallenge++
+				if int(player.PlayerState.NextNumDailyChallenge) > len(consts.DailyMissionRewards) {
+					player.PlayerState.NumDailyChallenge = int64(0)
+					player.PlayerState.NextNumDailyChallenge = int64(1) //restart from beginning
+					player.PlayerState.DailyChalCatNum = int64(rand.Intn(5))
+					player.PlayerState.DailyChalSetNum = int64(0)
+				}
+			}
+			player.PlayerState.DailyChalPosNum = int64(1 + rand.Intn(2))
+			player.PlayerState.DailyMissionID = int64((player.PlayerState.DailyChalCatNum * 33) + (player.PlayerState.DailyChalSetNum * 3) + player.PlayerState.DailyChalPosNum)
+			player.PlayerState.DailyChallengeValue = int64(0)
+			player.PlayerState.DailyChallengeComplete = int64(0)
+			player.PlayerState.DailyMissionEndTime = now.EndOfDay().UTC().Unix() + 1
+			helper.DebugOut("New daily mission ID: %v", player.PlayerState.DailyMissionID)
+		}
 		//player.PlayerState.TotalDistance += request.Distance  // We don't do this in timed mode!
 
 		sum := func(in []int64) int64 {
@@ -593,6 +621,33 @@ func PostGameResults(helper *helper.Helper) {
 		}
 		player.PlayerState.DailyChallengeComplete = request.DailyChallengeComplete
 		player.PlayerState.DailyChallengeValue = request.DailyChallengeValue
+		if time.Now().UTC().Unix() >= player.PlayerState.DailyMissionEndTime {
+			if player.PlayerState.DailyChallengeComplete == 1 && player.PlayerState.DailyChalSetNum < 10 {
+				helper.DebugOut("Advancing to next daily mission...")
+				player.PlayerState.DailyChalSetNum++
+			} else {
+				player.PlayerState.DailyChalCatNum = int64(rand.Intn(5))
+				player.PlayerState.DailyChalSetNum = int64(0)
+			}
+			if player.PlayerState.DailyChallengeComplete == 0 {
+				player.PlayerState.NumDailyChallenge = int64(0)
+				player.PlayerState.NextNumDailyChallenge = int64(1)
+			} else {
+				player.PlayerState.NextNumDailyChallenge++
+				if int(player.PlayerState.NextNumDailyChallenge) > len(consts.DailyMissionRewards) {
+					player.PlayerState.NumDailyChallenge = int64(0)
+					player.PlayerState.NextNumDailyChallenge = int64(1) //restart from beginning
+					player.PlayerState.DailyChalCatNum = int64(rand.Intn(5))
+					player.PlayerState.DailyChalSetNum = int64(0)
+				}
+			}
+			player.PlayerState.DailyChalPosNum = int64(1 + rand.Intn(2))
+			player.PlayerState.DailyMissionID = int64((player.PlayerState.DailyChalCatNum * 33) + (player.PlayerState.DailyChalSetNum * 3) + player.PlayerState.DailyChalPosNum)
+			player.PlayerState.DailyChallengeValue = int64(0)
+			player.PlayerState.DailyChallengeComplete = int64(0)
+			player.PlayerState.DailyMissionEndTime = now.EndOfDay().UTC().Unix() + 1
+			helper.DebugOut("New daily mission ID: %v", player.PlayerState.DailyMissionID)
+		}
 		player.PlayerState.TotalDistance += request.Distance
 		playerHighDistance := player.PlayerState.HighDistance
 		if request.Distance > playerHighDistance {
@@ -703,10 +758,6 @@ func PostGameResults(helper *helper.Helper) {
 				player.MileageMapState.Chapter = 1
 				player.MileageMapState.Point = 0
 				player.MileageMapState.StageTotalScore = 0
-				player.PlayerState.Rank++
-				if player.PlayerState.Rank > 998 { // rank going above 999
-					player.PlayerState.Rank = 998
-				}
 				helper.DebugOut("goToNextEpisode: Player (%s) beat the game!", player.ID)
 			}
 		} else {
@@ -723,6 +774,7 @@ func PostGameResults(helper *helper.Helper) {
 		// add rewards to PlayerState
 		wonRewards := campaign.GetWonRewards(oldRewardEpisode, oldRewardChapter, oldRewardPoint, newRewardEpisode, newRewardChapter, newRewardPoint)
 		helper.DebugOut("wonRewards length: %v", wonRewards)
+		helper.DebugOut("Previous red rings: %v", player.PlayerState.NumRings)
 		helper.DebugOut("Previous rings: %v", player.PlayerState.NumRings)
 		newItems := player.PlayerState.Items
 		for _, reward := range wonRewards { // TODO: This is O(n^2). Maybe alleviate this?
