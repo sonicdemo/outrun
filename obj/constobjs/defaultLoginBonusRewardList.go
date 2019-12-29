@@ -69,8 +69,8 @@ var DefaultLoginBonusRewardList = func() []obj.LoginBonusReward {
 			[]obj.SelectReward{
 				obj.NewSelectReward(
 					[]obj.Item{
-						obj.NewItem("900000", 10),
-						obj.NewItem("910000", 10000),
+						obj.NewItem("900000", 20),
+						obj.NewItem("910000", 15000),
 						obj.NewItem("240000", 2),
 					},
 				),
