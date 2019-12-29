@@ -13,11 +13,11 @@ var DailyMissionRewards = []int64{
 	enums.ItemIDRedRing,
 }
 var DailyMissionRewardCounts = []int64{
-	500,
-	10,
 	1000,
+	10,
+	5000,
 	20,
-	2500,
+	10000,
 	30,
-	75,
+	60,
 }
