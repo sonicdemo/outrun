@@ -34,9 +34,8 @@ func GetDailyChallengeData(helper *helper.Helper) {
 		helper.InternalErr("Error getting player", err)
 		return
 	}
-	helper.DebugOut(fmt.Sprintf("%v", player.PlayerState.Items)) // TODO: get rid of this
 	baseInfo := helper.BaseInfo(emess.OK, status.OK)
-	response := responses.DailyChallengeData(baseInfo)
+	response := responses.DailyChallengeData(baseInfo, player.PlayerState.NumDailyChallenge, player.PlayerState.NextNumDailyChallenge)
 	err = helper.SendResponse(response)
 	if err != nil {
 		helper.InternalErr("Error sending response", err)
@@ -345,6 +344,27 @@ func QuickPostGameResults(helper *helper.Helper) {
 		if request.Score > playerTimedHighScore {
 			player.PlayerState.TimedHighScore = request.Score
 		}
+		helper.DebugOut("request.DailyChallengeValue: %v", request.DailyChallengeValue)
+		helper.DebugOut("request.DailyChallengeComplete: %v", request.DailyChallengeComplete)
+		if player.PlayerState.DailyChallengeComplete == 0 && request.DailyChallengeComplete == 1 {
+			if player.PlayerState.NextNumDailyChallenge <= 0 {
+				player.PlayerState.NumDailyChallenge = int64(0)
+				player.PlayerState.NextNumDailyChallenge = int64(1)
+			}
+			player.AddOperatorMessage(
+				"A Daily Challenge Reward.",
+				obj.NewMessageItem(
+					consts.DailyMissionRewards[player.PlayerState.NextNumDailyChallenge-1],
+					consts.DailyMissionRewardCounts[player.PlayerState.NextNumDailyChallenge-1],
+					0,
+					0,
+				),
+				2592000,
+			)
+			player.PlayerState.NumDailyChallenge = player.PlayerState.NextNumDailyChallenge
+		}
+		player.PlayerState.DailyChallengeComplete = request.DailyChallengeComplete
+		player.PlayerState.DailyChallengeValue = request.DailyChallengeValue
 		//player.PlayerState.TotalDistance += request.Distance  // We don't do this in timed mode!
 
 		sum := func(in []int64) int64 {
@@ -552,6 +572,27 @@ func PostGameResults(helper *helper.Helper) {
 		if request.Score > playerHighScore {
 			player.PlayerState.HighScore = request.Score
 		}
+		helper.DebugOut("request.DailyChallengeValue: %v", request.DailyChallengeValue)
+		helper.DebugOut("request.DailyChallengeComplete: %v", request.DailyChallengeComplete)
+		if player.PlayerState.DailyChallengeComplete == 0 && request.DailyChallengeComplete == 1 {
+			if player.PlayerState.NextNumDailyChallenge <= 0 {
+				player.PlayerState.NumDailyChallenge = int64(0)
+				player.PlayerState.NextNumDailyChallenge = int64(1)
+			}
+			player.AddOperatorMessage(
+				"A Daily Challenge Reward.",
+				obj.NewMessageItem(
+					consts.DailyMissionRewards[player.PlayerState.NextNumDailyChallenge-1],
+					consts.DailyMissionRewardCounts[player.PlayerState.NextNumDailyChallenge-1],
+					0,
+					0,
+				),
+				2592000,
+			)
+			player.PlayerState.NumDailyChallenge = player.PlayerState.NextNumDailyChallenge
+		}
+		player.PlayerState.DailyChallengeComplete = request.DailyChallengeComplete
+		player.PlayerState.DailyChallengeValue = request.DailyChallengeValue
 		player.PlayerState.TotalDistance += request.Distance
 		playerHighDistance := player.PlayerState.HighDistance
 		if request.Distance > playerHighDistance {

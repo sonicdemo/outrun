@@ -2,14 +2,17 @@ package muxhandlers
 
 import (
 	"encoding/json"
+	"math/rand"
 	"time"
 
+	"github.com/Mtbcooler/outrun/consts"
 	"github.com/Mtbcooler/outrun/db"
 	"github.com/Mtbcooler/outrun/emess"
 	"github.com/Mtbcooler/outrun/helper"
 	"github.com/Mtbcooler/outrun/requests"
 	"github.com/Mtbcooler/outrun/responses"
 	"github.com/Mtbcooler/outrun/status"
+	"github.com/jinzhu/now"
 )
 
 func GetPlayerState(helper *helper.Helper) {
@@ -19,10 +22,48 @@ func GetPlayerState(helper *helper.Helper) {
 		return
 	}
 
-	//update energy counter (this instance won't be saved; it gets saved during ActStart and QuickActStart)
+	//update energy counter
 	for time.Now().UTC().Unix() >= player.PlayerState.EnergyRenewsAt && player.PlayerState.Energy < player.PlayerVarious.EnergyRecoveryMax {
 		player.PlayerState.Energy++
 		player.PlayerState.EnergyRenewsAt += player.PlayerVarious.EnergyRecoveryTime
+	}
+	if player.PlayerState.NextNumDailyChallenge <= 0 || int(player.PlayerState.NextNumDailyChallenge) > len(consts.DailyMissionRewards) {
+		// Initialize daily challenge if it isn't initialized already
+		player.PlayerState.NumDailyChallenge = int64(0)
+		player.PlayerState.NextNumDailyChallenge = int64(1)
+		player.PlayerState.DailyChalCatNum = int64(rand.Intn(5))
+	}
+	if time.Now().UTC().Unix() >= player.PlayerState.DailyMissionEndTime {
+		if player.PlayerState.DailyChallengeComplete == 1 && player.PlayerState.DailyChalSetNum < 10 {
+			helper.DebugOut("Advancing to next daily mission...")
+			player.PlayerState.DailyChalSetNum++
+		} else {
+			player.PlayerState.DailyChalCatNum = int64(rand.Intn(5))
+			player.PlayerState.DailyChalSetNum = int64(0)
+		}
+		if player.PlayerState.DailyChallengeComplete == 0 {
+			player.PlayerState.NumDailyChallenge = int64(0)
+			player.PlayerState.NextNumDailyChallenge = int64(1)
+		} else {
+			player.PlayerState.NextNumDailyChallenge++
+			if int(player.PlayerState.NextNumDailyChallenge) > len(consts.DailyMissionRewards) {
+				player.PlayerState.NumDailyChallenge = int64(0)
+				player.PlayerState.NextNumDailyChallenge = int64(1) //restart from beginning
+				player.PlayerState.DailyChalCatNum = int64(rand.Intn(5))
+				player.PlayerState.DailyChalSetNum = int64(0)
+			}
+		}
+		player.PlayerState.DailyChalPosNum = int64(1 + rand.Intn(2))
+		player.PlayerState.DailyMissionID = int64((player.PlayerState.DailyChalCatNum * 33) + (player.PlayerState.DailyChalSetNum * 3) + player.PlayerState.DailyChalPosNum)
+		player.PlayerState.DailyChallengeValue = int64(0)
+		player.PlayerState.DailyChallengeComplete = int64(0)
+		player.PlayerState.DailyMissionEndTime = now.EndOfDay().UTC().Unix() + 1
+		helper.DebugOut("New daily mission ID: %v", player.PlayerState.DailyMissionID)
+	}
+	err = db.SavePlayer(player)
+	if err != nil {
+		helper.InternalErr("Error saving player", err)
+		return
 	}
 
 	baseInfo := helper.BaseInfo(emess.OK, status.OK)
