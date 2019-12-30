@@ -3,6 +3,7 @@ package rpcobj
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"math"
 	"strconv"
 	"strings"
@@ -368,7 +369,7 @@ func (t *Toolbox) Debug_FixWerehogRedRings(uids string, reply *ToolboxReply) err
 			reply.Info = "index not found!"
 			return fmt.Errorf("index not found!")
 		}
-		player.CharacterState[i].Character.PriceRedRings = whrr
+		player.CharacterState[i].Character.PriceRedRings = whrr // TODO: check if needed
 		player.CharacterState[i].PriceRedRings = whrr
 		err = db.SavePlayer(player)
 		if err != nil {
@@ -434,6 +435,81 @@ func (t *Toolbox) Debug_SendOperatorMessage(args SendOperatorMessageArgs, reply 
 		reply.Status = StatusOtherError
 		reply.Info = fmt.Sprintf("error saving player %s: ", args.UID) + err.Error()
 		return err
+	}
+	reply.Status = StatusOK
+	reply.Info = "OK"
+	return nil
+}
+
+func (t *Toolbox) Debug_FixCharacterPrices(uids string, reply *ToolboxReply) error {
+	// TODO: This function possibly needs to be adjusted if event characters are ever added.
+	cmap := map[string]obj.Character{
+		"300000": constobjs.CharacterSonic,
+		"300001": constobjs.CharacterTails,
+		"300002": constobjs.CharacterKnuckles,
+		"300003": constobjs.CharacterAmy,
+		"300004": constobjs.CharacterShadow,
+		"300005": constobjs.CharacterBlaze,
+		"300006": constobjs.CharacterRouge,
+		"300007": constobjs.CharacterOmega,
+		"300008": constobjs.CharacterBig,
+		"300009": constobjs.CharacterCream,
+		"300010": constobjs.CharacterEspio,
+		"300011": constobjs.CharacterCharmy,
+		"300012": constobjs.CharacterVector,
+		"300013": constobjs.CharacterSilver,
+		"300014": constobjs.CharacterMetalSonic,
+		"300015": constobjs.CharacterClassicSonic,
+		"300016": constobjs.CharacterWerehog,
+		"300017": constobjs.CharacterSticks,
+		"300018": constobjs.CharacterTikal,
+		"300019": constobjs.CharacterMephiles,
+		"300020": constobjs.CharacterPSISilver,
+		"301000": constobjs.CharacterAmitieAmy,
+		"301001": constobjs.CharacterGothicAmy,
+		"301002": constobjs.CharacterHalloweenShadow,
+		"301003": constobjs.CharacterHalloweenRouge,
+		"301004": constobjs.CharacterHalloweenOmega,
+		"301005": constobjs.CharacterXMasSonic,
+		"301006": constobjs.CharacterXMasTails,
+		"301007": constobjs.CharacterXMasKnuckles,
+	}
+	allUIDs := strings.Split(uids, ",")
+	for _, uid := range allUIDs {
+		player, err := db.GetPlayer(uid)
+		if err != nil {
+			reply.Status = StatusOtherError
+			reply.Info = fmt.Sprintf("unable to get player %s: ", uid) + err.Error()
+			return err
+		}
+		log.Printf("[RPC-DEBUG] Resetting character prices for player %s\n", uid)
+		for i, netchar := range player.CharacterState {
+			cid := netchar.ID
+			char, ok := cmap[cid]
+			if !ok {
+				reply.Status = StatusOtherError
+				reply.Info = "character with ID '" + cid + "' was not found in CharacterState for player ID '" + uid + "'"
+				return fmt.Errorf(reply.Info)
+			}
+			defaultCost := char.Cost
+			defaultNumRedRings := char.NumRedRings
+			defaultPrice := char.Price
+			defaultPriceRedRings := char.PriceRedRings
+			player.CharacterState[i].Character.Cost = defaultCost // TODO: check if needed
+			player.CharacterState[i].Cost = defaultCost
+			player.CharacterState[i].Character.NumRedRings = defaultNumRedRings // TODO: check if needed
+			player.CharacterState[i].NumRedRings = defaultNumRedRings
+			player.CharacterState[i].Character.Price = defaultPrice // TODO: check if needed
+			player.CharacterState[i].Price = defaultPrice
+			player.CharacterState[i].Character.PriceRedRings = defaultPriceRedRings // TODO: check if needed
+			player.CharacterState[i].PriceRedRings = defaultPriceRedRings
+		}
+		err = db.SavePlayer(player)
+		if err != nil {
+			reply.Status = StatusOtherError
+			reply.Info = fmt.Sprintf("error saving player %s: ", uid) + err.Error()
+			return err
+		}
 	}
 	reply.Status = StatusOK
 	reply.Info = "OK"
