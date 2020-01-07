@@ -364,7 +364,9 @@ func QuickPostGameResults(helper *helper.Helper) {
 			)
 			player.PlayerState.NumDailyChallenge = player.PlayerState.NextNumDailyChallenge
 		}
-		player.PlayerState.DailyChallengeComplete = request.DailyChallengeComplete
+		if player.PlayerState.DailyChallengeComplete == 0 {
+			player.PlayerState.DailyChallengeComplete = request.DailyChallengeComplete
+		}
 		player.PlayerState.DailyChallengeValue = request.DailyChallengeValue
 		if time.Now().UTC().Unix() >= player.PlayerState.DailyMissionEndTime {
 			if player.PlayerState.DailyChallengeComplete == 1 && player.PlayerState.DailyChalSetNum < 10 {
@@ -619,7 +621,9 @@ func PostGameResults(helper *helper.Helper) {
 			)
 			player.PlayerState.NumDailyChallenge = player.PlayerState.NextNumDailyChallenge
 		}
-		player.PlayerState.DailyChallengeComplete = request.DailyChallengeComplete
+		if player.PlayerState.DailyChallengeComplete == 0 {
+			player.PlayerState.DailyChallengeComplete = request.DailyChallengeComplete
+		}
 		player.PlayerState.DailyChallengeValue = request.DailyChallengeValue
 		if time.Now().UTC().Unix() >= player.PlayerState.DailyMissionEndTime {
 			if player.PlayerState.DailyChallengeComplete == 1 && player.PlayerState.DailyChalSetNum < 10 {
