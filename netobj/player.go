@@ -475,5 +475,5 @@ func (p *Player) AddOperatorMessage(messageContents string, item obj.MessageItem
 			expiresAfter,
 		),
 	)
-	p.PlayerState.MumMessages = len(p.OperatorMessages) + len(p.Messages)
+	p.PlayerState.MumMessages = int64(len(p.OperatorMessages) + len(p.Messages))
 }
