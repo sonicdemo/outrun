@@ -114,7 +114,6 @@ func Login(helper *helper.Helper) {
 				return
 			}
 			analytics.Store(player.ID, factors.AnalyticTypeLogins)
-			return
 		} else {
 			baseInfo.StatusCode = status.InvalidPassword
 			baseInfo.SetErrorMessage(emess.BadPassword)
@@ -124,7 +123,6 @@ func Login(helper *helper.Helper) {
 				helper.InternalErr("Error sending response", err)
 				return
 			}
-			return
 		}
 	}
 }

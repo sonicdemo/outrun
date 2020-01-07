@@ -267,10 +267,12 @@ func ActRetry(helper *helper.Helper) {
 		helper.InternalErr("Error getting calling player", err)
 		return
 	}
+	redRingContinuePrice := 5
+	// TODO: Add campaign support
 	responseStatus := status.OK
-	if player.PlayerState.NumRedRings >= 5 { //does the player actually have enough red rings?
+	if player.PlayerState.NumRedRings >= redRingContinuePrice { //does the player actually have enough red rings?
 		//if so, subtract 5 red rings and respond with an OK status
-		player.PlayerState.NumRedRings -= 5
+		player.PlayerState.NumRedRings -= redRingContinuePrice
 		err = db.SavePlayer(player)
 		if err != nil {
 			helper.InternalErr("Error saving player", err)

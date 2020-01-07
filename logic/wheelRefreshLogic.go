@@ -18,7 +18,7 @@ func WheelRefreshLogic(player netobj.Player, wheel netobj.WheelOptions) netobj.W
 			campaignList = append(campaignList, newCampaign)
 		}
 	}
-	for index, _ := range campaignList {
+	for index := range campaignList {
 		if obj.IsCampaignActive(campaignList[index]) && campaignList[index].Type == enums.CampaignTypeFreeWheelSpinCount {
 			freeSpins = campaignList[index].Content
 		}
