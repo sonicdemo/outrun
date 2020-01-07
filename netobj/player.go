@@ -376,6 +376,7 @@ func (p *Player) RemoveFromMessages(index int) {
 	// don't care about order; it shouldn't really matter
 	p.Messages[index] = p.Messages[len(p.Messages)-1]
 	p.Messages = p.Messages[:len(p.Messages)-1]
+	p.PlayerState.MumMessages--
 }
 
 func (p *Player) GetAllMessageIDs() []int64 {
@@ -416,6 +417,7 @@ func (p *Player) RemoveFromOperatorMessages(index int) {
 	// don't care about order; it shouldn't really matter
 	p.OperatorMessages[index] = p.OperatorMessages[len(p.OperatorMessages)-1]
 	p.OperatorMessages = p.OperatorMessages[:len(p.OperatorMessages)-1]
+	p.PlayerState.MumMessages--
 }
 
 func (p *Player) GetAllOperatorMessageIDs() []int64 {
@@ -442,16 +444,27 @@ func (p *Player) CleanUpExpiredOperatorMessages() {
 
 func (p *Player) AddOperatorMessage(messageContents string, item obj.MessageItem, expiresAfter int64) {
 	// A function to add an operator message, automatically determining its ID
-	lowestID := 500000
-	selectedID := 500000
-	if len(p.OperatorMessages) > 0 {
+	highestID := 1
+	lowestID := 9898989
+	selectedID := 1
+	for len(p.OperatorMessages)+len(p.Messages) >= 300 {
+		lowestID = 9898989
 		for _, omsg := range p.OperatorMessages {
 			omsgid, _ := strconv.Atoi(omsg.ID)
 			if omsgid < lowestID {
 				lowestID = omsgid
 			}
 		}
-		selectedID = lowestID - 1
+		p.RemoveFromOperatorMessages(lowestID)
+	}
+	if len(p.OperatorMessages) > 0 {
+		for _, omsg := range p.OperatorMessages {
+			omsgid, _ := strconv.Atoi(omsg.ID)
+			if omsgid > highestID {
+				highestID = omsgid
+			}
+		}
+		selectedID = highestID + 1
 	}
 	p.OperatorMessages = append(
 		p.OperatorMessages,
@@ -462,5 +475,5 @@ func (p *Player) AddOperatorMessage(messageContents string, item obj.MessageItem
 			expiresAfter,
 		),
 	)
-	// TODO: Add 300 message limit (taking into account both normal messages and operator messages)
+	p.PlayerState.MumMessages = len(p.OperatorMessages) + len(p.Messages)
 }
