@@ -402,6 +402,7 @@ func (p *Player) CleanUpExpiredMessages() {
 }
 
 func (p *Player) AcceptOperatorMessage(id int64) interface{} {
+	p.FixUpOperatorMessages()
 	for index, message := range p.OperatorMessages {
 		if strconv.Itoa(int(id)) == message.ID {
 			p.RemoveFromOperatorMessages(index)
@@ -430,6 +431,7 @@ func (p *Player) GetAllOperatorMessageIDs() []int64 {
 }
 
 func (p *Player) CleanUpExpiredOperatorMessages() {
+	p.FixUpOperatorMessages()
 	removals := -1
 	for removals != 0 {
 		removals = 0
@@ -447,6 +449,7 @@ func (p *Player) AddOperatorMessage(messageContents string, item obj.MessageItem
 	highestID := 1
 	lowestID := 9898989
 	selectedID := 1
+	p.FixUpOperatorMessages()
 	for len(p.OperatorMessages)+len(p.Messages) >= 300 {
 		lowestID = 9898989
 		for _, omsg := range p.OperatorMessages {
@@ -475,5 +478,17 @@ func (p *Player) AddOperatorMessage(messageContents string, item obj.MessageItem
 			expiresAfter,
 		),
 	)
+	p.PlayerState.MumMessages = int64(len(p.OperatorMessages) + len(p.Messages))
+}
+
+func (p *Player) FixUpOperatorMessages() {
+	selectedID := 12000
+	for index, omsg := range p.OperatorMessages {
+		omsgid, _ := strconv.Atoi(omsg.ID)
+		if omsgid > 50000 {
+			p.OperatorMessages[index].ID = strconv.Itoa(selectedID)
+			selectedID++
+		}
+	}
 	p.PlayerState.MumMessages = int64(len(p.OperatorMessages) + len(p.Messages))
 }
