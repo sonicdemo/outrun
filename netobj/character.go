@@ -113,7 +113,7 @@ func DefaultCharacterState() []Character {
 	return []Character{
 		DefaultCharacter(constobjs.CharacterSonic),
 		DefaultStageLockedCharacter(constobjs.CharacterTails),    // Episode 11
-		DefaultStageLockedCharacter(constobjs.CharacterKnuckles), // 'Campaign Map 17'
+		DefaultStageLockedCharacter(constobjs.CharacterKnuckles), // Episode 17
 		DefaultRouletteLockedCharacter(constobjs.CharacterAmy),
 		DefaultRouletteLockedCharacter(constobjs.CharacterShadow),
 		DefaultLockedCharacter(constobjs.CharacterBlaze),
