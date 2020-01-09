@@ -241,12 +241,17 @@ func CommitChaoWheelSpin(helper *helper.Helper) {
 					highRange := int(consts.ChaoRouletteChaoLevelIncreaseHigh)
 					lowRange := int(consts.ChaoRouletteChaoLevelIncreaseLow)
 					prizeChaoLevel := int64(rand.Intn(highRange-lowRange+1) + lowRange) // This level is added to the current Chao level
-					player.ChaoState[chaoIndex].Level += prizeChaoLevel
-					if player.ChaoState[chaoIndex].Level > 10 { // if max chao level (https://www.deviantart.com/vocaloidbrsfreak97/journal/So-Sonic-Runners-just-recently-updated-574789098)
-						excess := player.ChaoState[chaoIndex].Level - 10              // get amount gone over
-						prizeChaoLevel -= excess                                      // shave it from prize level
-						player.ChaoState[chaoIndex].Level = 10                        // reset to maximum
-						player.ChaoState[chaoIndex].Status = enums.ChaoStatusMaxLevel // set status to MaxLevel
+					if player.ChaoState[chaoIndex].Level < 10 {
+						player.ChaoState[chaoIndex].Level += prizeChaoLevel
+						if player.ChaoState[chaoIndex].Level > 10 { // if max chao level (https://www.deviantart.com/vocaloidbrsfreak97/journal/So-Sonic-Runners-just-recently-updated-574789098)
+							excess := player.ChaoState[chaoIndex].Level - 10              // get amount gone over
+							prizeChaoLevel -= excess                                      // shave it from prize level
+							player.ChaoState[chaoIndex].Level = 10                        // reset to maximum
+							player.ChaoState[chaoIndex].Status = enums.ChaoStatusMaxLevel // set status to MaxLevel
+						}
+					} else {
+						player.PlayerState.ChaoEggs += 3 // maxed out; give 3 special eggs as compensation
+						spinResult.ItemList = append(spinResult.ItemList, obj.NewItem(strconv.Itoa(enums.IDSpecialEgg), 3))
 					}
 					spinResult.WonPrize.Level = player.ChaoState[chaoIndex].Level
 				}
