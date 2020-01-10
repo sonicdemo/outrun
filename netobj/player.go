@@ -489,6 +489,12 @@ func (p *Player) FixUpOperatorMessages() {
 			p.OperatorMessages[index].ID = strconv.Itoa(selectedID)
 			selectedID++
 		}
+		if len(omsg.Content) == 0 {
+			p.OperatorMessages[index].Content = "A Gift from the Revival Team."
+		}
+		if omsg.ExpireTime > time.Now().UTC().Unix()+7776000 {
+			p.OperatorMessages[index].ExpireTime = time.Now().UTC().Unix() + 7776000
+		}
 	}
 	p.PlayerState.MumMessages = int64(len(p.OperatorMessages) + len(p.Messages))
 }
