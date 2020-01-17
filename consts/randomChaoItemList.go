@@ -126,7 +126,7 @@ var RandomChaoWheelChaoPrizes = map[string]float64{
 	//enums.ChaoIDStrNiGHTS:               0.0, // Event (NiGHTS)
 	//enums.ChaoIDStrReala:                0.0, // Event (NiGHTS)
 	//enums.ChaoIDStrRCTornado2:           0.0, // Event (Sonic Adventure
-	enums.ChaoIDStrChaoWalker:           1.0,
+	//enums.ChaoIDStrChaoWalker:           1.0, // Daily battle
 	//enums.ChaoIDStrDarkQueen:            0.2, // Runners Leauge
 	//enums.ChaoIDStrKingBoomBoo:          0.0, // Event (Halloween)
 	//enums.ChaoIDStrOPapa:                0.0, // Event (Fantasy Zone)
@@ -135,5 +135,5 @@ var RandomChaoWheelChaoPrizes = map[string]float64{
 	//enums.ChaoIDStrChristmasYeti:        0.0, // Event (Christmas)
 	//enums.ChaoIDStrChristmasNiGHTS:      0.0, // Event (Christmas NiGHTS)
 	//enums.ChaoIDStrDFekt:                0.0, // DO NOT ENABLE
-	enums.ChaoIDStrDarkChaoWalker:       1.0,
+	//enums.ChaoIDStrDarkChaoWalker:       1.0, // Daily Battle?
 }
