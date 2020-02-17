@@ -732,6 +732,13 @@ func PostGameResults(helper *helper.Helper) {
 		goToNextEpisode := true
 		if goToNextChapter {
 			// Assumed this just means next episode...
+			player.PlayerState.Rank++
+			if player.PlayerState.Rank > 998 { // rank going above 999
+				player.PlayerState.Rank = 998
+			}
+			if player.PlayerState.Energy < player.PlayerVarious.EnergyRecoveryMax {
+				player.PlayerState.Energy = player.PlayerVarious.EnergyRecoveryMax //restore energy
+			}
 			maxChapters, episodeHasMultipleChapters := consts.EpisodeWithChapters[player.MileageMapState.Episode]
 			if episodeHasMultipleChapters {
 				goToNextEpisode = false
@@ -747,13 +754,6 @@ func PostGameResults(helper *helper.Helper) {
 				player.MileageMapState.Chapter = 1
 				player.MileageMapState.Point = 0
 				player.MileageMapState.StageTotalScore = 0
-				player.PlayerState.Rank++
-				if player.PlayerState.Rank > 998 { // rank going above 999
-					player.PlayerState.Rank = 998
-				}
-				if player.PlayerState.Energy < player.PlayerVarious.EnergyRecoveryMax {
-					player.PlayerState.Energy = player.PlayerVarious.EnergyRecoveryMax //restore energy
-				}
 				helper.DebugOut("goToNextEpisode -> Episode: %v", player.MileageMapState.Episode)
 				if config.CFile.Debug {
 					player.MileageMapState.Episode = 11
