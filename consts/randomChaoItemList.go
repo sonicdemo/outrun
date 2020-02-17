@@ -16,27 +16,37 @@ var RandomChaoWheelCharacterPrizes = map[string]float64{
 	// characterID: load
 	// Hopefully this should sum up to 100 just for
 	// simplicity, but it shouldn't be a requirement.
-	enums.CTStrSonic:        1.0,
-	enums.CTStrTails:        1.0,
-	enums.CTStrKnuckles:     1.0,
-	enums.CTStrAmy:          1.0,
-	enums.CTStrBig:          0.7,
-	//enums.CTStrBlaze:        0.0, // Revival Event
-	enums.CTStrCharmy:       1.0,
-	enums.CTStrCream:        0.7,
-	enums.CTStrEspio:        1.0,
-	//enums.CTStrMephiles:     0.0, // Revival Event
-	enums.CTStrOmega:        0.5,
-	//enums.CTStrPSISilver:    0.0, // Revival Event
-	enums.CTStrRouge:        0.5,
-	enums.CTStrShadow:       0.5,
-	enums.CTStrSilver:       0.7,
-	//enums.CTStrSticks:       0.0, // Revival Event
-	//enums.CTStrTikal:        0.0, // Event (Sonic Adventure)
-	enums.CTStrVector:       1.0,
-	//enums.CTStrWerehog:      0.0, // Revival Event
-	//enums.CTStrClassicSonic: 0.0, // Event (Birthday)
-	//enums.CTStrMetalSonic:   0.0, // Revival Event
+	//enums.CTStrSonic:           1.0, // Initial character
+	//enums.CTStrTails:           1.0, // Obtained in story mode
+	//enums.CTStrKnuckles:        1.0, // Obtained in story mode
+	enums.CTStrAmy:             1.0,
+	enums.CTStrBig:             0.7,
+	//enums.CTStrBlaze:           0.5, // Revival Event (Sonic Rush)
+	enums.CTStrCharmy:          1.0,
+	enums.CTStrCream:           0.7,
+	enums.CTStrEspio:           1.0,
+	//enums.CTStrMephiles:        0.0, // Revival Event
+	enums.CTStrOmega:           0.5,
+	//enums.CTStrPSISilver:       0.0, // Revival Event
+	enums.CTStrRouge:           0.5,
+	enums.CTStrShadow:          0.5,
+	enums.CTStrSilver:          0.7,
+	//enums.CTStrSticks:          0.0, // Revival Event
+	//enums.CTStrTikal:           0.0, // Event (Sonic Adventure)
+	enums.CTStrVector:          1.0,
+	//enums.CTStrWerehog:         0.0, // Revival Event
+	//enums.CTStrClassicSonic:    0.0, // Event (Birthday)
+	//enums.CTStrMetalSonic:      0.0, // Revival Event
+	
+	// The below characters shouldn't be activated until event characters are fixed!
+	//enums.CTStrAmitieAmy:       0.0, // Event (Puyo Puyo Quest)
+	//enums.CTStrGothicAmy:       0.0, // Revival Event
+	//enums.CTStrHalloweenShadow: 0.0, // Event (Halloween)
+	//enums.CTStrHalloweenRouge:  0.0, // Event (Halloween)
+	//enums.CTStrHalloweenOmega:  0.0, // Event (Halloween)
+	//enums.CTStrXMasSonic:       0.0, // Event (Christmas)
+	//enums.CTStrXMasTails:       0.0, // Event (Christmas)
+	//enums.CTStrXMasKnuckles:    0.0, // Event (Christmas)
 }
 
 var RandomChaoWheelChaoPrizes = map[string]float64{
@@ -57,7 +67,7 @@ var RandomChaoWheelChaoPrizes = map[string]float64{
 	enums.ChaoIDStrRCPiggyBank:          1.0,
 	enums.ChaoIDStrRCBalloon:            2.0,
 	//enums.ChaoIDStrEasterChao:           0.0, // Event (Easter)
-	//enums.ChaoIDStrPurplePapurisu:       0.0, // Event (Puyo Puyo)
+	//enums.ChaoIDStrPurplePapurisu:       0.0, // Event (Puyo Puyo Quest)
 	//enums.ChaoIDStrMagLv1:               0.0, // Event (Phantasy Star Online 2)
 	enums.ChaoIDStrEggChao:              1.0,
 	enums.ChaoIDStrPumpkinChao:          1.0,
@@ -69,11 +79,11 @@ var RandomChaoWheelChaoPrizes = map[string]float64{
 	enums.ChaoIDStrRCUFO:                1.0,
 	enums.ChaoIDStrRCBomber:             1.0,
 	//enums.ChaoIDStrEasterBunny:          0.0, // Event (Easter)
-	//enums.ChaoIDStrMagicLamp:            0.0, // Event (Desert)
-	//enums.ChaoIDStrStarShapedMissile:    0.0, // Event (Raid Boss Roulette)
-	//enums.ChaoIDStrSuketoudara:          0.0, // Event (Puyo Puyo)
+	//enums.ChaoIDStrMagicLamp:            0.0, // Event (Desert Ruins)
+	//enums.ChaoIDStrStarShapedMissile:    0.0, // Event (Zazz Raid Boss)
+	//enums.ChaoIDStrSuketoudara:          0.0, // Event (Puyo Puyo Quest)
 	//enums.ChaoIDStrRappy:                0.0, // Event (Phantasy Star Online 2)
-	//enums.ChaoIDStrBlowfishTransporter:  0.0, // Event (Beach)
+	//enums.ChaoIDStrBlowfishTransporter:  0.0, // Event (Tropical Coast)
 	//enums.ChaoIDStrGenesis:              0.0, // Event (Birthday)
 	//enums.ChaoIDStrCartridge:            0.0, // Event (Birthday)
 	enums.ChaoIDStrRCFighter:            1.0,
@@ -82,9 +92,9 @@ var RandomChaoWheelChaoPrizes = map[string]float64{
 	enums.ChaoIDStrGreenCrystalMonsterS: 1.0,
 	enums.ChaoIDStrGreenCrystalMonsterL: 1.0,
 	enums.ChaoIDStrRCAirship:            1.0,
-	//enums.ChaoIDStrDesertChao:           0.0, // Event (Desert)
-	//enums.ChaoIDStrRCSatellite:          0.0, // Event (Raid Boss Roulette?)
-	//enums.ChaoIDStrMarineChao:           0.0, // Event (Beach)
+	//enums.ChaoIDStrDesertChao:           0.0, // Event (Desert Ruins)
+	//enums.ChaoIDStrRCSatellite:          0.0, // Event (Zazz Raid Boss)
+	//enums.ChaoIDStrMarineChao:           0.0, // Event (Tropical Coast)
 	//enums.ChaoIDStrNightopian:           0.0, // Event (NiGHTS)
 	//enums.ChaoIDStrOrca:                 0.0, // Event (Sonic Adventure)
 	//enums.ChaoIDStrSonicOmochao:         0.0, // Event (Team Sonic Omochao)
@@ -105,15 +115,15 @@ var RandomChaoWheelChaoPrizes = map[string]float64{
 	enums.ChaoIDStrHeroChaos:            1.5,
 	enums.ChaoIDStrDarkChaos:            1.5,
 	enums.ChaoIDStrChip:                 1.5,
-	//enums.ChaoIDStrShahra:               0.2, // Runners League
+	//enums.ChaoIDStrShahra:               0.0, // Runners' League
 	enums.ChaoIDStrCaliburn:             1.5,
 	enums.ChaoIDStrKingArthursGhost:     1.5,
 	enums.ChaoIDStrRCTornado:            1.0,
 	enums.ChaoIDStrRCBattleCruiser:      1.0,
 	//enums.ChaoIDStrMerlina:              0.0, // Event (Windy Hill in Spring)
 	//enums.ChaoIDStrErazorDjinn:          0.0, // Event (Desert Ruins)
-	//enums.ChaoIDStrRCMoonMech:           0.0, // Raid Boss Roulette(?)
-	//enums.ChaoIDStrCarbuncle:            0.0, // Event (Puyo Puyo)
+	//enums.ChaoIDStrRCMoonMech:           0.0, // Event (Zazz Raid Boss?)
+	//enums.ChaoIDStrCarbuncle:            0.0, // Event (Puyo Puyo Quest)
 	//enums.ChaoIDStrKuna:                 0.0, // Event (Phantasy Star Online 2)
 	//enums.ChaoIDStrChaos:                0.0, // Event (Sonic Adventure)
 	//enums.ChaoIDStrDeathEgg:             0.0, // Event (Birthday)
@@ -125,15 +135,15 @@ var RandomChaoWheelChaoPrizes = map[string]float64{
 	enums.ChaoIDStrGoldenAngel:          1.0,
 	//enums.ChaoIDStrNiGHTS:               0.0, // Event (NiGHTS)
 	//enums.ChaoIDStrReala:                0.0, // Event (NiGHTS)
-	//enums.ChaoIDStrRCTornado2:           0.0, // Event (Sonic Adventure
-	//enums.ChaoIDStrChaoWalker:           1.0, // Daily battle
-	//enums.ChaoIDStrDarkQueen:            0.2, // Runners Leauge
+	//enums.ChaoIDStrRCTornado2:           0.0, // Event (Sonic Adventure)
+	//enums.ChaoIDStrChaoWalker:           0.0, // Daily Battle
+	//enums.ChaoIDStrDarkQueen:            0.0, // Runners' League
 	//enums.ChaoIDStrKingBoomBoo:          0.0, // Event (Halloween)
 	//enums.ChaoIDStrOPapa:                0.0, // Event (Fantasy Zone)
 	//enums.ChaoIDStrOpaOpa:               0.0, // Event (Fantasy Zone)
 	enums.ChaoIDStrRCBlockFace:          1.0,
 	//enums.ChaoIDStrChristmasYeti:        0.0, // Event (Christmas)
 	//enums.ChaoIDStrChristmasNiGHTS:      0.0, // Event (Christmas NiGHTS)
-	//enums.ChaoIDStrDFekt:                0.0, // DO NOT ENABLE
-	//enums.ChaoIDStrDarkChaoWalker:       1.0, // Daily Battle?
+	//enums.ChaoIDStrDFekt:                0.0, // UNUSED AND INCOMPLETE; DO NOT ENABLE
+	//enums.ChaoIDStrDarkChaoWalker:       0.0, // Daily Battle?
 }
