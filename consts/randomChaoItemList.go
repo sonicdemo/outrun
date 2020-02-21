@@ -16,12 +16,12 @@ var RandomChaoWheelCharacterPrizes = map[string]float64{
 	// characterID: load
 	// Hopefully this should sum up to 100 just for
 	// simplicity, but it shouldn't be a requirement.
-	enums.CTStrSonic:           0.5, // Initial character
-	enums.CTStrTails:           0.5, // Obtained in story mode
-	enums.CTStrKnuckles:        0.5, // Obtained in story mode
+	enums.CTStrSonic:           0.7, // Initial character
+	enums.CTStrTails:           0.7, // Obtained in story mode
+	enums.CTStrKnuckles:        0.7, // Obtained in story mode
 	enums.CTStrAmy:             1.0,
 	enums.CTStrBig:             0.7,
-	//enums.CTStrBlaze:           0.5, // Revival Event (Sonic Rush)
+	enums.CTStrBlaze:           0.5, // Revival Event (Sonic Rush)
 	enums.CTStrCharmy:          1.0,
 	enums.CTStrCream:           0.7,
 	enums.CTStrEspio:           1.0,
