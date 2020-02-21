@@ -42,17 +42,25 @@ var DisplayTypes = map[string]string{
 	"onlyInfoPage": "3",
 }
 
-var InfoTypes = map[string]string{ // TODO: check through these
-	"text":         "0",
-	"image":        "1",
-	"feed":         "2",
-	"roulette":     "10",
-	"shop":         "11",
-	"event":        "12",
-	"rouletteInfo": "14", // the banner at the bottom of the menu screen?
-	"quickInfo":    "15", // a banner across the timed mode button?
-	"countryText":  "16", // based on region code
-	"countryImage": "17", // based on region code
+var InfoTypes = map[string]string{
+	"text":          "0",
+	"image":         "1",
+	"feed":          "2",
+	"shopCancel":    "3",
+	"feedUrl":       "4",
+	"feedRoulette":  "5",
+	"feedShop":      "6",
+	"feedEvent":     "7",
+	"feedEventList": "8",
+	"url":           "9",  // external link on info page specified thru "extra"
+	"roulette":      "10",
+	"shop":          "11",
+	"event":         "12",
+	"eventList":     "13",
+	"rouletteInfo":  "14", // the banner at the bottom of the menu screen?
+	"quickInfo":     "15", // a banner across the timed mode button?
+	"countryText":   "16", // based on region code (specified in "extra")
+	"countryImage":  "17", // based on region code (specified in "extra")
 }
 
 type InfoData struct {
