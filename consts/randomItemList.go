@@ -2,7 +2,6 @@ package consts
 
 import (
 	"math/rand"
-	"strconv"
 
 	"github.com/Mtbcooler/outrun/enums"
 )
