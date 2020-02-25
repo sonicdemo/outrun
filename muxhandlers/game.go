@@ -659,11 +659,37 @@ func PostGameResults(helper *helper.Helper) {
 		if request.Distance > playerHighDistance {
 			player.PlayerState.HighDistance = request.Distance
 		}
+
+		sum := func(in []int64) int64 {
+			v := int64(0)
+			for _, val := range in {
+				v += val
+			}
+			return v
+		}
+
 		// increase character(s)'s experience
 		expIncrease := request.Rings + request.FailureRings // all rings collected
-		abilityIndex := 1
-		for abilityIndex == 1 { // unused ability is at index 1
-			abilityIndex = rand.Intn(len(mainC.AbilityLevel))
+		mainAbilityIndex := 1
+		mainAbilitySum := sum(mainC.AbilityLevel)
+		if mainAbilitySum < 100 {
+			for mainAbilityIndex == 1 || mainC.AbilityLevel[mainAbilityIndex] >= 10 { // unused ability is at index 1
+				mainAbilityIndex = rand.Intn(len(mainC.AbilityLevel))
+			}
+		} else {
+			helper.DebugOut("Main character seems to be maxed out on abilities!")
+		}
+		subAbilityIndex := 1
+		subAbilitySum := mainAbilitySum
+		if hasSubCharacter {
+			subAbilitySum = sum(subC.AbilityLevel)
+			if subAbilitySum < 100 {
+				for subAbilityIndex == 1 || subC.AbilityLevel[subAbilityIndex] >= 10 { // unused ability is at index 1
+					subAbilityIndex = rand.Intn(len(subC.AbilityLevel))
+				}
+			} else {
+				helper.DebugOut("Sub character seems to be maxed out on abilities!")
+			}
 		}
 		// check that increases exist
 		_, ok := consts.UpgradeIncreases[mainC.ID]
@@ -682,10 +708,21 @@ func PostGameResults(helper *helper.Helper) {
 			playCharacters[0].Exp += expIncrease
 			for playCharacters[0].Exp >= playCharacters[0].Cost {
 				// more exp than cost = level up
-				playCharacters[0].Level++                                               // increase level
-				playCharacters[0].AbilityLevel[abilityIndex]++                          // increase ability level
-				playCharacters[0].Exp -= playCharacters[0].Cost                         // remove cost from exp
-				playCharacters[0].Cost += consts.UpgradeIncreases[playCharacters[0].ID] // increase cost
+				if playCharacters[0].Level < 100 {
+					playCharacters[0].Level++                                               // increase level
+					playCharacters[0].AbilityLevel[mainAbilityIndex]++                      // increase ability level
+					playCharacters[0].Exp -= playCharacters[0].Cost                         // remove cost from exp
+					playCharacters[0].Cost += consts.UpgradeIncreases[playCharacters[0].ID] // increase cost
+					mainAbilitySum = sum(playCharacters[0].AbilityLevel)
+					if mainAbilitySum < 100 {
+						for mainAbilityIndex == 1 || playCharacters[0].AbilityLevel[mainAbilityIndex] >= 10 { // reroll ability index
+							mainAbilityIndex = rand.Intn(len(playCharacters[0].AbilityLevel))
+						}
+					}
+				} else {
+					helper.DebugOut("Main character is level 100; cannot level up anymore!")
+					playCharacters[0].Exp -= playCharacters[0].Cost
+				}
 			}
 		}
 		if hasSubCharacter {
@@ -693,10 +730,21 @@ func PostGameResults(helper *helper.Helper) {
 				playCharacters[1].Exp += expIncrease
 				for playCharacters[1].Exp >= playCharacters[1].Cost {
 					// more exp than cost = level up
-					playCharacters[1].Level++                                               // increase level
-					playCharacters[1].AbilityLevel[abilityIndex]++                          // increase ability level
-					playCharacters[1].Exp -= playCharacters[1].Cost                         // remove cost from exp
-					playCharacters[1].Cost += consts.UpgradeIncreases[playCharacters[1].ID] // increase cost
+					if playCharacters[1].Level < 100 {
+						playCharacters[1].Level++                                               // increase level
+						playCharacters[1].AbilityLevel[subAbilityIndex]++                       // increase ability level
+						playCharacters[1].Exp -= playCharacters[1].Cost                         // remove cost from exp
+						playCharacters[1].Cost += consts.UpgradeIncreases[playCharacters[1].ID] // increase cost
+						subAbilitySum = sum(playCharacters[1].AbilityLevel)
+						if subAbilitySum < 100 {
+							for subAbilityIndex == 1 || playCharacters[1].AbilityLevel[subAbilityIndex] >= 10 { // reroll ability index
+								subAbilityIndex = rand.Intn(len(playCharacters[1].AbilityLevel))
+							}
+						}
+					} else {
+						helper.DebugOut("Sub character is level 100; cannot level up anymore!")
+						playCharacters[1].Exp -= playCharacters[1].Cost
+					}
 				}
 			}
 		}
@@ -739,11 +787,12 @@ func PostGameResults(helper *helper.Helper) {
 			if player.PlayerState.Energy < player.PlayerVarious.EnergyRecoveryMax {
 				player.PlayerState.Energy = player.PlayerVarious.EnergyRecoveryMax //restore energy
 			}
+			player.MileageMapState.Point = 0
+			player.MileageMapState.StageTotalScore = 0
 			maxChapters, episodeHasMultipleChapters := consts.EpisodeWithChapters[player.MileageMapState.Episode]
 			if episodeHasMultipleChapters {
 				goToNextEpisode = false
 				player.MileageMapState.Chapter++
-				player.MileageMapState.StageTotalScore = 0
 				if player.MileageMapState.Chapter > maxChapters {
 					// there's no more chapters for this episode!
 					goToNextEpisode = true
@@ -752,8 +801,6 @@ func PostGameResults(helper *helper.Helper) {
 			if goToNextEpisode {
 				player.MileageMapState.Episode++
 				player.MileageMapState.Chapter = 1
-				player.MileageMapState.Point = 0
-				player.MileageMapState.StageTotalScore = 0
 				helper.DebugOut("goToNextEpisode -> Episode: %v", player.MileageMapState.Episode)
 				if config.CFile.Debug {
 					player.MileageMapState.Episode = 11
@@ -762,18 +809,16 @@ func PostGameResults(helper *helper.Helper) {
 			if player.MileageMapState.Episode > 50 { // if beat game, reset to 50-1
 				player.MileageMapState.Episode = 50
 				player.MileageMapState.Chapter = 1
-				player.MileageMapState.Point = 0
-				player.MileageMapState.StageTotalScore = 0
 				helper.DebugOut("goToNextEpisode: Player (%s) beat the game!", player.ID)
 			}
 		} else {
 			player.MileageMapState.Point = newPoint
 		}
-		if config.CFile.Debug {
+		/*if config.CFile.Debug {
 			if player.MileageMapState.Episode < 11 {
 				//player.MileageMapState.Episode = 11
 			}
-		}
+		}*/
 		newRewardEpisode = player.MileageMapState.Episode
 		newRewardChapter = player.MileageMapState.Chapter
 		newRewardPoint = player.MileageMapState.Point
@@ -807,7 +852,7 @@ func PostGameResults(helper *helper.Helper) {
 			} else {
 				helper.Warn("Unknown reward '%s', ignoring", reward.ItemID)
 			}
-			// TODO: allow for any character joining the cast
+			// TODO: allow for any character joining the cast, for custom story episodes
 		}
 		helper.DebugOut("Current rings: %v", player.PlayerState.NumRings)
 		player.PlayerState.Items = newItems
