@@ -69,14 +69,16 @@ func Login(helper *helper.Helper) {
 		baseInfo.SetErrorMessage(emess.BadPassword)
 		player, err := db.GetPlayer(uid)
 		if err != nil {
-			//helper.InternalErr("Error getting player", err)
 			// likely account that wasn't found, so let's tell them that:
 			response := responses.LoginCheckKey(baseInfo, "")
 			baseInfo.StatusCode = status.MissingPlayer
+			response.BaseResponse = responses.NewBaseResponse(baseInfo, request.Version)
 			helper.SendResponse(response)
+			helper.InternalErr("Error getting player", err)
 			return
 		}
 		response := responses.LoginCheckKey(baseInfo, player.Key)
+		response.BaseResponse = responses.NewBaseResponse(baseInfo, request.Version)
 		err = helper.SendResponse(response)
 		if err != nil {
 			helper.InternalErr("Error sending response", err)
@@ -88,6 +90,11 @@ func Login(helper *helper.Helper) {
 		// game is attempting to log in using key
 		player, err := db.GetPlayer(uid)
 		if err != nil {
+			//
+			response := responses.LoginCheckKey(baseInfo, "")
+			baseInfo.StatusCode = status.MissingPlayer
+			response.BaseResponse = responses.NewBaseResponse(baseInfo, request.Version)
+			helper.SendResponse(response)
 			helper.InternalErr("Error getting player", err)
 			return
 		}
@@ -108,6 +115,7 @@ func Login(helper *helper.Helper) {
 				return
 			}
 			response := responses.LoginSuccess(baseInfo, sid, player.Username, player.PlayerVarious.EnergyRecoveryTime, player.PlayerVarious.EnergyRecoveryMax)
+			response.BaseResponse = responses.NewBaseResponse(baseInfo, request.Version)
 			err = helper.SendResponse(response)
 			if err != nil {
 				helper.InternalErr("Error sending response", err)
@@ -118,7 +126,9 @@ func Login(helper *helper.Helper) {
 			baseInfo.StatusCode = status.InvalidPassword
 			baseInfo.SetErrorMessage(emess.BadPassword)
 			helper.DebugOut("Incorrect passkey sent: \"%s\"", request.Password)
-			err = helper.SendResponse(responses.NewBaseResponse(baseInfo))
+			response := responses.LoginCheckKey(baseInfo, player.Key)
+			response.BaseResponse = responses.NewBaseResponse(baseInfo, request.Version)
+			err = helper.SendResponse(response)
 			if err != nil {
 				helper.InternalErr("Error sending response", err)
 				return
