@@ -22,7 +22,7 @@ func IsEventTypeValidForGameVersion(gameVersion string, eventType int64) bool {
 		enums.EventTypeGacha,         // roulette event
 		enums.EventTypeAdvert,        // banner only
 	}
-	if gameVersion[0] == "2" {
+	if gameVersion[0] == '2' {
 		WhitelistedEventTypes = []int64{ // 2.x.x events
 			//enums.EventTypeSpecialStage,  // event stage, storyline, roulette, and rewards (broken in 2.0.x)
 			//enums.EventTypeRaidBoss,      // unique yearly event where one of the deadly six show up (broken in 2.0.x)
@@ -79,7 +79,7 @@ func GetEventList(helper *helper.Helper) {
 	helper.DebugOut("Global event list: %v", eventconf.CFile.CurrentEvents)
 	helper.DebugOut("Event list: %v", eventList)
 	response := responses.EventList(baseInfo, eventList)
-	response.BaseResponse = responses.NewBaseResponse(baseInfo, request.Version)
+	//response.BaseResponse = responses.NewBaseResponseV(baseInfo, request.Version)
 	err = helper.SendResponse(response)
 	if err != nil {
 		helper.InternalErr("Error sending response", err)

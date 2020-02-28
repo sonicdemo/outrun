@@ -19,8 +19,8 @@ func SendApollo(helper *helper.Helper) {
 		return
 	}
 	baseInfo := helper.BaseInfo(emess.OK, status.OK)
-	response := responses.NewBaseResponse(baseInfo, request.Version)
-	err := helper.SendResponse(response)
+	response := responses.NewBaseResponseV(baseInfo, request.Version)
+	err = helper.SendResponse(response)
 	if err != nil {
 		helper.InternalErr("Error sending response", err)
 	}

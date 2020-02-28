@@ -156,7 +156,7 @@ func QuickActStart(helper *helper.Helper) {
 	}
 	baseInfo := helper.BaseInfo(emess.OK, responseStatus)
 	response := responses.DefaultQuickActStart(baseInfo, player, campaignList)
-	response.BaseResponse = responses.NewBaseResponse(baseInfo, request.Version)
+	//response.BaseResponse = responses.NewBaseResponseV(baseInfo, request.Version)
 	err = helper.SendResponse(response)
 	if err != nil {
 		helper.InternalErr("Error sending response", err)
@@ -246,7 +246,7 @@ func ActStart(helper *helper.Helper) {
 	}
 	baseInfo := helper.BaseInfo(emess.OK, responseStatus)
 	response := responses.DefaultActStart(baseInfo, player, campaignList)
-	response.BaseResponse = responses.NewBaseResponse(baseInfo, request.Version)
+	//response.BaseResponse = responses.NewBaseResponseV(baseInfo, request.Version)
 	err = helper.SendResponse(response)
 	if err != nil {
 		helper.InternalErr("Error sending response", err)
@@ -512,7 +512,7 @@ func QuickPostGameResults(helper *helper.Helper) {
 
 	baseInfo := helper.BaseInfo(emess.OK, status.OK)
 	response := responses.DefaultQuickPostGameResults(baseInfo, player, playCharacters)
-	response.BaseResponse = responses.NewBaseResponse(baseInfo, request.Version)
+	//response.BaseResponse = responses.NewBaseResponseV(baseInfo, request.Version)
 	err = helper.SendResponse(response)
 	if err != nil {
 		helper.InternalErr("Error sending response", err)
@@ -875,7 +875,7 @@ func PostGameResults(helper *helper.Helper) {
 
 	baseInfo := helper.BaseInfo(emess.OK, status.OK)
 	response := responses.DefaultPostGameResults(baseInfo, player, playCharacters, incentives)
-	response.BaseResponse = responses.NewBaseResponse(baseInfo, request.Version)
+	//response.BaseResponse = responses.NewBaseResponseV(baseInfo, request.Version)
 	err = helper.SendResponse(response)
 	if err != nil {
 		helper.InternalErr("Error sending response", err)
@@ -934,7 +934,7 @@ func GetMileageReward(helper *helper.Helper) {
 	*/
 	baseInfo := helper.BaseInfo(emess.OK, status.OK)
 	response := responses.DefaultMileageReward(baseInfo, request.Chapter, request.Episode)
-	response.BaseResponse = responses.NewBaseResponse(baseInfo, request.Version)
+	//response.BaseResponse = responses.NewBaseResponseV(baseInfo, request.Version)
 	err = helper.SendResponse(response)
 	if err != nil {
 		helper.InternalErr("Error sending response", err)

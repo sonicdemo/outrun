@@ -72,13 +72,13 @@ func Login(helper *helper.Helper) {
 			// likely account that wasn't found, so let's tell them that:
 			response := responses.LoginCheckKey(baseInfo, "")
 			baseInfo.StatusCode = status.MissingPlayer
-			response.BaseResponse = responses.NewBaseResponse(baseInfo, request.Version)
+			//response.BaseResponse = responses.NewBaseResponseV(baseInfo, request.Version)
 			helper.SendResponse(response)
 			helper.InternalErr("Error getting player", err)
 			return
 		}
 		response := responses.LoginCheckKey(baseInfo, player.Key)
-		response.BaseResponse = responses.NewBaseResponse(baseInfo, request.Version)
+		//response.BaseResponse = responses.NewBaseResponseV(baseInfo, request.Version)
 		err = helper.SendResponse(response)
 		if err != nil {
 			helper.InternalErr("Error sending response", err)
@@ -93,7 +93,7 @@ func Login(helper *helper.Helper) {
 			//
 			response := responses.LoginCheckKey(baseInfo, "")
 			baseInfo.StatusCode = status.MissingPlayer
-			response.BaseResponse = responses.NewBaseResponse(baseInfo, request.Version)
+			//response.BaseResponse = responses.NewBaseResponseV(baseInfo, request.Version)
 			helper.SendResponse(response)
 			helper.InternalErr("Error getting player", err)
 			return
@@ -115,7 +115,7 @@ func Login(helper *helper.Helper) {
 				return
 			}
 			response := responses.LoginSuccess(baseInfo, sid, player.Username, player.PlayerVarious.EnergyRecoveryTime, player.PlayerVarious.EnergyRecoveryMax)
-			response.BaseResponse = responses.NewBaseResponse(baseInfo, request.Version)
+			//response.BaseResponse = responses.NewBaseResponseV(baseInfo, request.Version)
 			err = helper.SendResponse(response)
 			if err != nil {
 				helper.InternalErr("Error sending response", err)
@@ -127,7 +127,7 @@ func Login(helper *helper.Helper) {
 			baseInfo.SetErrorMessage(emess.BadPassword)
 			helper.DebugOut("Incorrect passkey sent: \"%s\"", request.Password)
 			response := responses.LoginCheckKey(baseInfo, player.Key)
-			response.BaseResponse = responses.NewBaseResponse(baseInfo, request.Version)
+			//response.BaseResponse = responses.NewBaseResponseV(baseInfo, request.Version)
 			err = helper.SendResponse(response)
 			if err != nil {
 				helper.InternalErr("Error sending response", err)
@@ -387,13 +387,13 @@ func Migration(helper *helper.Helper) {
 			baseInfo.StatusCode = status.InvalidPassword
 			baseInfo.SetErrorMessage(emess.BadPassword)
 			helper.DebugOut("Incorrect password for user ID %s", migratePlayer.ID)
-			response := responses.NewBaseResponse(baseInfo)
+			response := responses.NewBaseResponseV(baseInfo, request.Version)
 			helper.SendResponse(response)
 		}
 	} else {
 		helper.DebugOut("Failed to find player")
 		baseInfo.StatusCode = status.InvalidPassword
-		response := responses.NewBaseResponse(baseInfo)
+		response := responses.NewBaseResponseV(baseInfo, request.Version)
 		helper.SendResponse(response)
 	}
 }

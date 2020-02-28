@@ -25,7 +25,7 @@ func NewBaseResponse(base responseobjs.BaseInfo) BaseResponse {
 	}
 }
 
-func NewBaseResponse(base responseobjs.BaseInfo, gameVersion string) BaseResponse {
+func NewBaseResponseV(base responseobjs.BaseInfo, gameVersion string) BaseResponse {
 	return BaseResponse{
 		base,
 		consts.DataVersionForGameVersion[gameVersion],

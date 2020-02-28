@@ -43,7 +43,7 @@ func GetWheelOptions(helper *helper.Helper) {
 	player.LastWheelOptions = logic.WheelRefreshLogic(player, player.LastWheelOptions)
 
 	response := responses.WheelOptions(baseInfo, player.LastWheelOptions)
-	response.BaseResponse = responses.NewBaseResponse(baseInfo, request.Version)
+	//response.BaseResponse = responses.NewBaseResponseV(baseInfo, request.Version)
 	err = helper.SendResponse(response)
 	if err != nil {
 		helper.InternalErr("Error sending response", err)
@@ -189,7 +189,7 @@ func CommitWheelSpin(helper *helper.Helper) {
 
 	baseInfo := helper.BaseInfo(emess.OK, responseStatus)
 	response := responses.WheelSpin(baseInfo, player.PlayerState, player.CharacterState, player.ChaoState, player.LastWheelOptions)
-	response.BaseResponse = responses.NewBaseResponse(baseInfo, request.Version)
+	//response.BaseResponse = responses.NewBaseResponseV(baseInfo, request.Version)
 	err = db.SavePlayer(player)
 	if err != nil {
 		helper.InternalErr("Error saving player", err)
