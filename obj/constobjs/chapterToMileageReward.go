@@ -681,8 +681,8 @@ var AreaRewards = map[string][]obj.MileageReward{
 		// no mileage reward at point 3
 		obj.NewMileageReward(enums.IncentiveTypePoint, enums.ItemIDLaser, 50, 4),
 
-		obj.NewMileageReward(enums.IncentiveTypeEpisode, enums.ItemIDRing, 60000, 5),
-		obj.NewMileageReward(enums.IncentiveTypeEpisode, enums.ItemIDRedRing, 65, 5),
+		obj.NewMileageReward(enums.IncentiveTypeEpisode, enums.ItemIDRing, 75000, 5),
+		obj.NewMileageReward(enums.IncentiveTypeEpisode, enums.ItemIDRedRing, 85, 5),
 	},
 }
 
