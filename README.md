@@ -1,14 +1,8 @@
-# outrun
+# Outrun for Revival
 
 ### Summary
 
-Outrun is a custom server for Sonic Runners, reverse engineered from the [Sonic Runners Revival](https://sonic.runner.es/) (Now uses Outrun) project.
-
-### Goals
-
-  - Implement all non debug endpoints as fulfilled by the original server
-  - Maintain speed throughout runtime
-  - Consume little resources for conservative deployment
+Outrun for Revival is a fork of Outrun, a custom server for Sonic Runners reverse engineered from the [Sonic Runners Revival](https://sonic.runner.es/) project back during the Open Beta. It is intended for use on the Sonic Runners Revival server, but can be used for your own private servers as well.
 
 ### Current functionality
 
@@ -21,7 +15,10 @@ Notable:
   - Character leveling and progression
   - Item/Chao roulette functionality
   - Events
+  - Campaigns
   - Basic ranking
+  - Login Bonuses
+  - Daily Challenge
 
 Functional:
   - Android and iOS support
@@ -30,9 +27,9 @@ Functional:
   - Deep configuration options
   - Powerful RPC control functions
   - Ticker notices
-  - Small database size and memory footprint
   - Low CPU usage
   - Analytics support
+  - Revive Token keeping
 
 ### Building
 
@@ -69,14 +66,10 @@ Binary releases can be found [in the releases tab.](https://github.com/fluofoxxo
 
 Any pull requests deemed code improvements are strongly encouraged. Refactors may be merged into a different branch.
 
-#### Palmbound (Public Development Server)
-
-As of 1 September, 2019, an instance of this server named Palmbound is currently publicly accessible. App file downloads can be acquired by joining the Palmbound Download Discord server: https://discord.gg/eeQAe8R
-
 ### Credits
 
 Much thanks to:
-  - **YPwn**, whose closest point of online social contact I do not know, for creating and running the Sonic Runners Revival server upon which this project bases much of its code upon.
+  - **YPwn**, whose closest point of online social contact I do not know, for creating and running the Sonic Runners Revival server upon which this project based much of its code upon.
   - **[@Sazpaimon](https://github.com/Sazpaimon)** for finding the encryption key I so desparately looked for but could not on my own.
   - **nacabaro** (nacabaro#2138 on Discord) for traffic logging and the discovery of **[DaGuAr](https://www.youtube.com/user/Gorila5)**'s asset archive.
 
