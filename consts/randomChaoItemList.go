@@ -66,7 +66,7 @@ var RandomChaoWheelChaoPrizes = map[string]float64{
 	enums.ChaoIDStrRCPinwheel:           2.0,
 	enums.ChaoIDStrRCPiggyBank:          1.0,
 	enums.ChaoIDStrRCBalloon:            2.0,
-	enums.ChaoIDStrEasterChao:           1.0, // Event (Easter)
+	//enums.ChaoIDStrEasterChao:           1.0, // Event (Easter)
 	//enums.ChaoIDStrPurplePapurisu:       0.0, // Event (Puyo Puyo Quest)
 	//enums.ChaoIDStrMagLv1:               0.0, // Event (Phantasy Star Online 2)
 	enums.ChaoIDStrEggChao:              1.0,
@@ -78,7 +78,7 @@ var RandomChaoWheelChaoPrizes = map[string]float64{
 	enums.ChaoIDStrRCTurtle:             1.0,
 	enums.ChaoIDStrRCUFO:                1.0,
 	enums.ChaoIDStrRCBomber:             1.0,
-	enums.ChaoIDStrEasterBunny:          1.0, // Event (Easter)
+	//enums.ChaoIDStrEasterBunny:          1.0, // Event (Easter)
 	//enums.ChaoIDStrMagicLamp:            0.0, // Event (Desert Ruins)
 	//enums.ChaoIDStrStarShapedMissile:    0.0, // Event (Zazz Raid Boss)
 	//enums.ChaoIDStrSuketoudara:          0.0, // Event (Puyo Puyo Quest)
@@ -120,7 +120,7 @@ var RandomChaoWheelChaoPrizes = map[string]float64{
 	enums.ChaoIDStrKingArthursGhost:     1.5,
 	enums.ChaoIDStrRCTornado:            1.0,
 	enums.ChaoIDStrRCBattleCruiser:      1.0,
-	enums.ChaoIDStrMerlina:              1.0, // Event (Windy Hill in Spring)
+	//enums.ChaoIDStrMerlina:              1.0, // Event (Easter)
 	//enums.ChaoIDStrErazorDjinn:          0.0, // Event (Desert Ruins)
 	//enums.ChaoIDStrRCMoonMech:           0.0, // Event (Zazz Raid Boss?)
 	//enums.ChaoIDStrCarbuncle:            0.0, // Event (Puyo Puyo Quest)
