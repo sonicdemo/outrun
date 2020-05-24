@@ -68,7 +68,7 @@ var RandomChaoWheelChaoPrizes = map[string]float64{
 	enums.ChaoIDStrRCBalloon:            2.0,
 	//enums.ChaoIDStrEasterChao:           1.0, // Event (Easter)
 	//enums.ChaoIDStrPurplePapurisu:       0.0, // Event (Puyo Puyo Quest)
-	//enums.ChaoIDStrMagLv1:               0.0, // Event (Phantasy Star Online 2)
+	enums.ChaoIDStrMagLv1:               1.0, // Event (Phantasy Star Online 2)
 	enums.ChaoIDStrEggChao:              1.0,
 	enums.ChaoIDStrPumpkinChao:          1.0,
 	enums.ChaoIDStrSkullChao:            1.0,
@@ -82,7 +82,7 @@ var RandomChaoWheelChaoPrizes = map[string]float64{
 	//enums.ChaoIDStrMagicLamp:            0.0, // Event (Desert Ruins)
 	//enums.ChaoIDStrStarShapedMissile:    0.0, // Event (Zazz Raid Boss)
 	//enums.ChaoIDStrSuketoudara:          0.0, // Event (Puyo Puyo Quest)
-	//enums.ChaoIDStrRappy:                0.0, // Event (Phantasy Star Online 2)
+	enums.ChaoIDStrRappy:                1.0, // Event (Phantasy Star Online 2)
 	//enums.ChaoIDStrBlowfishTransporter:  0.0, // Event (Tropical Coast)
 	//enums.ChaoIDStrGenesis:              0.0, // Event (Birthday)
 	//enums.ChaoIDStrCartridge:            0.0, // Event (Birthday)
@@ -124,7 +124,7 @@ var RandomChaoWheelChaoPrizes = map[string]float64{
 	//enums.ChaoIDStrErazorDjinn:          0.0, // Event (Desert Ruins)
 	//enums.ChaoIDStrRCMoonMech:           0.0, // Event (Zazz Raid Boss?)
 	//enums.ChaoIDStrCarbuncle:            0.0, // Event (Puyo Puyo Quest)
-	//enums.ChaoIDStrKuna:                 0.0, // Event (Phantasy Star Online 2)
+	enums.ChaoIDStrKuna:                 1.0, // Event (Phantasy Star Online 2)
 	//enums.ChaoIDStrChaos:                0.0, // Event (Sonic Adventure)
 	//enums.ChaoIDStrDeathEgg:             0.0, // Event (Birthday)
 	enums.ChaoIDStrRedCrystalMonsterS:   1.0,
@@ -144,6 +144,6 @@ var RandomChaoWheelChaoPrizes = map[string]float64{
 	enums.ChaoIDStrRCBlockFace:          1.0,
 	//enums.ChaoIDStrChristmasYeti:        0.0, // Event (Christmas)
 	//enums.ChaoIDStrChristmasNiGHTS:      0.0, // Event (Christmas NiGHTS)
-	//enums.ChaoIDStrDFekt:                0.0, // UNUSED AND INCOMPLETE; DO NOT ENABLE
+	//enums.ChaoIDStrDFekt:                0.0, // DO NOT ENABLE YET - WE HAVE NOT CREATED ASSETS FOR THIS BUDDY YET
 	//enums.ChaoIDStrDarkChaoWalker:       0.0, // Daily Battle?
 }
