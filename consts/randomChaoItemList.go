@@ -35,7 +35,7 @@ var RandomChaoWheelCharacterPrizes = map[string]float64{
 	//enums.CTStrTikal:           0.0, // Event (Sonic Adventure)
 	enums.CTStrVector:          1.0,
 	//enums.CTStrWerehog:         0.0, // Revival Event
-	//enums.CTStrClassicSonic:    0.0, // Event (Birthday)
+	enums.CTStrClassicSonic:    0.7, // Event (Birthday)
 	//enums.CTStrMetalSonic:      0.0, // Revival Event
 	
 	// The below characters shouldn't be activated until event characters are fixed!
@@ -84,8 +84,8 @@ var RandomChaoWheelChaoPrizes = map[string]float64{
 	//enums.ChaoIDStrSuketoudara:          0.0, // Event (Puyo Puyo Quest)
 	enums.ChaoIDStrRappy:                1.0, // Event (Phantasy Star Online 2)
 	//enums.ChaoIDStrBlowfishTransporter:  0.0, // Event (Tropical Coast)
-	//enums.ChaoIDStrGenesis:              0.0, // Event (Birthday)
-	//enums.ChaoIDStrCartridge:            0.0, // Event (Birthday)
+	enums.ChaoIDStrGenesis:              1.0, // Event (Birthday)
+	enums.ChaoIDStrCartridge:            1.0, // Event (Birthday)
 	enums.ChaoIDStrRCFighter:            1.0,
 	enums.ChaoIDStrRCHovercraft:         1.0,
 	enums.ChaoIDStrRCHelicopter:         1.0,
@@ -126,7 +126,7 @@ var RandomChaoWheelChaoPrizes = map[string]float64{
 	//enums.ChaoIDStrCarbuncle:            0.0, // Event (Puyo Puyo Quest)
 	enums.ChaoIDStrKuna:                 1.0, // Event (Phantasy Star Online 2)
 	//enums.ChaoIDStrChaos:                0.0, // Event (Sonic Adventure)
-	//enums.ChaoIDStrDeathEgg:             0.0, // Event (Birthday)
+	enums.ChaoIDStrDeathEgg:             0.5, // Event (Birthday)
 	enums.ChaoIDStrRedCrystalMonsterS:   1.0,
 	enums.ChaoIDStrRedCrystalMonsterL:   1.0,
 	enums.ChaoIDStrGoldenGoose:          1.0,
