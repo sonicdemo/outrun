@@ -251,7 +251,7 @@ func CommitChaoWheelSpin(helper *helper.Helper) {
 						}
 					} else {
 						player.PlayerState.ChaoEggs += 1 // maxed out; give 1 special eggs as compensation
-						spinResult.ItemList = append(spinResult.ItemList, obj.NewItem(strconv.Itoa(enums.IDSpecialEgg), 3))
+						spinResult.ItemList = append(spinResult.ItemList, obj.NewItem(strconv.Itoa(enums.IDSpecialEgg), 1))
 					}
 					spinResult.WonPrize.Level = player.ChaoState[chaoIndex].Level
 				}
