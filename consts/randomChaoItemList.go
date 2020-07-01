@@ -120,7 +120,7 @@ var RandomChaoWheelChaoPrizes = map[string]float64{
 	enums.ChaoIDStrKingArthursGhost:     1.5,
 	enums.ChaoIDStrRCTornado:            1.0,
 	enums.ChaoIDStrRCBattleCruiser:      1.0,
-	//enums.ChaoIDStrMerlina:              1.0, // Event (Easter)
+	enums.ChaoIDStrMerlina:              1.5, // Event (Easter)
 	//enums.ChaoIDStrErazorDjinn:          0.0, // Event (Desert Ruins)
 	//enums.ChaoIDStrRCMoonMech:           0.0, // Event (Zazz Raid Boss?)
 	//enums.ChaoIDStrCarbuncle:            0.0, // Event (Puyo Puyo Quest)
