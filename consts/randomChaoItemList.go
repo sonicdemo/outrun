@@ -21,7 +21,7 @@ var RandomChaoWheelCharacterPrizes = map[string]float64{
 	enums.CTStrKnuckles:        0.7, // Obtained in story mode
 	enums.CTStrAmy:             1.0,
 	enums.CTStrBig:             0.7,
-	//enums.CTStrBlaze:           0.5, // Revival Event (Sonic Rush)
+	enums.CTStrBlaze:           1.0, // Revival Event (Sonic Rush)
 	enums.CTStrCharmy:          1.0,
 	enums.CTStrCream:           0.7,
 	enums.CTStrEspio:           1.0,
@@ -35,7 +35,7 @@ var RandomChaoWheelCharacterPrizes = map[string]float64{
 	//enums.CTStrTikal:           0.0, // Event (Sonic Adventure)
 	enums.CTStrVector:          1.0,
 	//enums.CTStrWerehog:         0.0, // Revival Event
-	//enums.CTStrClassicSonic:    0.0, // Event (Birthday)
+	//&enums.CTStrClassicSonic:    0.7, // Event (Birthday)
 	//enums.CTStrMetalSonic:      0.0, // Revival Event
 	
 	// The below characters shouldn't be activated until event characters are fixed!
@@ -66,9 +66,9 @@ var RandomChaoWheelChaoPrizes = map[string]float64{
 	enums.ChaoIDStrRCPinwheel:           2.0,
 	enums.ChaoIDStrRCPiggyBank:          1.0,
 	enums.ChaoIDStrRCBalloon:            2.0,
-	//enums.ChaoIDStrEasterChao:           0.0, // Event (Easter)
+	//enums.ChaoIDStrEasterChao:           1.0, // Event (Easter)
 	//enums.ChaoIDStrPurplePapurisu:       0.0, // Event (Puyo Puyo Quest)
-	//enums.ChaoIDStrMagLv1:               0.0, // Event (Phantasy Star Online 2)
+	//enums.ChaoIDStrMagLv1:               1.0, // Event (Phantasy Star Online 2)
 	enums.ChaoIDStrEggChao:              1.0,
 	enums.ChaoIDStrPumpkinChao:          1.0,
 	enums.ChaoIDStrSkullChao:            1.0,
@@ -78,14 +78,14 @@ var RandomChaoWheelChaoPrizes = map[string]float64{
 	enums.ChaoIDStrRCTurtle:             1.0,
 	enums.ChaoIDStrRCUFO:                1.0,
 	enums.ChaoIDStrRCBomber:             1.0,
-	//enums.ChaoIDStrEasterBunny:          0.0, // Event (Easter)
+	//enums.ChaoIDStrEasterBunny:          1.0, // Event (Easter)
 	//enums.ChaoIDStrMagicLamp:            0.0, // Event (Desert Ruins)
 	//enums.ChaoIDStrStarShapedMissile:    0.0, // Event (Zazz Raid Boss)
 	//enums.ChaoIDStrSuketoudara:          0.0, // Event (Puyo Puyo Quest)
-	//enums.ChaoIDStrRappy:                0.0, // Event (Phantasy Star Online 2)
+	//enums.ChaoIDStrRappy:                1.0, // Event (Phantasy Star Online 2)
 	//enums.ChaoIDStrBlowfishTransporter:  0.0, // Event (Tropical Coast)
-	//enums.ChaoIDStrGenesis:              0.0, // Event (Birthday)
-	//enums.ChaoIDStrCartridge:            0.0, // Event (Birthday)
+	//enums.ChaoIDStrGenesis:              1.0, // Event (Birthday)
+	//enums.ChaoIDStrCartridge:            1.0, // Event (Birthday)
 	enums.ChaoIDStrRCFighter:            1.0,
 	enums.ChaoIDStrRCHovercraft:         1.0,
 	enums.ChaoIDStrRCHelicopter:         1.0,
@@ -116,17 +116,17 @@ var RandomChaoWheelChaoPrizes = map[string]float64{
 	enums.ChaoIDStrDarkChaos:            1.5,
 	enums.ChaoIDStrChip:                 1.5,
 	//enums.ChaoIDStrShahra:               0.0, // Runners' League
-	enums.ChaoIDStrCaliburn:             1.5,
+	enums.ChaoIDStrCaliburn:             2.5,
 	enums.ChaoIDStrKingArthursGhost:     1.5,
 	enums.ChaoIDStrRCTornado:            1.0,
 	enums.ChaoIDStrRCBattleCruiser:      1.0,
-	//enums.ChaoIDStrMerlina:              0.0, // Event (Windy Hill in Spring)
+	enums.ChaoIDStrMerlina:              1.5, // Event (Easter)
 	//enums.ChaoIDStrErazorDjinn:          0.0, // Event (Desert Ruins)
 	//enums.ChaoIDStrRCMoonMech:           0.0, // Event (Zazz Raid Boss?)
 	//enums.ChaoIDStrCarbuncle:            0.0, // Event (Puyo Puyo Quest)
-	//enums.ChaoIDStrKuna:                 0.0, // Event (Phantasy Star Online 2)
+	//enums.ChaoIDStrKuna:                 1.0, // Event (Phantasy Star Online 2)
 	//enums.ChaoIDStrChaos:                0.0, // Event (Sonic Adventure)
-	//enums.ChaoIDStrDeathEgg:             0.0, // Event (Birthday)
+	//enums.ChaoIDStrDeathEgg:             0.5, // Event (Birthday)
 	enums.ChaoIDStrRedCrystalMonsterS:   1.0,
 	enums.ChaoIDStrRedCrystalMonsterL:   1.0,
 	enums.ChaoIDStrGoldenGoose:          1.0,
@@ -144,6 +144,6 @@ var RandomChaoWheelChaoPrizes = map[string]float64{
 	enums.ChaoIDStrRCBlockFace:          1.0,
 	//enums.ChaoIDStrChristmasYeti:        0.0, // Event (Christmas)
 	//enums.ChaoIDStrChristmasNiGHTS:      0.0, // Event (Christmas NiGHTS)
-	//enums.ChaoIDStrDFekt:                0.0, // UNUSED AND INCOMPLETE; DO NOT ENABLE
+	//enums.ChaoIDStrDFekt:                0.0, // DO NOT ENABLE YET - WE HAVE NOT CREATED ASSETS FOR THIS BUDDY YET
 	//enums.ChaoIDStrDarkChaoWalker:       0.0, // Daily Battle?
 }

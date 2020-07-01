@@ -809,11 +809,6 @@ func PostGameResults(helper *helper.Helper) {
 					player.MileageMapState.Episode = 11
 				}
 			}
-			if player.MileageMapState.Episode > 50 { // if beat game, reset to 50-1
-				player.MileageMapState.Episode = 50
-				player.MileageMapState.Chapter = 1
-				helper.DebugOut("goToNextEpisode: Player (%s) beat the game!", player.ID)
-			}
 		} else {
 			player.MileageMapState.Point = newPoint
 		}
@@ -825,6 +820,11 @@ func PostGameResults(helper *helper.Helper) {
 		newRewardEpisode = player.MileageMapState.Episode
 		newRewardChapter = player.MileageMapState.Chapter
 		newRewardPoint = player.MileageMapState.Point
+		if goToNextChapter && goToNextEpisode && player.MileageMapState.Episode > 50 { // if beat game, reset to 50-1
+			player.MileageMapState.Episode = 50
+			player.MileageMapState.Chapter = 1
+			helper.DebugOut("goToNextEpisode: Player (%s) beat the game!", player.ID)
+		}
 		// add rewards to PlayerState
 		wonRewards := campaign.GetWonRewards(oldRewardEpisode, oldRewardChapter, oldRewardPoint, newRewardEpisode, newRewardChapter, newRewardPoint)
 		helper.DebugOut("wonRewards length: %v", wonRewards)
