@@ -131,6 +131,11 @@ func GetPlayer(uid string) (netobj.Player, error) {
 	return player, nil
 }
 
+func DeletePlayer(uid string) error {
+	err := dbaccess.Delete(consts.DBBucketPlayers, uid)
+	return err
+}
+
 func GetPlayerBySessionID(sid string) (netobj.Player, error) {
 	sidResult, err := dbaccess.Get(consts.DBBucketSessionIDs, sid)
 	if err != nil {

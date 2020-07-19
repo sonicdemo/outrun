@@ -7,6 +7,7 @@ import (
 	"math"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/Mtbcooler/outrun/config/gameconf"
 	"github.com/Mtbcooler/outrun/consts"
@@ -45,6 +46,18 @@ func (t *Toolbox) Debug_GetAllPlayerIDs(nothing bool, reply *ToolboxReply) error
 
 func (t *Toolbox) Debug_ResetPlayer(uid string, reply *ToolboxReply) error {
 	_ = db.NewAccountWithID(uid)
+	reply.Status = StatusOK
+	reply.Info = "OK"
+	return nil
+}
+
+func (t *Toolbox) Debug_DeletePlayer(uid string, reply *ToolboxReply) error {
+	err := db.DeletePlayer(uid)
+	if err != nil {
+		reply.Status = StatusOtherError
+		reply.Info = "unable to delete player: " + err.Error()
+		return err
+	}
 	reply.Status = StatusOK
 	reply.Info = "OK"
 	return nil
@@ -513,5 +526,43 @@ func (t *Toolbox) Debug_FixCharacterPrices(uids string, reply *ToolboxReply) err
 	}
 	reply.Status = StatusOK
 	reply.Info = "OK"
+	return nil
+}
+
+// Purges players who haven't logged in for 6 months
+// If testmode is true, it only counts how many players could be purged
+func (t *Toolbox) Debug_PurgeInactivePlayers(testmode bool, reply *ToolboxReply) error {
+	playerIDs := []string{}
+	dbaccess.ForEachKey(consts.DBBucketPlayers, func(k, v []byte) error {
+		playerIDs = append(playerIDs, string(k))
+		return nil
+	})
+	numberOfPurgedPlayers := 0
+	for _, uid := range playerIDs {
+		player, err := db.GetPlayer(uid)
+		if err != nil {
+			reply.Status = StatusOtherError
+			reply.Info = fmt.Sprintf("unable to get player %s: ", uid) + err.Error()
+			return err
+		}
+		if player.LastLogin < time.Now().AddDate(0, -6, 0).UTC().Unix() {
+			log.Printf("[RPC-DEBUG] Player %s hasn't logged in for six or more months! (Last Login: %v)\n", uid)
+			numberOfPurgedPlayers++
+			if !testmode {
+				err := db.DeletePlayer(uid)
+				if err != nil {
+					reply.Status = StatusOtherError
+					reply.Info = "unable to delete player " + uid + ": " + err.Error() + " - purged " + strconv.Itoa(numberOfPurgedPlayers) + " inactive players"
+					return err
+				}
+			}
+		}
+	}
+	reply.Status = StatusOK
+	if testmode {
+		reply.Info = "OK - found " + strconv.Itoa(numberOfPurgedPlayers) + " inactive players"
+	} else {
+		reply.Info = "OK - purged " + strconv.Itoa(numberOfPurgedPlayers) + " inactive players"
+	}
 	return nil
 }
