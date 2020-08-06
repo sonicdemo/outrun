@@ -21,7 +21,7 @@ var RandomChaoWheelCharacterPrizes = map[string]float64{
 	enums.CTStrKnuckles:        0.7, // Obtained in story mode
 	enums.CTStrAmy:             1.0,
 	enums.CTStrBig:             0.7,
-	enums.CTStrBlaze:           1.0, // Revival Event (Sonic Rush)
+	//enums.CTStrBlaze:           1.0, // Revival Event (Sonic Rush)
 	enums.CTStrCharmy:          1.0,
 	enums.CTStrCream:           0.7,
 	enums.CTStrEspio:           1.0,
@@ -102,7 +102,7 @@ var RandomChaoWheelChaoPrizes = map[string]float64{
 	//enums.ChaoIDStrKnucklesOmochao:      0.0, // Event (Team Sonic Omochao)
 	//enums.ChaoIDStrBoo:                  0.0, // Event (Halloween)
 	//enums.ChaoIDStrHalloweenChao:        0.0, // Event (Halloween)
-	//enums.ChaoIDStrHeavyBomb:            0.0, // Event (Fantasy Zone)
+	enums.ChaoIDStrHeavyBomb:            1.8, // Event (Fantasy Zone)
 	enums.ChaoIDStrBlockBomb:            1.0,
 	enums.ChaoIDStrHunkofMeat:           1.0,
 	//enums.ChaoIDStrYeti:                 0.0, // Event (Christmas)
@@ -120,7 +120,7 @@ var RandomChaoWheelChaoPrizes = map[string]float64{
 	enums.ChaoIDStrKingArthursGhost:     1.5,
 	enums.ChaoIDStrRCTornado:            1.0,
 	enums.ChaoIDStrRCBattleCruiser:      1.0,
-	enums.ChaoIDStrMerlina:              1.5, // Event (Easter)
+	//enums.ChaoIDStrMerlina:              1.5, // Event (Easter)
 	//enums.ChaoIDStrErazorDjinn:          0.0, // Event (Desert Ruins)
 	//enums.ChaoIDStrRCMoonMech:           0.0, // Event (Zazz Raid Boss?)
 	//enums.ChaoIDStrCarbuncle:            0.0, // Event (Puyo Puyo Quest)
@@ -139,8 +139,8 @@ var RandomChaoWheelChaoPrizes = map[string]float64{
 	//enums.ChaoIDStrChaoWalker:           0.0, // Daily Battle
 	//enums.ChaoIDStrDarkQueen:            0.0, // Runners' League
 	//enums.ChaoIDStrKingBoomBoo:          0.0, // Event (Halloween)
-	//enums.ChaoIDStrOPapa:                0.0, // Event (Fantasy Zone)
-	//enums.ChaoIDStrOpaOpa:               0.0, // Event (Fantasy Zone)
+	enums.ChaoIDStrOPapa:                2.0, // Event (Fantasy Zone)
+	enums.ChaoIDStrOpaOpa:               2.0, // Event (Fantasy Zone)
 	enums.ChaoIDStrRCBlockFace:          1.0,
 	//enums.ChaoIDStrChristmasYeti:        0.0, // Event (Christmas)
 	//enums.ChaoIDStrChristmasNiGHTS:      0.0, // Event (Christmas NiGHTS)
