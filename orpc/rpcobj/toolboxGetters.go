@@ -2,6 +2,7 @@ package rpcobj
 
 import (
     "strconv"
+	"strings"
 
     "github.com/Mtbcooler/outrun/db"
 )
@@ -39,6 +40,19 @@ func (t *Toolbox) GetLastLogin(uid string, reply *ToolboxReply) error {
     }
     reply.Status = StatusOK
     reply.Info = strconv.Itoa(int(player.LastLogin))
+    return nil
+}
+
+func (t *Toolbox) GetCurrentTeam(uid string, reply *ToolboxReply) error {
+    player, err := db.GetPlayer(uid)
+    if err != nil {
+        reply.Status = StatusOtherError
+        reply.Info = "unable to get player: " + err.Error()
+        return err
+    }
+    result := []string{player.PlayerState.MainCharaID, player.PlayerState.SubCharaID}
+    reply.Status = StatusOK
+    reply.Info = strings.Join(result, ",") 
     return nil
 }
 

@@ -61,6 +61,20 @@ Binary releases can be found [in the releases tab.](https://github.com/fluofoxxo
 13. Transfer the APK to an Android device and use ZipSigner to sign it
 14. Install the APK
 
+#### Modifying an IPA to connect to your instance (from Windows)
+
+*Disclaimer: Make sure your server URLs (including the port, information, and asset extensions) are below 26 characters so it can fit within the hex*
+1. Install [7-Zip](https://www.7-zip.org/download.html)
+2. Install a hex editor of your choice
+3. Open a Sonic Runners v2.0.3 IPA file with 7-Zip
+4. Navigate to Payload/sonicrunners.app/Data/Managed/Metadata and extract global-metdata.dat
+5. Open global-metadata.dat in your hex editor
+6. Jump to offset `2CEE0` and find the table of server URLs
+7. Edit every string in the table to match your server URLs (If your URL is below the character limit, you can use slashes to pad out the empty space until you reach the next listing)
+8. Save global-metadata.dat
+9. Insert the modified global-metadata.dat into Payload/sonicrunners.app/Data/Managed/Metadata in 7-Zip, confirming to overwrite if asked
+10. Transfer the IPA to an iOS device
+11. Install the IPA using AltStore or AppSync Unified
 
 ### Misc.
 
