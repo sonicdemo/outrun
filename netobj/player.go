@@ -432,7 +432,8 @@ func (p *Player) GetAllOperatorMessageIDs() []int64 {
 
 func (p *Player) CleanUpExpiredOperatorMessages() {
 	p.FixUpOperatorMessages()
-	removals := -1
+	// TODO: Fix this ASAP!
+	/*removals := -1
 	for removals != 0 {
 		removals = 0
 		for index, message := range p.OperatorMessages {
@@ -441,7 +442,7 @@ func (p *Player) CleanUpExpiredOperatorMessages() {
 				removals++
 			}
 		}
-	}
+	}*/
 }
 
 func (p *Player) AddOperatorMessage(messageContents string, item obj.MessageItem, expiresAfter int64) {
