@@ -83,7 +83,7 @@ var RandomChaoWheelChaoPrizes = map[string]float64{
 	//enums.ChaoIDStrStarShapedMissile:    0.0, // Event (Zazz Raid Boss)
 	//enums.ChaoIDStrSuketoudara:          0.0, // Event (Puyo Puyo Quest)
 	//enums.ChaoIDStrRappy:                1.0, // Event (Phantasy Star Online 2)
-	//enums.ChaoIDStrBlowfishTransporter:  0.0, // Event (Tropical Coast)
+	enums.ChaoIDStrBlowfishTransporter:  2.0, // Event (Tropical Coast)
 	//enums.ChaoIDStrGenesis:              1.0, // Event (Birthday)
 	//enums.ChaoIDStrCartridge:            1.0, // Event (Birthday)
 	enums.ChaoIDStrRCFighter:            1.0,
@@ -94,7 +94,7 @@ var RandomChaoWheelChaoPrizes = map[string]float64{
 	enums.ChaoIDStrRCAirship:            1.0,
 	//enums.ChaoIDStrDesertChao:           0.0, // Event (Desert Ruins)
 	//enums.ChaoIDStrRCSatellite:          0.0, // Event (Zazz Raid Boss)
-	//enums.ChaoIDStrMarineChao:           0.0, // Event (Tropical Coast)
+	enums.ChaoIDStrMarineChao:           2.0, // Event (Tropical Coast)
 	//enums.ChaoIDStrNightopian:           0.0, // Event (NiGHTS)
 	//enums.ChaoIDStrOrca:                 0.0, // Event (Sonic Adventure)
 	//enums.ChaoIDStrSonicOmochao:         0.0, // Event (Team Sonic Omochao)
@@ -116,8 +116,8 @@ var RandomChaoWheelChaoPrizes = map[string]float64{
 	enums.ChaoIDStrDarkChaos:            1.5,
 	enums.ChaoIDStrChip:                 1.5,
 	//enums.ChaoIDStrShahra:               0.0, // Runners' League
-	enums.ChaoIDStrCaliburn:             2.5,
-	enums.ChaoIDStrKingArthursGhost:     1.5,
+	enums.ChaoIDStrCaliburn:             1.2,
+	enums.ChaoIDStrKingArthursGhost:     1.0,
 	enums.ChaoIDStrRCTornado:            1.0,
 	enums.ChaoIDStrRCBattleCruiser:      1.0,
 	//enums.ChaoIDStrMerlina:              1.5, // Event (Easter)
@@ -130,7 +130,7 @@ var RandomChaoWheelChaoPrizes = map[string]float64{
 	enums.ChaoIDStrRedCrystalMonsterS:   1.0,
 	enums.ChaoIDStrRedCrystalMonsterL:   1.0,
 	enums.ChaoIDStrGoldenGoose:          1.0,
-	//enums.ChaoIDStrMotherWisp:           0.0, // Event (Tropical Coast)
+	enums.ChaoIDStrMotherWisp:           1.2, // Event (Tropical Coast)
 	enums.ChaoIDStrRCPirateSpaceship:    1.0,
 	enums.ChaoIDStrGoldenAngel:          1.0,
 	//enums.ChaoIDStrNiGHTS:               0.0, // Event (NiGHTS)
