@@ -10,7 +10,7 @@ import (
 	"github.com/Mtbcooler/outrun/emess"
 	"github.com/Mtbcooler/outrun/enums"
 	"github.com/Mtbcooler/outrun/helper"
-	"github.com/Mtbcooler/outrun/obj"
+	"github.com/Mtbcooler/outrun/netobj"
 	"github.com/Mtbcooler/outrun/obj/constobjs"
 	"github.com/Mtbcooler/outrun/requests"
 	"github.com/Mtbcooler/outrun/responses"
