@@ -77,6 +77,24 @@ func GetCharacterState(helper *helper.Helper) {
 		helper.InternalErr("Error getting calling player", err)
 		return
 	}
+	// sloppy hack to add halloween characters to the character state
+	charindex := player.IndexOfChara(enums.CTStrHalloweenShadow)
+	if(charindex == -1) {
+		player.CharacterState = append(player.CharacterState, DefaultRouletteOnlyLockedCharacter(constobjs.CharacterHalloweenShadow))
+	}
+	charindex = player.IndexOfChara(enums.CTStrHalloweenRouge)
+	if(charindex == -1) {
+		player.CharacterState = append(player.CharacterState, DefaultRouletteOnlyLockedCharacter(constobjs.CharacterHalloweenRouge))
+	}
+	charindex = player.IndexOfChara(enums.CTStrHalloweenOmega)
+	if(charindex == -1) {
+		player.CharacterState = append(player.CharacterState, DefaultRouletteOnlyLockedCharacter(constobjs.CharacterHalloweenOmega))
+	}
+	err = db.SavePlayer(player)
+	if err != nil {
+		helper.InternalErr("Error saving player", err)
+		return
+	}
 	baseInfo := helper.BaseInfo(emess.OK, status.OK)
 	response := responses.CharacterState(baseInfo, player.CharacterState)
 	helper.SendResponse(response)
