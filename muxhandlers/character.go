@@ -175,7 +175,10 @@ func UnlockedCharacter(helper *helper.Helper) {
 	helper.DebugOut("Pre:")
 	if buyWith == enums.ItemIDStrRing { // is buying with rings
 		ringCost := chara.Price
-		if ringCost > player.PlayerState.NumRings { // cannot buy
+		if ringCost == 0 { // cannot use rings to purchase
+			helper.DebugOut("Character cannot be purchased with rings")
+			responseStatus = status.ClientError
+		} else if ringCost > player.PlayerState.NumRings { // cannot buy
 			helper.DebugOut("Player can't pay with rings (Has %v)", player.PlayerState.NumRings)
 			responseStatus = status.NotEnoughRings
 		} else { // can buy with rings
@@ -194,7 +197,10 @@ func UnlockedCharacter(helper *helper.Helper) {
 		}
 	} else if buyWith == enums.ItemIDStrRedRing { // is buying with red rings
 		redRingCost := chara.PriceRedRings
-		if redRingCost > player.PlayerState.NumRedRings { // cannot buy with red rings
+		if redRingCost == 0 { // cannot use red rings to purchase
+			helper.DebugOut("Character cannot be purchased with red rings")
+			responseStatus = status.ClientError
+		} else if redRingCost > player.PlayerState.NumRedRings { // cannot buy with red rings
 			helper.DebugOut("Player can't pay with red rings (Has %v)", player.PlayerState.NumRedRings)
 			responseStatus = status.NotEnoughRedRings
 		} else { // can buy with red rings
