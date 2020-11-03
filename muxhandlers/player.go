@@ -80,15 +80,15 @@ func GetCharacterState(helper *helper.Helper) {
 	// sloppy hack to add halloween characters to the character state
 	charindex := player.IndexOfChara(enums.CTStrHalloweenShadow)
 	if charindex == -1 {
-		player.CharacterState = append(player.CharacterState, DefaultRouletteOnlyLockedCharacter(constobjs.CharacterHalloweenShadow))
+		player.CharacterState = append(player.CharacterState, DefaultRouletteLockedCharacter(constobjs.CharacterHalloweenShadow))
 	}
 	charindex = player.IndexOfChara(enums.CTStrHalloweenRouge)
 	if charindex == -1 {
-		player.CharacterState = append(player.CharacterState, DefaultRouletteOnlyLockedCharacter(constobjs.CharacterHalloweenRouge))
+		player.CharacterState = append(player.CharacterState, DefaultRouletteLockedCharacter(constobjs.CharacterHalloweenRouge))
 	}
 	charindex = player.IndexOfChara(enums.CTStrHalloweenOmega)
 	if charindex == -1 {
-		player.CharacterState = append(player.CharacterState, DefaultRouletteOnlyLockedCharacter(constobjs.CharacterHalloweenOmega))
+		player.CharacterState = append(player.CharacterState, DefaultRouletteLockedCharacter(constobjs.CharacterHalloweenOmega))
 	}
 	err = db.SavePlayer(player)
 	if err != nil {
