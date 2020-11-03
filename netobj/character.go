@@ -79,6 +79,15 @@ func DefaultRouletteLockedCharacter(char obj.Character) Character {
 	return ch
 }
 
+func DefaultRouletteOnlyLockedCharacter(char obj.Character) Character {
+	ch := DefaultCharacter(char)
+	ch.LockCondition = int64(enums.LockConditionRoulette)
+	ch.Status = int64(enums.CharacterStatusLocked)
+	ch.Price = 0
+	ch.PriceRedRings = 0
+	return ch
+}
+
 func UnlockedCharacterState() []Character { // every character
 	// TODO: It looks like the game only wants 300000-300020, otherwise an index error is created. Investigate this in game!
 	return []Character{
