@@ -19,7 +19,7 @@ type BaseResponse struct {
 func NewBaseResponse(base responseobjs.BaseInfo) BaseResponse {
 	return BaseResponse{
 		base,
-		"Halloween",
+		"Halloween2",
 		"2.0.3",
 		"15",
 		"017",
