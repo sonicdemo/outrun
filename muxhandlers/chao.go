@@ -226,12 +226,12 @@ func CommitChaoWheelSpin(helper *helper.Helper) {
 						player.CharacterState[charIndex].Star++
 					}
 					if starUpCount > 0 && player.CharacterState[charIndex].Star >= 10 {
-						player.PlayerState.ChaoEggs += 3 // maxed out; give 3 special eggs, 17500 rings, and 10 red rings as compensation
+						player.PlayerState.ChaoEggs += 3 // maxed out; give 3 special eggs, 17500 rings, and 15 red rings as compensation
 						player.PlayerState.NumRings += 17500
-						player.PlayerState.NumRedRings += 10
+						player.PlayerState.NumRedRings += 15
 						spinResult.ItemList = append(spinResult.ItemList, obj.NewItem(strconv.Itoa(enums.IDSpecialEgg), 3))
 						spinResult.ItemList = append(spinResult.ItemList, obj.NewItem(strconv.Itoa(enums.IDRing), 17500))
-						spinResult.ItemList = append(spinResult.ItemList, obj.NewItem(strconv.Itoa(enums.IDRedRing), 10))
+						spinResult.ItemList = append(spinResult.ItemList, obj.NewItem(strconv.Itoa(enums.IDRedRing), 15))
 					}
 					spinResult.WonPrize.Level = player.CharacterState[charIndex].Level // set level of prize to character level
 				}
