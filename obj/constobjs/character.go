@@ -145,7 +145,7 @@ var CharacterMetalSonic = obj.Character{
 
 var CharacterAmitieAmy = obj.Character{
 	strconv.Itoa(enums.CharaTypeAmitieAmy),
-	77000,
+	32000,
 	NumRedRings,
 	1200000, // used for limit breaking
 	500,    // red rings used for limit breaking
@@ -169,7 +169,7 @@ var CharacterTikal = obj.Character{
 
 var CharacterGothicAmy = obj.Character{
 	strconv.Itoa(enums.CharaTypeGothicAmy),
-	93000,
+	50000,
 	NumRedRings,
 	1200000, // used for limit breaking
 	500,    // red rings used for limit breaking
@@ -177,7 +177,7 @@ var CharacterGothicAmy = obj.Character{
 
 var CharacterHalloweenShadow = obj.Character{
 	strconv.Itoa(enums.CharaTypeHalloweenShadow),
-	99000,
+	35000,
 	NumRedRings,
 	1200000, // used for limit breaking
 	500,    // red rings used for limit breaking
@@ -185,7 +185,7 @@ var CharacterHalloweenShadow = obj.Character{
 
 var CharacterHalloweenRouge = obj.Character{
 	strconv.Itoa(enums.CharaTypeHalloweenRouge),
-	99000,
+	35000,
 	NumRedRings,
 	1200000, // used for limit breaking
 	500,    // red rings used for limit breaking
@@ -193,7 +193,7 @@ var CharacterHalloweenRouge = obj.Character{
 
 var CharacterHalloweenOmega = obj.Character{
 	strconv.Itoa(enums.CharaTypeHalloweenOmega),
-	99000,
+	35000,
 	NumRedRings,
 	1200000, // used for limit breaking
 	500,    // red rings used for limit breaking
@@ -217,7 +217,7 @@ var CharacterPSISilver = obj.Character{
 
 var CharacterXMasSonic = obj.Character{
 	strconv.Itoa(enums.CharaTypeXMasSonic),
-	85000,
+	30000,
 	NumRedRings,
 	1200000, // used for limit breaking
 	500,    // red rings used for limit breaking
@@ -225,7 +225,7 @@ var CharacterXMasSonic = obj.Character{
 
 var CharacterXMasTails = obj.Character{
 	strconv.Itoa(enums.CharaTypeXMasTails),
-	85000,
+	30000,
 	NumRedRings,
 	1200000, // used for limit breaking
 	500,    // red rings used for limit breaking
@@ -233,7 +233,7 @@ var CharacterXMasTails = obj.Character{
 
 var CharacterXMasKnuckles = obj.Character{
 	strconv.Itoa(enums.CharaTypeXMasKnuckles),
-	85000,
+	30000,
 	NumRedRings,
 	1200000, // used for limit breaking
 	500,    // red rings used for limit breaking
