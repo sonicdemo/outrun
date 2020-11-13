@@ -80,8 +80,12 @@ func GetCharacterState(helper *helper.Helper) {
 		helper.InternalErr("Error getting calling player", err)
 		return
 	}
-	// sloppy hack to add halloween characters to the character state
-	charindex := player.IndexOfChara(enums.CTStrHalloweenShadow)
+	// below is a lazy hack to add event characters to the character state - UPDATE THIS FOR CHRISTMAS IF NECESSARY
+	/*charindex := player.IndexOfChara(enums.CTStrGothicAmy)
+	if charindex == -1 {
+		player.CharacterState = append(player.CharacterState, netobj.DefaultSpecialLockedCharacter(constobjs.CharacterGothicAmy))
+	}*/
+	/*charindex = player.IndexOfChara(enums.CTStrHalloweenShadow)
 	if charindex == -1 {
 		player.CharacterState = append(player.CharacterState, netobj.DefaultRouletteOnlyLockedCharacter(constobjs.CharacterHalloweenShadow))
 	}
@@ -92,7 +96,7 @@ func GetCharacterState(helper *helper.Helper) {
 	charindex = player.IndexOfChara(enums.CTStrHalloweenOmega)
 	if charindex == -1 {
 		player.CharacterState = append(player.CharacterState, netobj.DefaultRouletteOnlyLockedCharacter(constobjs.CharacterHalloweenOmega))
-	}
+	}*/
 	err = db.SavePlayer(player)
 	if err != nil {
 		helper.InternalErr("Error saving player", err)
