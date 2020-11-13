@@ -41,9 +41,9 @@ var RandomChaoWheelCharacterPrizes = map[string]float64{
 	// The below characters shouldn't be activated until event characters are fixed!
 	//enums.CTStrAmitieAmy:       0.0, // Event (Puyo Puyo Quest)
 	//enums.CTStrGothicAmy:       0.0, // Revival Event
-	enums.CTStrHalloweenShadow: 1.0, // Event (Halloween)
-	enums.CTStrHalloweenRouge:  1.0, // Event (Halloween)
-	enums.CTStrHalloweenOmega:  1.0, // Event (Halloween)
+	//enums.CTStrHalloweenShadow: 1.0, // Event (Halloween)
+	//enums.CTStrHalloweenRouge:  1.0, // Event (Halloween)
+	//enums.CTStrHalloweenOmega:  1.0, // Event (Halloween)
 	//enums.CTStrXMasSonic:       0.0, // Event (Christmas)
 	//enums.CTStrXMasTails:       0.0, // Event (Christmas)
 	//enums.CTStrXMasKnuckles:    0.0, // Event (Christmas)
@@ -100,8 +100,8 @@ var RandomChaoWheelChaoPrizes = map[string]float64{
 	//enums.ChaoIDStrSonicOmochao:         0.0, // Event (Team Sonic Omochao)
 	//enums.ChaoIDStrTailsOmochao:         0.0, // Event (Team Sonic Omochao)
 	//enums.ChaoIDStrKnucklesOmochao:      0.0, // Event (Team Sonic Omochao)
-	enums.ChaoIDStrBoo:                  2.0, // Event (Halloween)
-	enums.ChaoIDStrHalloweenChao:        2.0, // Event (Halloween)
+	//enums.ChaoIDStrBoo:                  2.0, // Event (Halloween)
+	//enums.ChaoIDStrHalloweenChao:        2.0, // Event (Halloween)
 	//enums.ChaoIDStrHeavyBomb:            1.8, // Event (Fantasy Zone)
 	enums.ChaoIDStrBlockBomb:            1.0,
 	enums.ChaoIDStrHunkofMeat:           1.0,
@@ -138,7 +138,7 @@ var RandomChaoWheelChaoPrizes = map[string]float64{
 	//enums.ChaoIDStrRCTornado2:           0.0, // Event (Sonic Adventure)
 	//enums.ChaoIDStrChaoWalker:           0.0, // Daily Battle
 	//enums.ChaoIDStrDarkQueen:            0.0, // Runners' League
-	enums.ChaoIDStrKingBoomBoo:          1.5, // Event (Halloween)
+	//enums.ChaoIDStrKingBoomBoo:          1.5, // Event (Halloween)
 	//enums.ChaoIDStrOPapa:                2.0, // Event (Fantasy Zone)
 	//enums.ChaoIDStrOpaOpa:               2.0, // Event (Fantasy Zone)
 	enums.ChaoIDStrRCBlockFace:          1.0,
