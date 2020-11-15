@@ -566,3 +566,27 @@ func (t *Toolbox) Debug_PurgeInactivePlayers(testmode bool, reply *ToolboxReply)
 	}
 	return nil
 }
+
+// Returns how many players are on the server and how many of them are active
+func (t *Toolbox) Debug_CountPlayers(nothing bool, reply *ToolboxReply) error {
+	playerIDs := []string{}
+	dbaccess.ForEachKey(consts.DBBucketPlayers, func(k, v []byte) error {
+		playerIDs = append(playerIDs, string(k))
+		return nil
+	})
+	numberOfActivePlayers := 0
+	for _, uid := range playerIDs {
+		player, err := db.GetPlayer(uid)
+		if err != nil {
+			reply.Status = StatusOtherError
+			reply.Info = fmt.Sprintf("unable to get player %s: ", uid) + err.Error()
+			return err
+		}
+		if player.LastLogin > time.Now().AddDate(0, -2, 0).UTC().Unix() {
+			numberOfActivePlayers++
+		}
+	}
+	reply.Status = StatusOK
+	reply.Info = "OK - there are " + strconv.Itoa(len(playerIDs)) + " players on this Outrun for Revival instance, and of those, " + strconv.Itoa(numberOfActivePlayers) + " are active (have logged in during the past 2 months)"
+	return nil
+}
