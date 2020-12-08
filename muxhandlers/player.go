@@ -81,10 +81,10 @@ func GetCharacterState(helper *helper.Helper) {
 		return
 	}
 	// below is a lazy hack to add event characters to the character state - UPDATE THIS FOR CHRISTMAS IF NECESSARY
-	/*charindex := player.IndexOfChara(enums.CTStrGothicAmy)
+	charindex := player.IndexOfChara(enums.CTStrAmitieAmy)
 	if charindex == -1 {
-		player.CharacterState = append(player.CharacterState, netobj.DefaultSpecialLockedCharacter(constobjs.CharacterGothicAmy))
-	}*/
+		player.CharacterState = append(player.CharacterState, netobj.DefaultSpecialLockedCharacter(constobjs.CharacterAmitieAmy))
+	}
 	/*charindex = player.IndexOfChara(enums.CTStrHalloweenShadow)
 	if charindex == -1 {
 		player.CharacterState = append(player.CharacterState, netobj.DefaultRouletteOnlyLockedCharacter(constobjs.CharacterHalloweenShadow))
