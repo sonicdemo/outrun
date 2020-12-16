@@ -80,23 +80,23 @@ func GetCharacterState(helper *helper.Helper) {
 		helper.InternalErr("Error getting calling player", err)
 		return
 	}
-	// below is a lazy hack to add event characters to the character state - UPDATE THIS FOR CHRISTMAS IF NECESSARY
-	charindex := player.IndexOfChara(enums.CTStrAmitieAmy)
+	// below is a lazy hack to add event characters to the character state
+	/*charindex := player.IndexOfChara(enums.CTStrGothicAmy)
 	if charindex == -1 {
-		player.CharacterState = append(player.CharacterState, netobj.DefaultSpecialLockedCharacter(constobjs.CharacterAmitieAmy))
-	}
-	/*charindex = player.IndexOfChara(enums.CTStrHalloweenShadow)
-	if charindex == -1 {
-		player.CharacterState = append(player.CharacterState, netobj.DefaultRouletteOnlyLockedCharacter(constobjs.CharacterHalloweenShadow))
-	}
-	charindex = player.IndexOfChara(enums.CTStrHalloweenRouge)
-	if charindex == -1 {
-		player.CharacterState = append(player.CharacterState, netobj.DefaultRouletteOnlyLockedCharacter(constobjs.CharacterHalloweenRouge))
-	}
-	charindex = player.IndexOfChara(enums.CTStrHalloweenOmega)
-	if charindex == -1 {
-		player.CharacterState = append(player.CharacterState, netobj.DefaultRouletteOnlyLockedCharacter(constobjs.CharacterHalloweenOmega))
+		player.CharacterState = append(player.CharacterState, netobj.DefaultSpecialLockedCharacter(constobjs.CharacterGothicAmy))
 	}*/
+	charindex = player.IndexOfChara(enums.CTStrXMasSonic)
+	if charindex == -1 {
+		player.CharacterState = append(player.CharacterState, netobj.DefaultRouletteOnlyLockedCharacter(constobjs.CharacterXMasSonic))
+	}
+	charindex = player.IndexOfChara(enums.CTStrXMasTails)
+	if charindex == -1 {
+		player.CharacterState = append(player.CharacterState, netobj.DefaultRouletteOnlyLockedCharacter(constobjs.CharacterXMasTails))
+	}
+	charindex = player.IndexOfChara(enums.CTStrXMasKnuckles)
+	if charindex == -1 {
+		player.CharacterState = append(player.CharacterState, netobj.DefaultRouletteOnlyLockedCharacter(constobjs.CharacterXMasKnuckles))
+	}
 	err = db.SavePlayer(player)
 	if err != nil {
 		helper.InternalErr("Error saving player", err)
