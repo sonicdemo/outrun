@@ -100,3 +100,7 @@ const (
 	ItemIDStrRedRing = "900000"
 	ItemIDStrRing    = "910000"
 )
+const (
+	ItemIDStrItemRouletteTicket    = "240000"
+	ItemIDStrPremiumRouletteTicket = "230000"
+)

@@ -231,13 +231,16 @@ func LoginBonusSelect(helper *helper.Helper) {
 		helper.InternalErr("Error getting calling player", err)
 		return
 	}
+
+	loginBonusRewardList := constobjs.EventLoginBonusRewardList
+
 	rewardList := []obj.Item{}
 	firstRewardList := []obj.Item{}
 	if request.FirstRewardDays != -1 && int(request.FirstRewardDays) < len(constobjs.DefaultFirstLoginBonusRewardList) {
 		firstRewardList = constobjs.DefaultFirstLoginBonusRewardList[request.FirstRewardDays].SelectRewardList[request.FirstRewardSelect].ItemList
 	}
-	if request.RewardDays != -1 && int(request.RewardDays) < len(constobjs.DefaultLoginBonusRewardList) {
-		rewardList = constobjs.DefaultLoginBonusRewardList[request.RewardDays].SelectRewardList[request.RewardSelect].ItemList
+	if request.RewardDays != -1 && int(request.RewardDays) < len(loginBonusRewardList) {
+		rewardList = loginBonusRewardList[request.RewardDays].SelectRewardList[request.RewardSelect].ItemList
 	}
 	for _, item := range rewardList {
 		itemid, _ := strconv.Atoi(item.ID)
