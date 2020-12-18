@@ -79,6 +79,24 @@ func DefaultRouletteLockedCharacter(char obj.Character) Character {
 	return ch
 }
 
+func DefaultRouletteOnlyLockedCharacter(char obj.Character) Character {
+	ch := DefaultCharacter(char)
+	ch.LockCondition = int64(enums.LockConditionRoulette)
+	ch.Status = int64(enums.CharacterStatusLocked)
+	ch.Price = 0
+	ch.PriceRedRings = 0
+	return ch
+}
+
+func DefaultSpecialLockedCharacter(char obj.Character) Character {
+	ch := DefaultCharacter(char)
+	ch.LockCondition = int64(enums.LockConditionOpen) // TODO: is this correct?
+	ch.Status = int64(enums.CharacterStatusLocked)
+	ch.Price = 0
+	ch.PriceRedRings = 0
+	return ch
+}
+
 func UnlockedCharacterState() []Character { // every character
 	// TODO: It looks like the game only wants 300000-300020, otherwise an index error is created. Investigate this in game!
 	return []Character{
@@ -103,6 +121,9 @@ func UnlockedCharacterState() []Character { // every character
 		DefaultCharacter(constobjs.CharacterTikal),
 		DefaultCharacter(constobjs.CharacterMephiles),
 		DefaultCharacter(constobjs.CharacterPSISilver),
+		DefaultCharacter(constobjs.CharacterHalloweenShadow),
+		DefaultCharacter(constobjs.CharacterHalloweenRouge),
+		DefaultCharacter(constobjs.CharacterHalloweenOmega),
 	}
 }
 
@@ -132,5 +153,8 @@ func DefaultCharacterState() []Character {
 		DefaultLockedCharacter(constobjs.CharacterTikal),
 		DefaultLockedCharacter(constobjs.CharacterMephiles),
 		DefaultLockedCharacter(constobjs.CharacterPSISilver),
+		DefaultRouletteOnlyLockedCharacter(constobjs.CharacterHalloweenShadow),
+		DefaultRouletteOnlyLockedCharacter(constobjs.CharacterHalloweenRouge),
+		DefaultRouletteOnlyLockedCharacter(constobjs.CharacterHalloweenOmega),
 	}
 }

@@ -8,7 +8,10 @@ import (
 	"github.com/Mtbcooler/outrun/consts"
 	"github.com/Mtbcooler/outrun/db"
 	"github.com/Mtbcooler/outrun/emess"
+	"github.com/Mtbcooler/outrun/enums"
 	"github.com/Mtbcooler/outrun/helper"
+	"github.com/Mtbcooler/outrun/netobj"
+	"github.com/Mtbcooler/outrun/obj/constobjs"
 	"github.com/Mtbcooler/outrun/requests"
 	"github.com/Mtbcooler/outrun/responses"
 	"github.com/Mtbcooler/outrun/status"
@@ -75,6 +78,28 @@ func GetCharacterState(helper *helper.Helper) {
 	player, err := helper.GetCallingPlayer()
 	if err != nil {
 		helper.InternalErr("Error getting calling player", err)
+		return
+	}
+	// below is a lazy hack to add event characters to the character state
+	/*charindex := player.IndexOfChara(enums.CTStrGothicAmy)
+	if charindex == -1 {
+		player.CharacterState = append(player.CharacterState, netobj.DefaultSpecialLockedCharacter(constobjs.CharacterGothicAmy))
+	}*/
+	charindex := player.IndexOfChara(enums.CTStrXMasSonic)
+	if charindex == -1 {
+		player.CharacterState = append(player.CharacterState, netobj.DefaultRouletteOnlyLockedCharacter(constobjs.CharacterXMasSonic))
+	}
+	charindex = player.IndexOfChara(enums.CTStrXMasTails)
+	if charindex == -1 {
+		player.CharacterState = append(player.CharacterState, netobj.DefaultRouletteOnlyLockedCharacter(constobjs.CharacterXMasTails))
+	}
+	charindex = player.IndexOfChara(enums.CTStrXMasKnuckles)
+	if charindex == -1 {
+		player.CharacterState = append(player.CharacterState, netobj.DefaultRouletteOnlyLockedCharacter(constobjs.CharacterXMasKnuckles))
+	}
+	err = db.SavePlayer(player)
+	if err != nil {
+		helper.InternalErr("Error saving player", err)
 		return
 	}
 	baseInfo := helper.BaseInfo(emess.OK, status.OK)
