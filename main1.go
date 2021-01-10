@@ -59,6 +59,10 @@ func removePrependingSlashes(next http.Handler) http.Handler {
 	})
 }
 
+func Generate204(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusNoContent)
+}
+
 func checkArgs() bool {
 	// TODO: _VERY_ dirty command line argument checking. This should be
 	// changed into something more robust and less hacky!
@@ -199,6 +203,8 @@ func main() {
 	if config.CFile.LogUnknownRequests {
 		router.PathPrefix("/").HandlerFunc(OutputUnknownRequest)
 	}
+	
+	router.HandleFunc("/generate204", Generate204)
 
 	go bgtasks.TouchAnalyticsDB()
 
