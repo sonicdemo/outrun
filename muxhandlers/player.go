@@ -81,11 +81,11 @@ func GetCharacterState(helper *helper.Helper) {
 		return
 	}
 	// below is a lazy hack to add event characters to the character state
-	/*charindex := player.IndexOfChara(enums.CTStrGothicAmy)
+	charindex := player.IndexOfChara(enums.CTStrAmitieAmy)
 	if charindex == -1 {
-		player.CharacterState = append(player.CharacterState, netobj.DefaultSpecialLockedCharacter(constobjs.CharacterGothicAmy))
-	}*/
-	charindex := player.IndexOfChara(enums.CTStrXMasSonic)
+		player.CharacterState = append(player.CharacterState, netobj.DefaultRouletteOnlyLockedCharacter(constobjs.CharacterAmitieAmy))
+	}
+	/*charindex := player.IndexOfChara(enums.CTStrXMasSonic)
 	if charindex == -1 {
 		player.CharacterState = append(player.CharacterState, netobj.DefaultRouletteOnlyLockedCharacter(constobjs.CharacterXMasSonic))
 	}
@@ -96,7 +96,7 @@ func GetCharacterState(helper *helper.Helper) {
 	charindex = player.IndexOfChara(enums.CTStrXMasKnuckles)
 	if charindex == -1 {
 		player.CharacterState = append(player.CharacterState, netobj.DefaultRouletteOnlyLockedCharacter(constobjs.CharacterXMasKnuckles))
-	}
+	}*/
 	err = db.SavePlayer(player)
 	if err != nil {
 		helper.InternalErr("Error saving player", err)
