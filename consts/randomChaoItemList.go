@@ -96,7 +96,7 @@ var RandomChaoWheelChaoPrizes = map[string]float64{
 	//enums.ChaoIDStrRCSatellite:          0.0, // Event (Zazz Raid Boss)
 	//enums.ChaoIDStrMarineChao:           2.0, // Event (Tropical Coast)
 	//enums.ChaoIDStrNightopian:           0.0, // Event (NiGHTS)
-	//enums.ChaoIDStrOrca:                 0.0, // Event (Sonic Adventure)
+	enums.ChaoIDStrOrca:                 2.0, // Event (Sonic Adventure)
 	//enums.ChaoIDStrSonicOmochao:         0.0, // Event (Team Sonic Omochao)
 	//enums.ChaoIDStrTailsOmochao:         0.0, // Event (Team Sonic Omochao)
 	//enums.ChaoIDStrKnucklesOmochao:      0.0, // Event (Team Sonic Omochao)
@@ -125,7 +125,7 @@ var RandomChaoWheelChaoPrizes = map[string]float64{
 	//enums.ChaoIDStrRCMoonMech:           0.0, // Event (Zazz Raid Boss?)
 	//enums.ChaoIDStrCarbuncle:            1.5, // Event (Puyo Puyo Quest)
 	//enums.ChaoIDStrKuna:                 1.0, // Event (Phantasy Star Online 2)
-	//enums.ChaoIDStrChaos:                0.0, // Event (Sonic Adventure)
+	enums.ChaoIDStrChaos:                2.0, // Event (Sonic Adventure)
 	//enums.ChaoIDStrDeathEgg:             0.5, // Event (Birthday)
 	enums.ChaoIDStrRedCrystalMonsterS:   1.0,
 	enums.ChaoIDStrRedCrystalMonsterL:   1.0,
@@ -135,7 +135,7 @@ var RandomChaoWheelChaoPrizes = map[string]float64{
 	enums.ChaoIDStrGoldenAngel:          1.0,
 	//enums.ChaoIDStrNiGHTS:               0.0, // Event (NiGHTS)
 	//enums.ChaoIDStrReala:                0.0, // Event (NiGHTS)
-	//enums.ChaoIDStrRCTornado2:           0.0, // Event (Sonic Adventure)
+	enums.ChaoIDStrRCTornado2:           2.0, // Event (Sonic Adventure)
 	//enums.ChaoIDStrChaoWalker:           0.0, // Daily Battle
 	//enums.ChaoIDStrDarkQueen:            0.0, // Runners' League
 	//enums.ChaoIDStrKingBoomBoo:          1.5, // Event (Halloween)
