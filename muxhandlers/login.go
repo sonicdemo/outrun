@@ -36,6 +36,17 @@ func Login(helper *helper.Helper) {
 	password := request.LineAuth.Password
 
 	baseInfo := helper.BaseInfo(emess.OK, status.OK)
+	if request.Version != "2.0.3" { // TODO: make this version number configurable
+		// version not for Revival release servers
+		// this check is temporary for the duration of 2.0.4 beta testing
+		baseInfo.StatusCode = status.VersionDifference
+		response := responses.NewBaseResponse(baseInfo)
+		err := helper.SendResponse(response)
+		if err != nil {
+			helper.InternalErr("Error sending response", err)
+		}
+		return
+	}
 	if uid == "0" && password == "" {
 		helper.Out("Entering LoginAlpha")
 		newPlayer := db.NewAccount()
@@ -90,7 +101,7 @@ func Login(helper *helper.Helper) {
 		// game is attempting to log in using key
 		player, err := db.GetPlayer(uid)
 		if err != nil {
-			//
+			// player might not exist
 			response := responses.LoginCheckKey(baseInfo, "")
 			baseInfo.StatusCode = status.MissingPlayer
 			//response.BaseResponse = responses.NewBaseResponseV(baseInfo, request.Version)
