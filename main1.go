@@ -63,6 +63,17 @@ func Generate204(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNoContent)
 }
 
+// return Not Found for the favicon; no favicon is intended
+func FaviconResponse(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusNotFound)
+	w.Write([]byte("Not Found"))
+}
+
+// Return "OK" for checking if the Outrun instance is alive (intended for uptime monitors)
+func GenericRootResponse(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("OK"))
+}
+
 func checkArgs() bool {
 	// TODO: _VERY_ dirty command line argument checking. This should be
 	// changed into something more robust and less hacky!
@@ -138,6 +149,10 @@ func main() {
 	router.StrictSlash(true)
 	LogExecutionTime = config.CFile.DoTimeLogging
 	prefix := config.CFile.EndpointPrefix
+
+	router.HandleFunc("/", GenericRootResponse)
+	router.HandleFunc("/favicon.ico", FaviconResponse)
+	
 	// Login
 	router.HandleFunc(prefix+"/Login/login/", h(muxhandlers.Login, LogExecutionTime))
 	router.HandleFunc(prefix+"/Sgn/sendApollo/", h(muxhandlers.SendApollo, LogExecutionTime))
