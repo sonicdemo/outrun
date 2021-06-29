@@ -35,7 +35,7 @@ var RandomChaoWheelCharacterPrizes = map[string]float64{
 	//enums.CTStrTikal:           1.5, // Event (Sonic Adventure)
 	enums.CTStrVector:          1.0,
 	//enums.CTStrWerehog:         1.5, // Revival Event
-	enums.CTStrClassicSonic:    1.5, // Event (Birthday)
+	//enums.CTStrClassicSonic:    1.5, // Event (Birthday)
 	//enums.CTStrMetalSonic:      0.0, // Revival Event
 	
 	// The below characters shouldn't be activated until event characters are fixed!
@@ -68,7 +68,7 @@ var RandomChaoWheelChaoPrizes = map[string]float64{
 	enums.ChaoIDStrRCBalloon:            2.0,
 	//enums.ChaoIDStrEasterChao:           1.0, // Event (Easter)
 	//enums.ChaoIDStrPurplePapurisu:       1.5, // Event (Puyo Puyo Quest)
-	enums.ChaoIDStrMagLv1:               1.0, // Event (Phantasy Star Online 2)
+	//enums.ChaoIDStrMagLv1:               1.0, // Event (Phantasy Star Online 2)
 	enums.ChaoIDStrEggChao:              1.0,
 	enums.ChaoIDStrPumpkinChao:          1.0,
 	enums.ChaoIDStrSkullChao:            1.0,
@@ -82,10 +82,10 @@ var RandomChaoWheelChaoPrizes = map[string]float64{
 	//enums.ChaoIDStrMagicLamp:            0.0, // Event (Desert Ruins)
 	//enums.ChaoIDStrStarShapedMissile:    0.0, // Event (Zazz Raid Boss)
 	//enums.ChaoIDStrSuketoudara:          1.5, // Event (Puyo Puyo Quest)
-	enums.ChaoIDStrRappy:                1.0, // Event (Phantasy Star Online 2)
+	//enums.ChaoIDStrRappy:                1.0, // Event (Phantasy Star Online 2)
 	//enums.ChaoIDStrBlowfishTransporter:  2.0, // Event (Tropical Coast)
-	enums.ChaoIDStrGenesis:              1.5, // Event (Birthday)
-	enums.ChaoIDStrCartridge:            1.5, // Event (Birthday)
+	//enums.ChaoIDStrGenesis:              1.5, // Event (Birthday)
+	//enums.ChaoIDStrCartridge:            1.5, // Event (Birthday)
 	enums.ChaoIDStrRCFighter:            1.0,
 	enums.ChaoIDStrRCHovercraft:         1.0,
 	enums.ChaoIDStrRCHelicopter:         1.0,
@@ -124,9 +124,9 @@ var RandomChaoWheelChaoPrizes = map[string]float64{
 	//enums.ChaoIDStrErazorDjinn:          0.0, // Event (Desert Ruins)
 	//enums.ChaoIDStrRCMoonMech:           0.0, // Event (Zazz Raid Boss?)
 	//enums.ChaoIDStrCarbuncle:            1.5, // Event (Puyo Puyo Quest)
-	enums.ChaoIDStrKuna:                 1.0, // Event (Phantasy Star Online 2)
+	//enums.ChaoIDStrKuna:                 1.0, // Event (Phantasy Star Online 2)
 	//enums.ChaoIDStrChaos:                2.0, // Event (Sonic Adventure)
-	enums.ChaoIDStrDeathEgg:             1.0, // Event (Birthday)
+	//enums.ChaoIDStrDeathEgg:             1.0, // Event (Birthday)
 	enums.ChaoIDStrRedCrystalMonsterS:   1.0,
 	enums.ChaoIDStrRedCrystalMonsterL:   1.0,
 	enums.ChaoIDStrGoldenGoose:          1.0,
