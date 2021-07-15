@@ -38,14 +38,16 @@ func NewChaoWheelOptions(rarity, itemWeight []int64, campaignList []obj.Campaign
 }
 
 func DefaultChaoWheelOptions(playerState PlayerState) ChaoWheelOptions {
-	rarity := []int64{2, 1, 100, 1, 2, 1, 100, 1} // l2 Chao, l1 Chao, character...
-	//rarity := []int64{0, 1, 2, 100, 0, 1, 2, 100}      // TODO: REMOVE!
+	rarity := []int64{2, 1, 100, 0, 2, 0, 100, 1}
+	//rarity := []int64{2, 1, 100, 1, 2, 1, 100, 1} // old layout
+	//rarity := []int64{0, 1, 2, 100, 0, 1, 2, 100}      // temporary placeholder layout
 	itemWeight := []int64{6, 17, 5, 17, 16, 17, 5, 17} // Could possibly fake these, but the logic shouldn't allow it to happen
 	campaignList := []obj.Campaign{}
 	chaoRouletteType := enums.ChaoWheelTypeNormal
 	numSpecialEgg := playerState.ChaoEggs
 	if numSpecialEgg >= 10 {
 		chaoRouletteType = enums.ChaoWheelTypeSpecial
+		rarity = []int64{2, 1, 100, 2, 1, 2, 100, 1}
 		itemWeight = []int64{1, 1, 1, 1, 1, 1, 1, 1}
 	}
 	rouletteAvailable := int64(1)
