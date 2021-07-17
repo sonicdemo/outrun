@@ -30,10 +30,17 @@ func GetChaoWheelOptions(helper *helper.Helper) {
 		return
 	}
 	baseInfo := helper.BaseInfo(emess.OK, status.OK)
+	player.ChaoWheelOptions.rarity = []int64{2, 1, 100, 0, 2, 0, 100, 1} // HACK: Apply new layout for all players
 	response := responses.DefaultChaoWheelOptions(baseInfo, player)
 	err = helper.SendResponse(response)
 	if err != nil {
 		helper.InternalErr("Error sending response", err)
+	}
+
+	err = db.SavePlayer(player)
+	if err != nil {
+		helper.InternalErr("Error saving player", err)
+		return
 	}
 }
 
