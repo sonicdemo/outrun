@@ -30,7 +30,7 @@ func GetChaoWheelOptions(helper *helper.Helper) {
 		return
 	}
 	baseInfo := helper.BaseInfo(emess.OK, status.OK)
-	player.ChaoRouletteGroup.ChaoWheelOptions.rarity = []int64{2, 1, 100, 0, 2, 0, 100, 1} // HACK: Apply new layout for all players
+	player.ChaoRouletteGroup.ChaoWheelOptions.Rarity = []int64{2, 1, 100, 0, 2, 0, 100, 1} // HACK: Apply new layout for all players
 	response := responses.DefaultChaoWheelOptions(baseInfo, player)
 	err = helper.SendResponse(response)
 	if err != nil {
