@@ -96,6 +96,7 @@ func main() {
 		return
 	}
 	rand.Seed(time.Now().UTC().UnixNano())
+	log.Println("[INFO] Outrun for Revival is starting up...")
 
 	err := config.Parse("config.json")
 	if err != nil {
