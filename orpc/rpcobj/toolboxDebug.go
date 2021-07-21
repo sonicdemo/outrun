@@ -590,3 +590,20 @@ func (t *Toolbox) Debug_CountPlayers(nothing bool, reply *ToolboxReply) error {
 	reply.Info = "OK - there are " + strconv.Itoa(len(playerIDs)) + " players on this Outrun for Revival instance, and of those, " + strconv.Itoa(numberOfActivePlayers) + " are active (have logged in during the past 2 months)"
 	return nil
 }
+
+func (t *Toolbox) Debug_PlayersByMigrationPassword(mpassword string, reply *ToolboxReply) error {
+	foundPlayers, err := logic.FindPlayersByMigrationPassword(mpassword, false)
+	if err != nil {
+		reply.Status = StatusOtherError
+		reply.Info = "error finding players by migration password: " + err.Error()
+		return err
+	}
+	playerIDs := []string{}
+	for _, player := range foundPlayers {
+		playerIDs = append(playerIDs, player.ID)
+	}
+	final := strings.Join(playerIDs, ",")
+	reply.Status = StatusOK
+	reply.Info = final
+	return nil
+}
