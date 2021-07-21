@@ -603,6 +603,9 @@ func (t *Toolbox) Debug_PlayersByMigrationPassword(mpassword string, reply *Tool
 		playerIDs = append(playerIDs, player.ID)
 	}
 	final := strings.Join(playerIDs, ",")
+	if len(playerIDs) == 0 {
+		final = "-nothing found-"
+	}
 	reply.Status = StatusOK
 	reply.Info = final
 	return nil
