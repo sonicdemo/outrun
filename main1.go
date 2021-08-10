@@ -81,7 +81,7 @@ func checkArgs() bool {
 	amt := len(args)
 	if amt >= 1 {
 		if args[0] == "--version" {
-			fmt.Printf("Outrun for Revival %s\n", meta.Version)
+			fmt.Printf("Outrun for Revival %s (self-hostable edition)\n", meta.Version)
 			return true
 		}
 		fmt.Println("Unknown given arguments")
@@ -96,7 +96,7 @@ func main() {
 		return
 	}
 	rand.Seed(time.Now().UTC().UnixNano())
-	log.Println("[INFO] Outrun for Revival is starting up...")
+	log.Println("[INFO] Outrun for Revival (self-hostable edition) is starting up...")
 
 	err := config.Parse("config.json")
 	if err != nil {

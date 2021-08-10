@@ -4,6 +4,8 @@
 
 Outrun for Revival is a fork of Outrun, a custom server for Sonic Runners reverse engineered from the [Sonic Runners Revival](https://sonic.runner.es/) project back during the Open Beta. It is intended for use on the Sonic Runners Revival server, but can be used for your own private servers as well.
 
+Unlike the master and mysql_testing branches, this version can still be used with 2.0.3. Code changes we do to Outrun for Revival may be backported to this branch occasionally, so you won't miss out on the latest bug fixes. However, since this version of Outrun relies on 2.0.3, no Revival-exclusive content can be used.
+
 ### Current functionality
 
 Notable:
