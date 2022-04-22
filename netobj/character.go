@@ -121,9 +121,6 @@ func UnlockedCharacterState() []Character { // every character
 		DefaultCharacter(constobjs.CharacterTikal),
 		DefaultCharacter(constobjs.CharacterMephiles),
 		DefaultCharacter(constobjs.CharacterPSISilver),
-		DefaultCharacter(constobjs.CharacterHalloweenShadow),
-		DefaultCharacter(constobjs.CharacterHalloweenRouge),
-		DefaultCharacter(constobjs.CharacterHalloweenOmega),
 	}
 }
 
@@ -153,8 +150,5 @@ func DefaultCharacterState() []Character {
 		DefaultLockedCharacter(constobjs.CharacterTikal),
 		DefaultLockedCharacter(constobjs.CharacterMephiles),
 		DefaultLockedCharacter(constobjs.CharacterPSISilver),
-		DefaultRouletteOnlyLockedCharacter(constobjs.CharacterHalloweenShadow),
-		DefaultRouletteOnlyLockedCharacter(constobjs.CharacterHalloweenRouge),
-		DefaultRouletteOnlyLockedCharacter(constobjs.CharacterHalloweenOmega),
 	}
 }
