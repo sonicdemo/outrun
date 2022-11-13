@@ -1,9 +1,9 @@
 package responses
 
 import (
-	"github.com/Mtbcooler/outrun/consts"
-	"github.com/Mtbcooler/outrun/meta"
-	"github.com/Mtbcooler/outrun/responses/responseobjs"
+	"github.com/RunnersRevival/outrun/consts"
+	"github.com/RunnersRevival/outrun/meta"
+	"github.com/RunnersRevival/outrun/responses/responseobjs"
 )
 
 type BaseResponse struct {

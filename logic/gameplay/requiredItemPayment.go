@@ -1,9 +1,9 @@
 package gameplay
 
 import (
-	"github.com/Mtbcooler/outrun/netobj"
-	"github.com/Mtbcooler/outrun/obj"
-	"github.com/Mtbcooler/outrun/obj/constobjs"
+	"github.com/RunnersRevival/outrun/netobj"
+	"github.com/RunnersRevival/outrun/obj"
+	"github.com/RunnersRevival/outrun/obj/constobjs"
 )
 
 func findItem(id string) obj.ConsumedItem {

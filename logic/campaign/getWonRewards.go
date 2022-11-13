@@ -3,9 +3,9 @@ package campaign
 import (
 	"log"
 
-	"github.com/Mtbcooler/outrun/config"
-	"github.com/Mtbcooler/outrun/obj"
-	"github.com/Mtbcooler/outrun/obj/constobjs"
+	"github.com/RunnersRevival/outrun/config"
+	"github.com/RunnersRevival/outrun/obj"
+	"github.com/RunnersRevival/outrun/obj/constobjs"
 )
 
 func GetRewardsByPoint(episode, chapter, point int64) []obj.MileageReward {

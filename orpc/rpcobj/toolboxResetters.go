@@ -1,11 +1,11 @@
 package rpcobj
 
 import (
-	"github.com/Mtbcooler/outrun/consts"
-	"github.com/Mtbcooler/outrun/db"
-	"github.com/Mtbcooler/outrun/enums"
-	"github.com/Mtbcooler/outrun/netobj"
-	"github.com/Mtbcooler/outrun/obj"
+	"github.com/RunnersRevival/outrun/consts"
+	"github.com/RunnersRevival/outrun/db"
+	"github.com/RunnersRevival/outrun/enums"
+	"github.com/RunnersRevival/outrun/netobj"
+	"github.com/RunnersRevival/outrun/obj"
 )
 
 func (t *Toolbox) ResetCampaign(uid string, reply *ToolboxReply) error {

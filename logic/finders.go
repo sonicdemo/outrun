@@ -3,10 +3,10 @@ package logic
 import (
 	"log"
 
-	"github.com/Mtbcooler/outrun/consts"
-	"github.com/Mtbcooler/outrun/db"
-	"github.com/Mtbcooler/outrun/db/dbaccess"
-	"github.com/Mtbcooler/outrun/netobj"
+	"github.com/RunnersRevival/outrun/consts"
+	"github.com/RunnersRevival/outrun/db"
+	"github.com/RunnersRevival/outrun/db/dbaccess"
+	"github.com/RunnersRevival/outrun/netobj"
 )
 
 func FindPlayersByPassword(password string, silent bool) ([]netobj.Player, error) {

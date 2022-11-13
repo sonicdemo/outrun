@@ -4,16 +4,16 @@ import (
 	"encoding/json"
 	"strconv"
 
-	"github.com/Mtbcooler/outrun/db"
-	"github.com/Mtbcooler/outrun/emess"
-	"github.com/Mtbcooler/outrun/enums"
-	"github.com/Mtbcooler/outrun/helper"
-	"github.com/Mtbcooler/outrun/logic"
-	"github.com/Mtbcooler/outrun/netobj"
-	"github.com/Mtbcooler/outrun/obj"
-	"github.com/Mtbcooler/outrun/requests"
-	"github.com/Mtbcooler/outrun/responses"
-	"github.com/Mtbcooler/outrun/status"
+	"github.com/RunnersRevival/outrun/db"
+	"github.com/RunnersRevival/outrun/emess"
+	"github.com/RunnersRevival/outrun/enums"
+	"github.com/RunnersRevival/outrun/helper"
+	"github.com/RunnersRevival/outrun/logic"
+	"github.com/RunnersRevival/outrun/netobj"
+	"github.com/RunnersRevival/outrun/obj"
+	"github.com/RunnersRevival/outrun/requests"
+	"github.com/RunnersRevival/outrun/responses"
+	"github.com/RunnersRevival/outrun/status"
 )
 
 func GetMessageList(helper *helper.Helper) {

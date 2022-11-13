@@ -5,8 +5,8 @@ import (
 	"math/rand"
 	"strconv"
 
-	"github.com/Mtbcooler/outrun/consts"
-	"github.com/Mtbcooler/outrun/enums"
+	"github.com/RunnersRevival/outrun/consts"
+	"github.com/RunnersRevival/outrun/enums"
 )
 
 type LogicChao struct { // TODO: Find a better way to replace this!

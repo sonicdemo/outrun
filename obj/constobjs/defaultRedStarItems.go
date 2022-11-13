@@ -1,7 +1,7 @@
 package constobjs
 
 import (
-	"github.com/Mtbcooler/outrun/obj"
+	"github.com/RunnersRevival/outrun/obj"
 )
 
 var RedStarItemsType1 = rsiDefaultsIT1() // Rings

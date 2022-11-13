@@ -10,16 +10,16 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Mtbcooler/outrun/config"
-	"github.com/Mtbcooler/outrun/cryption"
-	"github.com/Mtbcooler/outrun/db"
-	"github.com/Mtbcooler/outrun/emess"
-	"github.com/Mtbcooler/outrun/netobj"
-	"github.com/Mtbcooler/outrun/netobj/constnetobjs"
-	"github.com/Mtbcooler/outrun/requests"
-	"github.com/Mtbcooler/outrun/responses"
-	"github.com/Mtbcooler/outrun/responses/responseobjs"
-	"github.com/Mtbcooler/outrun/status"
+	"github.com/RunnersRevival/outrun/config"
+	"github.com/RunnersRevival/outrun/cryption"
+	"github.com/RunnersRevival/outrun/db"
+	"github.com/RunnersRevival/outrun/emess"
+	"github.com/RunnersRevival/outrun/netobj"
+	"github.com/RunnersRevival/outrun/netobj/constnetobjs"
+	"github.com/RunnersRevival/outrun/requests"
+	"github.com/RunnersRevival/outrun/responses"
+	"github.com/RunnersRevival/outrun/responses/responseobjs"
+	"github.com/RunnersRevival/outrun/status"
 )
 
 const (

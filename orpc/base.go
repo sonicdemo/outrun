@@ -6,8 +6,8 @@ import (
 	"net/http"
 	"net/rpc"
 
-	"github.com/Mtbcooler/outrun/config"
-	"github.com/Mtbcooler/outrun/orpc/rpcobj"
+	"github.com/RunnersRevival/outrun/config"
+	"github.com/RunnersRevival/outrun/orpc/rpcobj"
 )
 
 func Start() {

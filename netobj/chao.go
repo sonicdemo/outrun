@@ -1,7 +1,7 @@
 package netobj
 
 import (
-	"github.com/Mtbcooler/outrun/obj"
+	"github.com/RunnersRevival/outrun/obj"
 )
 
 type Chao struct {
