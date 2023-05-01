@@ -33,7 +33,7 @@ var (
 )
 
 func OutputUnknownRequest(w http.ResponseWriter, r *http.Request) {
-	recv, err := cryption.GetReceivedMessage(r)
+	recv, err = cryption.GetReceivedMessage(r)
 
         if err != nil {
                 panic(err)
