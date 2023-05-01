@@ -43,7 +43,7 @@ func OutputUnknownRequest(w http.ResponseWriter, r *http.Request) {
 	os.MkdirAll(UNKNOWN_REQUEST_DIRECTORY, 0644)
 	normalizedReq := strings.ReplaceAll(r.URL.Path, "/", "-")
 	path := UNKNOWN_REQUEST_DIRECTORY + normalizedReq + "_" + timeStr + ".txt"
-	err := ioutil.WriteFile(path, recv, 0644)
+	err = ioutil.WriteFile(path, recv, 0644)
 	if err != nil {
 		log.Println("[OUT] UNABLE TO WRITE UNKNOWN REQUEST: " + err.Error())
 		w.Write([]byte(""))
