@@ -34,6 +34,10 @@ var (
 
 func OutputUnknownRequest(w http.ResponseWriter, r *http.Request) {
 	recv := cryption.GetReceivedMessage(r)
+
+      if err != nil {
+              panic(err)
+      }
 	// make a new logging path
 	timeStr := strconv.Itoa(int(time.Now().Unix()))
 	os.MkdirAll(UNKNOWN_REQUEST_DIRECTORY, 0644)
