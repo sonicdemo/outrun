@@ -41,8 +41,9 @@ Functional:
 4. Open a terminal/command prompt
 5. Use `cd` ([Windows,](https://www.digitalcitizen.life/command-prompt-how-use-basic-commands) [Linux/macOS](https://www.macworld.com/article/2042378/master-the-command-line-navigating-files-and-folders.html)) to navigate to a directory of choice
 6. Run `go env -w GO111MODULE=off` to enable older Go applications (including Outrun)
-7. Run `go get -u github.com/RunnersRevival/outrun` and wait until the command line returns
-8. Run the produced executable (`outrun.exe` on Windows, `outrun` on Linux/macOS)
+7. Run `go get github.com/RunnersRevival/outrun` and wait until the command line returns
+8. Run `go build github.com/RunnersRevival/outrun` and wait until the build is complete
+9. Run the produced executable (`outrun.exe` on Windows, `outrun` on Linux/macOS)
 
 Binary releases can be found [in the releases tab.](https://github.com/fluofoxxo/outrun/releases)
 
