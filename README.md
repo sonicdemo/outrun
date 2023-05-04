@@ -35,7 +35,7 @@ Functional:
 
 ### Building
 
-1. [Download and install Go 1.17](https://golang.org/dl/)
+1. [Download and install Go 1.18.10](https://golang.org/dl/)
 2. [Download and install Git](https://git-scm.com/downloads) (for `go get`)
 3. Set your [GOPATH](https://github.com/golang/go/wiki/SettingGOPATH) environment variable
 4. Open a terminal/command prompt
